@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova College</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. FULL-SCREEN WELCOME INTRO -->
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <img src="nova.jpeg" alt="Nova College Logo" class="welcome-logo">
+      <h1>NOVA COLLEGE</h1>
+      <div class="welcome-text">Welcome to Nova College</div>
+      <div class="welcome-subtitle">EXCELLENCE IN EDUCATION</div>
+      <div class="welcome-loader">
+        <div class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PRINCIPAL WELCOME MODAL (Added from CSS) -->
+  <div class="welcome-modal" id="welcomeModal">
+    <div class="welcome-card">
+      <button class="close-btn" id="closeModalBtn">&times;</button>
+      <div class="principal-avatar">🎓</div>
+      <h2>Principal's Message</h2>
+      <div class="subtitle">Welcome Students</div>
+      <p class="message-body">
+        "Welcome to Nova College. Our mission is to provide students with quality education in a supportive, disciplined, and inspiring environment."
+      </p>
+      <button class="action-btn" id="actionModalBtn">Read More</button>
+    </div>
+  </div>
+
+  <!-- 3. ADVERTISEMENT POPUP (Added from CSS) -->
+  <div id="ad-popup">
+    <div class="ad-box">
+      <button class="ad-close" id="closeAdBtn">&times;</button>
+      <div class="ad-icon">🎓</div>
+      <h2>Admissions Open</h2>
+      <h3>Nova College</h3>
+      <p>Join us for the upcoming 2026 academic session and secure your future with top-tier education.</p>
+      <div class="ad-programs">
+        F.Sc Pre-Medical | F.Sc Pre-Engineering | ICS
+      </div>
+      <a href="admission.html" class="ad-button">Apply Now</a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">
+      NOVA <span>COLLEGE</span>
+    </div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#faculty">Faculty</a></li>
+      <li><a href="#gallery">College Gallery</a></li>
+      <li><a href="#notices">Notices</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Welcome to <span>Nova College</span></h1>
+      <p>Empowering students through quality education, modern learning, and a brighter future.</p>
+      <div class="hero-buttons">
+        <a href="admission.html" class="gold-btn">Apply Online</a>
+        <a href="#about" class="white-btn">Explore College</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">
+      <h2>Why Choose Nova College?</h2>
+      <p>Building knowledge, character, and confidence.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🎓</div>
+        <h3>Quality Education</h3>
+        <p>Experienced teachers and a student-focused learning environment.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔬</div>
+        <h3>Modern Learning</h3>
+        <p>Practical learning and modern educational facilities for students.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏆</div>
+        <h3>Student Success</h3>
+        <p>We encourage students to achieve academic and personal excellence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPAL -->
+  <section class="principal">
+    <img src="WhatsApp Image 2026-09-02 at 9.16.30 PM.jpeg" alt="Principal">
+    <div class="principal-text">
+      <h2>Principal Message</h2>
+      <p>Welcome to Nova College. Our mission is to provide students with quality education in a supportive, disciplined, and inspiring environment.</p>
+      <p>We believe that education is not only about academic success but also about developing confidence, responsibility, and leadership.</p>
+      <br>
+      <strong>Principal<br>Nova College</strong>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="section-title">
+      <h2>Our Programs</h2>
+      <p>Choose the right path for your future.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📚</div>
+        <h3>F.Sc Pre-Medical</h3>
+        <p>Prepare yourself for medical and life science careers.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚙️</div>
+        <h3>F.Sc Pre-Engineering</h3>
+        <p>Build strong foundations for engineering and technical fields.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💻</div>
+        <h3>ICS</h3>
+        <p>Develop your knowledge of computer science and information technology.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACULTY -->
+  <section id="faculty">
+    <div class="section-title">
+      <h2>Our Faculty</h2>
+      <p>Meet our dedicated teaching staff.</p>
+    </div>
+    <div class="cards">
+      <div class="card faculty-card">
+        <img src="Yasir sir.jpeg" alt="Yasir Ali">
+        <h3>Yasir Ali</h3>
+        <p class="dev-role">Physics Department</p>
+        <p class="dev-phone">8 years experience | ETEA & MDCAT expert</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="jawad sir.jpeg" alt="Jawad Khan">
+        <h3>Jawad Khan</h3>
+        <p class="dev-role">Chemistry Department</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="WhatsApp Image 2026-09-02 at 9.14.15 PM.jpeg" alt="Mohsin Khan">
+        <h3>Mohsin Khan</h3>
+        <p class="dev-role">Mathematics Department</p>
+        <p class="dev-phone">12 years experience | ETEA expert</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="waseem sab.png" alt="Waseem Shahab">
+        <h3>Waseem Shahab</h3>
+        <p class="dev-role">Computer Science Department</p>
+        <p class="dev-phone">3 years teaching experience</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="arif.sir.jpeg" alt="Arif Kazmey">
+        <h3>Arif Kazmey</h3>
+        <p class="dev-role">Biology Department</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="noman.jpeg" alt="Noman Yousaf">
+        <h3>Noman Yousaf</h3>
+        <p class="dev-role">English Department</p>
+        <p class="dev-phone">SS Post</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="arsaln2.jpeg" alt="Arsalan Nisar">
+        <h3>Arsalan Nisar</h3>
+        <p class="dev-role">English Department</p>
+        <p class="dev-phone">M.Phil Scholar | 3.5 yrs experience</p>
+      </div>
+      <div class="card faculty-card">
+        <img src="umair.jpeg" alt="Umair Ahmad Khan">
+        <h3>Umair Ahmad Khan</h3>
+        <p class="dev-role">Computer Science Department</p>
+        <p class="dev-phone">Software Engineer (UET Mardan)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery-container">
+    <h1>College Gallery</h1>
+    <p class="subtitle">Moments captured at Nova College</p>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="WhatsApp Image 2026-09-02 at 8.32.43 PM.jpeg" alt="NOVA College faculty and students">
+        <div class="caption">Faculty & Students</div>
+      </div>
+      <div class="gallery-card">
+        <img src="WhatsApp Image 2026-09-02 at 8.20.04 PM.jpeg" alt="Nova College students">
+        <div class="caption">Student Life</div>
+      </div>
+      <div class="gallery-card">
+        <img src="WhatsApp Image 2026-09-02 at 8.20.30 PM.jpeg" alt="Nova College campus">
+        <div class="caption">Campus Life</div>
+      </div>
+      <div class="gallery-card">
+        <img src="grils.jpeg" alt="Nova College Girls Campus">
+        <div class="caption">Girls Campus</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTICES -->
+  <section class="notice" id="notices">
+    <div class="section-title">
+      <h2>Latest Notices</h2>
+      <p>Stay updated with Nova College.</p>
+    </div>
+    <div class="notice-list">
+      <div class="notice-item">📢 Admissions are now open for 2026.</div>
+      <div class="notice-item">📢 Talent Test registration is now available.</div>
+      <div class="notice-item">📢 New academic session will begin soon.</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-title">
+      <h2>Contact Nova College</h2>
+      <p>We are here to help you.</p>
+    </div>
+    <div class="contact-box">
+      <p>📍 College Address</p>
+      <p>📞 +92 345 6274247</p>
+      <p>✉️ info@novacollege.edu.pk</p>
+    </div>
+  </section>
+
+  <!-- DEVELOPERS SECTION -->
+  <section class="developers-section">
+    <h2 class="section-title">OUR DEVELOPERS</h2>
+    <div class="developers-container">
+      <div class="developer-card">
+        <img src="shahid.png" alt="Shahid" class="developer-img">
+        <h3>Shahid</h3>
+        <p class="dev-role">Web Developer</p>
+        <p class="dev-phone">03715698459</p>
+      </div>
+      <div class="developer-card">
+        <img src="sarim.jpeg" alt="Sarim" class="developer-img">
+        <h3>Sarim</h3>
+        <p class="dev-role main-role">Main Web Developer</p>
+        <p class="dev-phone">03149630196</p>
+      </div>
+      <div class="developer-card">
+        <img src="rehan.png" alt="Rehan" class="developer-img">
+        <h3>Rehan</h3>
+        <p class="dev-role">Web Developer</p>
+        <p class="dev-phone">03705678544</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Nova College</span>. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
