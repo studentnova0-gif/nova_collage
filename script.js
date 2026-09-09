@@ -1,281 +1,257 @@
-const form = document.querySelector('form');
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const formData = {
-    username: document.querySelector('#username').value,
-    email: document.querySelector('#email').value
-  };
-
-  try {
-    const response = await fetch('http://localhost:5001/api/data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-
-    const result = await response.json();
-    console.log('Saved to Database:', result);
-    alert('Data submitted successfully!');
-  } catch (error) {
-    console.error('Submission error:', error);
-  }
-});
-async function loadUsers() {
-  try {
-    const response = await fetch('http://localhost:5001/api/users');
-    const users = await response.json();
-    
-    // Render to page
-    const userList = document.getElementById('user-list');
-    userList.innerHTML = users.map(user => `<li>${user.username} - ${user.email}</li>`).join('');
-  } catch (error) {
-    console.error('Failed to load users:', error);
-  }
-}
-
-// Call on page load
-loadUsers();
-const { MongoClient } = require("mongodb");
-
-const url = "YOUR_MONGODB_CONNECTION_STRING";
-
-const client = new MongoClient(url);
-
-async function main() {
-    try {
-        await client.connect();
-
-        console.log("MongoDB connected successfully!");
-
-        const db = client.db("nova_college");
-
-        const students = db.collection("students");
-
-        console.log("Database: nova_college");
-        console.log("Collection: students");
-
-    } catch (error) {
-        console.error(error);
-    }
-
-const mongoose = require('mongoose');
-
-// Paste the connection string INSIDE QUOTES here:
-const mongoURI = "mongodb+srv://studentnova0_db_user:k4Ke0AIzhgxdbZlm@cluster0.inygqnd.mongodb.net/?appName=Cluster0";
-
-mongoose.connect(mongoURI)
-  .then(() => console.log("Connected to Cluster0 successfully!"))
-  .catch((err) => console.error("Database connection error:", err));
- const cors = require('cors');
-app.use(cors()); // Place this near the top, before your routes
-async function getData() {
-  const response = await fetch('http://localhost:5001/api/your-route-name');
-  const data = await response.json();
-  console.log('Data from MongoDB:', data);
-}
- async function sendData(userData) {
-  const response = await fetch('http://localhost:5001/api/your-route-name', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-  
-  const result = await response.json();
-  console.log('Saved to MongoDB:', result);
-}
- 
- const express = require('express');
-const cors = require('cors');
-
-app.use(cors());     // Allows your front-end to connect
-app.use(express.json());  // Allows server to read JSON sent from front-end
-
-// 1. GET Route - Test endpoint
-app.get('/api/test', (req, res) => {
-  res.json({ message: "Hello! Your backend and MongoDB are ready." });
-});
-
-// 2. POST Route - Example to save data
-app.post('/api/data', async (req, res) => {
-  console.log("Data received from front-end:", req.body);
-  // Here you can save req.body using your Mongoose model
-  res.json({ success: true, message: "Data received successfully!" });
-});
-async function testConnection() {
-  try {
-    const response = await fetch('http://localhost:5001/api/test');
-    const data = await response.json();
-    console.log("Server response:", data.message);
-  } catch (error) {
-    console.error("Error connecting to server:", error);
-  }
-}
-
-testConnection();
-async function sendFormData(formData) {
-  try {
-    const response = await fetch('http://localhost:5001/api/data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-    
-    const result = await response.json();
-    console.log("Saved:", result);
-  } catch (error) {
-    console.error("Error sending data:", error);
-  }
-}
- // Fetch data from your backend
-fetch('http://localhost:5001/api/your-endpoint-name')
-  .then(response => response.json())
-  .then(data => console.log('Data from MongoDB:', data))
-  .catch(error => console.error('Error:', error));
-  // =================================
-// NOVA COLLEGE ADVERTISEMENT
-// =================================
-
-window.addEventListener("load", function () {
-
-    setTimeout(function () {
-
-        document
-            .getElementById("ad-popup")
-            .classList.add("show");
-
-    }, 78000);
-
-});
-
-
-function closeAd() {
-
-    document
-        .getElementById("ad-popup")
-        .classList.remove("show");
-4000
-}
-
-// ======================================
-// NOVA COLLEGE SCROLL ANIMATION
-// ======================================
-
-const animatedElements = document.querySelectorAll(".animate");
-
-const observer = new IntersectionObserver(
-    (entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
-
-        });
-
-    },
-    {
-        threshold: 0.15
-    }
-);
-
-animatedElements.forEach((element) => {
-    observer.observe(element);
-});
-
-
-alert("Welcome to Nova Colllage")
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
-const fs = require("fs");
+const bcrypt = require("bcryptjs");
+require("dotenv").config();
+
+// Student model
+const Student = require("./models/student");
 
 const app = express();
+
+// ========================================
+// SETTINGS
+// ========================================
+
+const PORT = 5000;
+
+// ========================================
+// MIDDLEWARE
+// ========================================
 
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3000;
-const FILE = "students.json"; }
+// ========================================
+// CHECK MONGODB CONNECTION STRING
+// ========================================
 
+if (!process.env.MONGO_URI) {
+    console.error("ERROR: MONGO_URI is missing from your .env file.");
+    process.exit(1);
+}
 
-// Test backend
+if (
+    !process.env.MONGO_URI.startsWith("mongodb://") &&
+    !process.env.MONGO_URI.startsWith("mongodb+srv://")
+) {
+    console.error(
+        "ERROR: MONGO_URI must start with mongodb:// or mongodb+srv://"
+    );
+    process.exit(1);
+}
+
+// ========================================
+// HOME ROUTE
+// ========================================
+
 app.get("/", (req, res) => {
-    res.send("Nova College Backend is Running!");
+    res.json({
+        success: true,
+        message: "Nova College Backend is Running!"
+    });
 });
 
-// Save admission
-app.post("/admission", (req, res) => {
+// ========================================
+// TEST API
+// ========================================
 
-    const student = req.body;
+app.get("/api/test", (req, res) => {
+    res.json({
+        success: true,
+        message: "Backend and MongoDB are working!"
+    });
+});
 
-    fs.readFile(FILE, "utf8", (err, data) => {
+// ========================================
+// STUDENT REGISTRATION
+// ========================================
 
-        let students = [];
+app.post("/api/register", async (req, res) => {
+    try {
+        // Get all admission form fields
+        const {
+            name,
+            email,
+            password,
+            phone,
+            course
+        } = req.body;
 
-        if (!err && data) {
-            students = JSON.parse(data);
+        // Check required fields
+        if (!name || !email || !password || !phone || !course) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all fields."
+            });
         }
 
-        students.push({
-            id: Date.now(),
-            name: student.name,
-            fatherName: student.fatherName,
-            phone: student.phone,
-            program: student.program
+        // Clean input
+        const cleanName = String(name).trim();
+        const cleanEmail = String(email).toLowerCase().trim();
+        const cleanPassword = String(password);
+        const cleanPhone = String(phone).trim();
+        const cleanCourse = String(course).trim();
+
+        // Check password length
+        if (cleanPassword.length < 6) {
+            return res.status(400).json({
+                success: false,
+                message: "Password must be at least 6 characters."
+            });
+        }
+
+        // Check if student already exists
+        const existingStudent = await Student.findOne({
+            email: cleanEmail
         });
 
-        fs.writeFile(
-            FILE,
-            JSON.stringify(students, null, 2),
-            (err) => {
+        if (existingStudent) {
+            return res.status(400).json({
+                success: false,
+                message: "This email is already registered."
+            });
+        }
 
-                if (err) {
-                    return res.status(500).json({
-                        message: "Could not save student"
-                    });
-                }
-
-                res.json({
-                    message: "Admission saved successfully!"
-                });
-            }
+        // Hash password
+        const hashedPassword = await bcrypt.hash(
+            cleanPassword,
+            10
         );
+
+        // Create student
+        const student = new Student({
+            name: cleanName,
+            email: cleanEmail,
+            password: hashedPassword,
+            phone: cleanPhone,
+            course: cleanCourse
+        });
+
+        // Save student
+        await student.save();
+
+        return res.status(201).json({
+            success: true,
+            message: "Student registered successfully!",
+            student: {
+                id: student._id,
+                name: student.name,
+                email: student.email,
+                phone: student.phone,
+                course: student.course
+            }
+        });
+
+    } catch (error) {
+        console.error("Registration Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Registration failed.",
+            error: error.message
+        });
+    }
+});
+
+// ========================================
+// STUDENT LOGIN
+// ========================================
+
+app.post("/api/login", async (req, res) => {
+    try {
+        const {
+            email,
+            password
+        } = req.body;
+
+        // Check fields
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter email and password."
+            });
+        }
+
+        // Clean email
+        const cleanEmail = String(email)
+            .toLowerCase()
+            .trim();
+
+        // Find student
+        const student = await Student.findOne({
+            email: cleanEmail
+        });
+
+        if (!student) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+        }
+
+        // Compare password
+        const passwordMatch = await bcrypt.compare(
+            String(password),
+            student.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+        }
+
+        // Login successful
+        return res.status(200).json({
+            success: true,
+            message: "Login successful!",
+
+            student: {
+                id: student._id,
+                name: student.name,
+                email: student.email,
+                phone: student.phone,
+                course: student.course
+            }
+        });
+
+    } catch (error) {
+        console.error("Login Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Login failed.",
+            error: error.message
+        });
+    }
+});
+
+// ========================================
+// CONNECT TO MONGODB THEN START SERVER
+// ========================================
+
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+
+        console.log("MongoDB Connected Successfully");
+
+        app.listen(PORT, () => {
+
+            console.log(
+                `Server running on http://localhost:${PORT}`
+            );
+
+        });
+
+    })
+    .catch((error) => {
+
+        console.error("MongoDB Connection Error:");
+        console.error(error.message);
+
+        process.exit(1);
+
     });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
-document.getElementById("admissionForm").addEventListener("submit", async function(e) {
-
-    e.preventDefault();
-    const student = {
-        name: document.getElementById("name").value,
-        fatherName: document.getElementById("fatherName").value,
-        phone: document.getElementById("phone").value,
-        program: document.getElementById("program").value
-    };
-
-    const response = await fetch("http://localhost:3000/admission", {
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(student)
-    });
-
-    const result = await response.json();
-
-    alert(result.message);
-
-});

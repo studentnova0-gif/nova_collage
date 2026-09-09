@@ -1059,7 +1059,7 @@ body {
   border-radius: 5%;
   object-fit: cover;
   border: 5px solid #d4af37;
-  margin: 0 auto 15px auto;
+    margin: 0 auto 15px auto;
   display: block;
 }
 
