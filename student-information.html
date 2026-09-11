@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information - Nova College</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        /* HEADER */
+        .header {
+            height: 78px;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 45px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            background: white;
+            color: #1d4ed8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            font-size: 21px;
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.75;
+            margin-top: 3px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            padding: 11px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 9px;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* MAIN */
+        .container {
+            max-width: 1250px;
+            margin: 35px auto;
+            padding: 0 25px;
+        }
+
+        /* TOP */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .top-bar h2 {
+            font-size: 30px;
+            color: #0f172a;
+        }
+
+        .top-bar p {
+            margin-top: 7px;
+            color: #64748b;
+        }
+
+        .add-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 13px 21px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(37,99,235,0.25);
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* MESSAGE */
+        #message {
+            display: none;
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(15,23,42,0.07);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            margin-bottom: 22px;
+        }
+
+        .card-header h3 {
+            font-size: 20px;
+            color: #0f172a;
+        }
+
+        .card-header p {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        /* FORM BUTTONS */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .cancel-btn,
+        .save-btn {
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #334155;
+        }
+
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+
+        .save-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* SEARCH */
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box input {
+            width: 270px;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+        }
+
+        /* TABLE */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .student-email {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .attendance {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .gpa {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        .fee {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* ACTIONS */
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .edit-btn {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .edit-btn:hover {
+            background: #bfdbfe;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+
+        /* HIDDEN */
+        #studentFormCard {
+            display: none;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+
+            .header {
+                padding: 0 20px;
+            }
+
+            .container {
+                margin-top: 25px;
+                padding: 0 15px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .list-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .search-box,
+            .search-box input {
+                width: 100%;
+            }
+
+            .back-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-left">
+
+        <div class="logo">N</div>
+
+        <div>
+            <h1>Nova College</h1>
+            <p>Student Management System</p>
+        </div>
+
+    </div>
+
+    <a href="/index.html" class="back-btn">
+        ← Back to Website
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <div class="top-bar">
+
+        <div>
+            <h2>Student Information</h2>
+            <p>Manage students, academic records and fee information.</p>
+        </div>
+
+        <button id="addStudentBtn" class="add-btn">
+            + Add Student
+        </button>
+
+    </div>
+
+
+    <div id="message"></div>
+
+
+    <!-- FORM -->
+
+    <section class="card" id="studentFormCard">
+
+        <div class="card-header">
+
+            <h3 id="formTitle">Add New Student</h3>
+
+            <p>Enter the student's information below.</p>
+
+        </div>
+
+
+        <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Student Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter student name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="student@example.com"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        placeholder="03XXXXXXXXX"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Course</label>
+
+                    <select id="course" required>
+
+                        <option value="">Select Course</option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Information Technology">
+                            Information Technology
+                        </option>
+
+                        <option value="Software Engineering">
+                            Software Engineering
+                        </option>
+
+                        <option value="Business Administration">
+                            Business Administration
+                        </option>
+
+                        <option value="English">
+                            English
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Attendance (%)</label>
+
+                    <input
+                        type="number"
+                        id="attendance"
+                        min="0"
+                        max="100"
+                        placeholder="85"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>GPA</label>
+
+                    <input
+                        type="number"
+                        id="gpa"
+                        min="0"
+                        max="4"
+                        step="0.01"
+                        placeholder="3.50"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Fee Balance (PKR)</label>
+
+                    <input
+                        type="number"
+                        id="feeBalance"
+                        min="0"
+                        placeholder="50000"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="cancelBtn"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveBtn"
+                    class="save-btn"
+                >
+                    Save Student
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- STUDENT LIST -->
+
+    <section class="card">
+
+        <div class="card-header list-header">
+
+            <div>
+                <h3>Registered Students</h3>
+                <p>All students stored in MongoDB.</p>
+            </div>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="🔍 Search students..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student</th>
+                        <th>Phone</th>
+                        <th>Course</th>
+                        <th>Attendance</th>
+                        <th>GPA</th>
+                        <th>Fee Balance</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="studentTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty-message"
+                        >
+                            Loading students...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    let students = [];
+    let editingId = null;
+
+
+    const formCard =
+        document.getElementById("studentFormCard");
+
+    const form =
+        document.getElementById("studentForm");
+
+    const tableBody =
+        document.getElementById("studentTableBody");
+
+    const message =
+        document.getElementById("message");
+
+
+    /* SHOW MESSAGE */
+
+    function showMessage(text, success = true) {
+
+        message.textContent = text;
+
+        message.style.display = "block";
+
+        if (success) {
+
+            message.style.background = "#dcfce7";
+            message.style.color = "#166534";
+
+        } else {
+
+            message.style.background = "#fee2e2";
+            message.style.color = "#991b1b";
+
+        }
+
+        setTimeout(() => {
+
+            message.style.display = "none";
+
+        }, 3000);
+    }
+
+
+    /* LOAD STUDENTS */
+
+    async function loadStudents() {
+
+        try {
+
+            const response =
+                await fetch("/api/student-information");
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message || "Failed to load students"
+                );
+
+            }
+
+            students = data.students || data || [];
+
+            displayStudents(students);
+
+        } catch (error) {
+
+            console.error(error);
+
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-message">
+                        Unable to load students.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+
+    /* DISPLAY STUDENTS */
+
+    function displayStudents(list) {
+
+        if (!list.length) {
+
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-message">
+                        No students found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        tableBody.innerHTML = list.map(student => {
+
+            const id = student._id;
+
+            return `
+                <tr>
+
+                    <td>
+                        <div class="student-name">
+                            ${escapeHTML(student.name || "")}
+                        </div>
+
+                        <div class="student-email">
+                            ${escapeHTML(student.email || "")}
+                        </div>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(student.phone || "-")}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(student.course || "-")}
+                    </td>
+
+                    <td class="attendance">
+                        ${student.attendance ?? 0}%
+                    </td>
+
+                    <td class="gpa">
+                        ${student.gpa ?? 0}
+                    </td>
+
+                    <td class="fee">
+                        PKR ${Number(student.feeBalance || 0).toLocaleString()}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="edit-btn"
+                            onclick="editStudent('${id}')"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteStudent('${id}')"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }).join("");
+    }
+
+
+    /* ESCAPE HTML */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* ADD STUDENT BUTTON */
+
+    document
+        .getElementById("addStudentBtn")
+        .addEventListener("click", () => {
+
+            editingId = null;
+
+            form.reset();
+
+            document.getElementById("studentId").value = "";
+
+            document.getElementById("formTitle").textContent =
+                "Add New Student";
+
+            document.getElementById("saveBtn").textContent =
+                "Save Student";
+
+            formCard.style.display = "block";
+
+            formCard.scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+
+    /* CANCEL */
+
+    document
+        .getElementById("cancelBtn")
+        .addEventListener("click", () => {
+
+            form.reset();
+
+            editingId = null;
+
+            formCard.style.display = "none";
+        });
+
+
+    /* SAVE / UPDATE */
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+
+        const student = {
+
+            name:
+                document.getElementById("name").value.trim(),
+
+            email:
+                document.getElementById("email").value.trim(),
+
+            phone:
+                document.getElementById("phone").value.trim(),
+
+            course:
+                document.getElementById("course").value,
+
+            attendance:
+                Number(document.getElementById("attendance").value),
+
+            gpa:
+                Number(document.getElementById("gpa").value),
+
+            feeBalance:
+                Number(document.getElementById("feeBalance").value)
+
+        };
+
+
+        try {
+
+            let url = "/api/student-information";
+            let method = "POST";
+
+
+            if (editingId) {
+
+                url =
+                    `/api/student-information/${editingId}`;
+
+                method = "PUT";
+            }
+
+
+            const response = await fetch(url, {
+
+                method: method,
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(student)
+
+            });
+
+
+            const data = await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message || "Unable to save student"
+                );
+
+            }
+
+
+            showMessage(
+                editingId
+                    ? "Student updated successfully!"
+                    : "Student added successfully!"
+            );
+
+
+            form.reset();
+
+            editingId = null;
+
+            formCard.style.display = "none";
+
+            await loadStudents();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                error.message || "Something went wrong.",
+                false
+            );
+        }
+
+    });
+
+
+    /* EDIT */
+
+    async function editStudent(id) {
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/student-information/${id}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message || "Student not found"
+                );
+            }
+
+
+            const student =
+                data.student || data;
+
+
+            editingId = id;
+
+
+            document.getElementById("studentId").value =
+                id;
+
+            document.getElementById("name").value =
+                student.name || "";
+
+            document.getElementById("email").value =
+                student.email || "";
+
+            document.getElementById("phone").value =
+                student.phone || "";
+
+            document.getElementById("course").value =
+                student.course || "";
+
+            document.getElementById("attendance").value =
+                student.attendance ?? 0;
+
+            document.getElementById("gpa").value =
+                student.gpa ?? 0;
+
+            document.getElementById("feeBalance").value =
+                student.feeBalance ?? 0;
+
+
+            document.getElementById("formTitle").textContent =
+                "Edit Student";
+
+            document.getElementById("saveBtn").textContent =
+                "Update Student";
+
+
+            formCard.style.display = "block";
+
+
+            formCard.scrollIntoView({
+                behavior: "smooth"
+            });
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                error.message || "Unable to edit student",
+                false
+            );
+        }
+    }
+
+
+    /* DELETE */
+
+    async function deleteStudent(id) {
+
+        const confirmDelete =
+            confirm(
+                "Are you sure you want to delete this student?"
+            );
+
+
+        if (!confirmDelete) return;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/student-information/${id}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message || "Unable to delete student"
+                );
+            }
+
+
+            showMessage(
+                "Student deleted successfully!"
+            );
+
+
+            await loadStudents();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                error.message || "Unable to delete student",
+                false
+            );
+        }
+    }
+
+
+    /* SEARCH */
+
+    document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+
+            const search =
+                this.value.toLowerCase().trim();
+
+
+            const filtered =
+                students.filter(student =>
+
+                    String(student.name || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.email || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.course || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.phone || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+
+            displayStudents(filtered);
+        });
+
+
+    /* START */
+
+    loadStudents();
+
+</script>
+
+</body>
+</html>

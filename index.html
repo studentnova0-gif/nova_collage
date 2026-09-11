@@ -11,7 +11,7 @@
   <!-- 1. FULL-SCREEN WELCOME INTRO -->
   <div id="welcome-screen">
     <div class="welcome-content">
-      <img src="nova.jpeg" alt="Nova College Logo" class="welcome-logo">
+      <img src="logo.jpeg" alt="Nova College Logo" class="welcome-logo">
       <h1>NOVA COLLEGE</h1>
       <div class="welcome-text">Welcome to Nova College</div>
       <div class="welcome-subtitle">EXCELLENCE IN EDUCATION</div>
@@ -35,29 +35,39 @@
       <li><a href="#gallery">College Gallery</a></li>
       <li><a href="#notices">Notices</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="loginform.html" class="nav-portal-btn">Student Portal</a></li>
+      
     </ul>
   </nav>
   <div class="custom-ad-banner">
   <div class="ad-badge">Promoted</div>
   <h3>Special Scholarship Announcement!</h3>
   <p>Apply for F.Sc or ICS  to get up to 50% merit-based scholarship.</p>
-  <a href="#admissionForm" class="ad-btn">Apply For Scholarship</a>
+  <a href="admission.html" class="ad-btn">Apply For Scholarship</a>
 </div>
 
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Welcome to <span>Nova College</span></h1>
-      <p>Empowering students through quality education, modern learning, and a brighter future.</p>
-      <div class="hero-buttons">
-        <a href="admission.html" class="gold-btn">Apply Online</a>
-        <a href="#about" class="white-btn">Explore College</a>
-      </div>
-    </div>
-  </section>
+ <!-- HERO -->
+<section class="hero" id="home">
 
-  <!-- ABOUT -->
+       <div class="hero-content">
+        <h1>Welcome to <span>Nova College</span></h1>
+
+        <p>
+            Empowering students through quality education,
+            modern learning, and a brighter future.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="admission.html" class="gold-btn">Apply Online</a>
+            <a href="#about" class="white-btn">Explore College</a>
+        </div>
+    </div>
+
+</section>
+
+ 
+<!-- ABOUT -->
   <section id="about">
     <div class="section-title">
       <h2>Why Choose Nova College?</h2>
@@ -142,7 +152,7 @@ B.Ed</p>
 <p>Experienced:7 year teaching experience</p>
       </div>
       <div class="card faculty-card">
-        <img src="yasir sir.jpeg" alts"Yasir Khan">
+        <img src="yasir sir.jpeg" alt="Yasir Khan">
         <h3>Yasir Khan</h3>
         <p class="dev-role">Physics Department</p>
       <p>Qualification: M.Sc Physics</p>
@@ -186,6 +196,251 @@ Including
       </div>
     </div>
   </section>
+  <!-- STUDENT INFORMATION -->
+  <section class="student-info-section" id="student-information">
+    <div class="student-info-card">
+      <div class="student-info-icon">🎓</div>
+      <div class="student-info-content">
+        <span class="student-info-label">COLLEGE MANAGEMENT</span>
+        <h2>Student Information</h2>
+        <p>Manage student profiles, courses, attendance, GPA and fee information.</p>
+      </div>
+      <a href="student-information.html" class="student-info-btn">Open Student Information →</a>
+    </div>
+  </section>
+
+  <style>
+    .student-info-section {
+      padding: 55px 7%;
+      background: linear-gradient(135deg, #eef4ff, #f8fbff);
+    }
+
+    .student-info-card {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 30px 34px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #071a3d, #123b82 55%, #2563eb);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, .18);
+    }
+
+    .student-info-icon {
+      width: 68px;
+      height: 68px;
+      min-width: 68px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    .student-info-content {
+      flex: 1;
+    }
+
+    .student-info-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #bfdbfe;
+      font-weight: 700;
+    }
+
+    .student-info-content h2 {
+      margin: 6px 0;
+      font-size: 28px;
+    }
+
+    .student-info-content p {
+      color: #dbeafe;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .student-info-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      text-decoration: none;
+      background: #fff;
+      color: #123b82;
+      padding: 14px 20px;
+      border-radius: 11px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(0,0,0,.14);
+      transition: .2s ease;
+    }
+
+    .student-info-btn:hover {
+      transform: translateY(-2px);
+      background: #eff6ff;
+    }
+
+    @media (max-width: 750px) {
+      .student-info-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px;
+      }
+
+      .student-info-btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <!-- CAMPUS FACILITIES -->
+  <section id="facilities" class="feature-section">
+    <div class="section-title">
+      <h2>Campus Facilities</h2>
+      <p>Everything students need for a better learning experience.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>College Library</h3>
+        <p>Study spaces, reference material and learning resources for students.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💻</div>
+        <h3>Computer Labs</h3>
+        <p>Practical computer learning and technology-focused study facilities.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3>Science Labs</h3>
+        <p>Practical learning support for science students and their coursework.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏃</div>
+        <h3>Sports</h3>
+        <p>Activities that encourage teamwork, fitness and student development.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">☕</div>
+        <h3>Cafeteria</h3>
+        <p>A convenient space for students to relax between classes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚌</div>
+        <h3>Transport</h3>
+        <p>College transport information can be published here for students.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDENT LIFE -->
+  <section id="student-life" class="feature-section feature-dark">
+    <div class="section-title">
+      <h2>Student Life</h2>
+      <p>Learning continues beyond the classroom.</p>
+    </div>
+
+    <div class="student-life-grid">
+      <div class="life-box">
+        <span>🎯</span>
+        <h3>Student Activities</h3>
+        <p>Competitions, academic activities and opportunities to build confidence.</p>
+      </div>
+      <div class="life-box">
+        <span>🏆</span>
+        <h3>Clubs & Societies</h3>
+        <p>Give students a place to develop teamwork, leadership and creativity.</p>
+      </div>
+      <div class="life-box">
+        <span>🎉</span>
+        <h3>Events</h3>
+        <p>College events, talent activities, seminars and important student programs.</p>
+      </div>
+      <div class="life-box">
+        <span>👨‍🎓</span>
+        <h3>Alumni</h3>
+        <p>Keep former students connected with the Nova College community.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHOLARSHIPS -->
+  <section id="scholarships" class="feature-section">
+    <div class="section-title">
+      <h2>Scholarships & Financial Aid</h2>
+      <p>Helping deserving students continue their education.</p>
+    </div>
+
+    <div class="info-panel">
+      <div>
+        <span class="info-panel-icon">🎓</span>
+        <h3>Merit-Based Scholarships</h3>
+        <p>Scholarship announcements, eligibility requirements and application information can be published here.</p>
+      </div>
+      <a href="admission.html" class="gold-btn small-btn">Apply Now</a>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads" class="feature-section downloads-section">
+    <div class="section-title">
+      <h2>Student Downloads</h2>
+      <p>Important college documents in one place.</p>
+    </div>
+
+    <div class="download-grid">
+      <a href="#" class="download-card" onclick="return false;">
+        <span>📄</span>
+        <strong>College Prospectus</strong>
+        <small>PDF / Document</small>
+      </a>
+      <a href="#" class="download-card" onclick="return false;">
+        <span>📋</span>
+        <strong>Student Handbook</strong>
+        <small>PDF / Document</small>
+      </a>
+      <a href="#" class="download-card" onclick="return false;">
+        <span>📅</span>
+        <strong>Academic Calendar</strong>
+        <small>Session schedule</small>
+      </a>
+      <a href="#" class="download-card" onclick="return false;">
+        <span>📝</span>
+        <strong>Admission Information</strong>
+        <small>Requirements & guidance</small>
+      </a>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career" class="feature-section career-section">
+    <div class="section-title">
+      <h2>Career & Future</h2>
+      <p>Prepare students for university, careers and professional life.</p>
+    </div>
+
+    <div class="career-grid">
+      <div class="career-card">
+        <span>💼</span>
+        <h3>Career Guidance</h3>
+        <p>Guidance about higher education, career paths and future opportunities.</p>
+      </div>
+      <div class="career-card">
+        <span>🚀</span>
+        <h3>Skills Development</h3>
+        <p>Encourage communication, technology, leadership and problem-solving skills.</p>
+      </div>
+      <div class="career-card">
+        <span>🎓</span>
+        <h3>University Preparation</h3>
+        <p>Support students as they prepare for their next academic step.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- GALLERY -->
   <section id="gallery" class="gallery-container">
@@ -223,7 +478,18 @@ Including
       <div class="notice-item">📢 New academic session will begin soon.</div>
     </div>
   </section>
-  <
+
+
+
+  <!-- STUDENT PORTAL CTA -->
+  <section class="portal-cta">
+    <div>
+      <span class="portal-kicker">NOVA STUDENT PORTAL</span>
+      <h2>Your college information in one place.</h2>
+      <p>Check your profile, courses, attendance, results, fees, timetable and notices from your student dashboard.</p>
+    </div>
+    <a href="loginform.html" class="gold-btn">Open Student Portal</a>
+  </section>
 
   <!-- CONTACT -->
   <section id="contact">

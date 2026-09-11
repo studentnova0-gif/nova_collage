@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nova College - Payment</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #eaf2ff,
+                #ffffff
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, .12);
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #1769d1;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+
+            color: #123b70;
+
+            margin: 0;
+
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #777;
+
+            margin: 8px 0 30px;
+        }
+
+        /* ================================
+           STUDENT INFORMATION
+        ================================= */
+
+        .student-card {
+            background: #f5f8ff;
+
+            border: 1px solid #d9e5ff;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .student-card h2 {
+            margin-top: 0;
+
+            color: #123b70;
+
+            font-size: 19px;
+        }
+
+        .info-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 10px 0;
+
+            border-bottom: 1px solid #e1e8f5;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666;
+
+            font-weight: bold;
+        }
+
+        .info-value {
+            color: #222;
+
+            text-align: right;
+
+            word-break: break-word;
+        }
+
+        /* ================================
+           PAYMENT CARD
+        ================================= */
+
+        .payment-card {
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            padding: 22px;
+        }
+
+        .payment-card h2 {
+            margin-top: 0;
+
+            color: #123b70;
+
+            text-align: center;
+        }
+
+        .amount {
+            text-align: center;
+
+            margin: 15px 0 25px;
+        }
+
+        .amount-label {
+            display: block;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        .amount-value {
+            display: block;
+
+            margin-top: 5px;
+
+            color: #1769d1;
+
+            font-size: 34px;
+
+            font-weight: bold;
+        }
+
+        .method-title {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #333;
+
+            font-weight: bold;
+        }
+
+        /* ================================
+           PAYMENT METHODS
+        ================================= */
+
+        .payment-methods {
+            display: flex;
+
+            gap: 12px;
+        }
+
+        .payment-method {
+            flex: 1;
+
+            padding: 20px 10px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 10px;
+
+            background: white;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .payment-method:hover {
+            border-color: #1769d1;
+
+            transform: translateY(-2px);
+        }
+
+        .payment-method.selected {
+            border-color: #1769d1;
+
+            background: #eaf2ff;
+        }
+
+        .payment-method input {
+            display: none;
+        }
+
+        .method-icon {
+            display: block;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .method-name {
+            font-size: 16px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        .selected .method-name {
+            color: #1769d1;
+        }
+
+        /* ================================
+           PAY BUTTON
+        ================================= */
+
+        #payButton {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #1769d1;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        #payButton:hover {
+            background: #0f4f9f;
+        }
+
+        #payButton:disabled {
+            background: #888;
+
+            cursor: not-allowed;
+        }
+
+        /* ================================
+           MESSAGE
+        ================================= */
+
+        #message {
+            text-align: center;
+
+            margin-top: 18px;
+
+            font-weight: bold;
+
+            line-height: 1.5;
+        }
+
+        /* ================================
+           SECURITY
+        ================================= */
+
+        .security {
+            margin-top: 20px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #f7f7f7;
+
+            color: #666;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+        /* ================================
+           BACK LINK
+        ================================= */
+
+        .back-link {
+            text-align: center;
+
+            margin-top: 22px;
+        }
+
+        .back-link a {
+            color: #1769d1;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 10px;
+
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .payment-methods {
+                flex-direction: column;
+            }
+
+            .info-row {
+                flex-direction: column;
+
+                gap: 4px;
+            }
+
+            .info-value {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+        N
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h1>
+        Nova College
+    </h1>
+
+
+    <p class="subtitle">
+        Admission Fee Payment
+    </p>
+
+
+    <!-- ================================
+         STUDENT INFORMATION
+    ================================= -->
+
+    <div class="student-card">
+
+        <h2>
+            Student Information
+        </h2>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Name
+            </span>
+
+            <span
+                class="info-value"
+                id="studentName"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Email
+            </span>
+
+            <span
+                class="info-value"
+                id="studentEmail"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Phone
+            </span>
+
+            <span
+                class="info-value"
+                id="studentPhone"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                Course
+            </span>
+
+            <span
+                class="info-value"
+                id="studentCourse"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         PAYMENT CARD
+    ================================= -->
+
+    <div class="payment-card">
+
+
+        <h2>
+            Complete Your Payment
+        </h2>
+
+
+        <!-- AMOUNT -->
+
+        <div class="amount">
+
+            <span class="amount-label">
+                Admission Fee
+            </span>
+
+            <span
+                class="amount-value"
+                id="amount"
+            >
+                Rs. 5,000
+            </span>
+
+        </div>
+
+
+        <!-- PAYMENT METHOD TITLE -->
+
+        <span class="method-title">
+            Select Payment Method
+        </span>
+
+
+        <!-- PAYMENT METHODS -->
+
+        <div class="payment-methods">
+
+
+            <!-- JAZZCASH -->
+
+            <label
+                class="payment-method"
+                id="jazzcashMethod"
+            >
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="jazzcash"
+                >
+
+                <span class="method-icon">
+                    📱
+                </span>
+
+                <span class="method-name">
+                    JazzCash
+                </span>
+
+            </label>
+
+
+            <!-- EASYPAISA -->
+
+            <label
+                class="payment-method"
+                id="easypaisaMethod"
+            >
+
+                <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="easypaisa"
+                >
+
+                <span class="method-icon">
+                    💳
+                </span>
+
+                <span class="method-name">
+                    Easypaisa
+                </span>
+
+            </label>
+
+
+        </div>
+
+
+        <!-- PAY BUTTON -->
+
+        <button
+            id="payButton"
+            type="button"
+        >
+            Pay Rs. 5,000
+        </button>
+
+
+        <!-- MESSAGE -->
+
+        <p id="message"></p>
+
+
+    </div>
+
+
+    <!-- SECURITY -->
+
+    <div class="security">
+
+        🔒 Secure Payment
+        <br>
+
+        Payment status is verified by the Nova College server.
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div class="back-link">
+
+        <a href="admission.html">
+            ← Back to Admission
+        </a>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    // =========================================
+    // GET HTML ELEMENTS
+    // =========================================
+
+    const message =
+        document.getElementById("message");
+
+    const payButton =
+        document.getElementById("payButton");
+
+    const studentName =
+        document.getElementById("studentName");
+
+    const studentEmail =
+        document.getElementById("studentEmail");
+
+    const studentPhone =
+        document.getElementById("studentPhone");
+
+    const studentCourse =
+        document.getElementById("studentCourse");
+
+    const amountElement =
+        document.getElementById("amount");
+
+    const jazzcashMethod =
+        document.getElementById("jazzcashMethod");
+
+    const easypaisaMethod =
+        document.getElementById("easypaisaMethod");
+
+
+    // =========================================
+    // ERROR FUNCTION
+    // =========================================
+
+    function showError(text) {
+
+        message.textContent = text;
+
+        message.style.color = "red";
+
+        payButton.disabled = true;
+
+    }
+
+
+    // =========================================
+    // STUDENT PAYMENT DATA
+    // =========================================
+
+    let payment = null;
+
+
+    // =========================================
+    // READ DATA FROM LOCAL STORAGE
+    // =========================================
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "admissionPayment"
+            );
+
+
+        // No saved information
+
+        if (!saved) {
+
+            showError(
+                "Please submit the admission form first. Your admission information was not found."
+            );
+
+        }
+
+
+        else {
+
+            payment =
+                JSON.parse(saved);
+
+
+            // =========================================
+            // CHECK REQUIRED INFORMATION
+            // =========================================
+
+            if (
+                !payment.name ||
+                !payment.email ||
+                !payment.phone ||
+                !payment.course
+            ) {
+
+                showError(
+                    "Admission information is incomplete. Please return to the admission form."
+                );
+
+            }
+
+
+            else {
+
+
+                // =========================================
+                // SHOW STUDENT NAME
+                // =========================================
+
+                studentName.textContent =
+                    payment.name;
+
+
+                // =========================================
+                // SHOW EMAIL
+                // =========================================
+
+                studentEmail.textContent =
+                    payment.email;
+
+
+                // =========================================
+                // SHOW PHONE
+                // =========================================
+
+                studentPhone.textContent =
+                    payment.phone;
+
+
+                // =========================================
+                // SHOW COURSE
+                // =========================================
+
+                studentCourse.textContent =
+                    payment.course;
+
+
+                // =========================================
+                // SHOW AMOUNT
+                // =========================================
+
+                const amount =
+                    Number(
+                        payment.amount || 5000
+                    );
+
+
+                amountElement.textContent =
+                    "Rs. " +
+                    amount.toLocaleString();
+
+
+                payButton.textContent =
+                    "Pay Rs. " +
+                    amount.toLocaleString();
+
+
+                // =========================================
+                // SELECT SAVED PAYMENT METHOD
+                // =========================================
+
+                if (
+                    payment.paymentMethod ===
+                    "jazzcash"
+                ) {
+
+                    const jazzcashRadio =
+                        document.querySelector(
+                            'input[value="jazzcash"]'
+                        );
+
+
+                    jazzcashRadio.checked =
+                        true;
+
+
+                    jazzcashMethod.classList.add(
+                        "selected"
+                    );
+
+                }
+
+
+                if (
+                    payment.paymentMethod ===
+                    "easypaisa"
+                ) {
+
+                    const easypaisaRadio =
+                        document.querySelector(
+                            'input[value="easypaisa"]'
+                        );
+
+
+                    easypaisaRadio.checked =
+                        true;
+
+
+                    easypaisaMethod.classList.add(
+                        "selected"
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "LocalStorage Error:",
+            error
+        );
+
+
+        showError(
+            "Could not read your admission information."
+        );
+
+    }
+
+
+
+    // =========================================
+    // SELECT PAYMENT METHOD
+    // =========================================
+
+    document
+        .querySelectorAll(
+            'input[name="paymentMethod"]'
+        )
+        .forEach(function(input) {
+
+
+            input.addEventListener(
+                "change",
+                function() {
+
+
+                    // Remove old selection
+
+                    jazzcashMethod.classList.remove(
+                        "selected"
+                    );
+
+                    easypaisaMethod.classList.remove(
+                        "selected"
+                    );
+
+
+                    // JazzCash
+
+                    if (
+                        this.value ===
+                        "jazzcash"
+                    ) {
+
+                        jazzcashMethod.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+
+                    // Easypaisa
+
+                    else {
+
+                        easypaisaMethod.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+
+                    // Save selected method
+
+                    if (payment) {
+
+                        payment.paymentMethod =
+                            this.value;
+
+
+                        localStorage.setItem(
+                            "admissionPayment",
+                            JSON.stringify(payment)
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+
+
+    // =========================================
+    // CREATE PAYMENT REQUEST
+    // =========================================
+
+    payButton.addEventListener(
+        "click",
+        async function() {
+
+
+            // No student data
+
+            if (!payment) {
+
+                return;
+
+            }
+
+
+            // =========================================
+            // GET SELECTED PAYMENT METHOD
+            // =========================================
+
+            const selected =
+                document.querySelector(
+                    'input[name="paymentMethod"]:checked'
+                );
+
+
+            if (!selected) {
+
+                message.textContent =
+                    "Please select JazzCash or Easypaisa.";
+
+                message.style.color =
+                    "red";
+
+                return;
+
+            }
+
+
+            // =========================================
+            // GET AMOUNT
+            // =========================================
+
+            const amount =
+                Number(
+                    payment.amount || 5000
+                );
+
+
+            // =========================================
+            // DISABLE BUTTON
+            // =========================================
+
+            payButton.disabled =
+                true;
+
+
+            payButton.textContent =
+                "Processing...";
+
+
+            message.textContent =
+                "Connecting to Nova College server...";
+
+
+            message.style.color =
+                "#555";
+
+
+            // =========================================
+            // SEND PAYMENT TO SERVER
+            // =========================================
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/payment/create",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+
+                            body:
+                                JSON.stringify({
+
+                                    name:
+                                        payment.name,
+
+                                    email:
+                                        payment.email,
+
+                                    phone:
+                                        payment.phone,
+
+                                    course:
+                                        payment.course,
+
+                                    amount:
+                                        amount,
+
+                                    paymentMethod:
+                                        selected.value
+
+                                })
+
+                        }
+                    );
+
+
+                // =========================================
+                // READ SERVER RESPONSE
+                // =========================================
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Payment server response:",
+                    data
+                );
+
+
+                // =========================================
+                // CHECK RESPONSE
+                // =========================================
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Payment request failed."
+                    );
+
+                }
+
+
+                // =========================================
+                // SAVE PAYMENT INFORMATION
+                // =========================================
+
+                payment.paymentMethod =
+                    selected.value;
+
+
+                payment.amount =
+                    amount;
+
+
+                if (data.transactionId) {
+
+                    payment.transactionId =
+                        data.transactionId;
+
+                }
+
+
+                if (data.paymentStatus) {
+
+                    payment.paymentStatus =
+                        data.paymentStatus;
+
+                }
+
+
+                localStorage.setItem(
+                    "admissionPayment",
+                    JSON.stringify(payment)
+                );
+
+
+                // =========================================
+                // REAL PAYMENT URL
+                // =========================================
+
+                if (data.paymentUrl) {
+
+
+                    message.textContent =
+                        "Redirecting to secure payment...";
+
+
+                    message.style.color =
+                        "green";
+
+
+                    window.location.href =
+                        data.paymentUrl;
+
+
+                    return;
+
+                }
+
+
+                // =========================================
+                // LOCAL DEVELOPMENT
+                // =========================================
+
+                message.textContent =
+                    "Payment request reached the server successfully. " +
+                    "Transaction: " +
+                    (data.transactionId || "Created") +
+                    ". Real JazzCash/Easypaisa gateway is not connected yet.";
+
+
+                message.style.color =
+                    "#b36b00";
+
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.textContent =
+                    "Pay Rs. " +
+                    amount.toLocaleString();
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Payment Error:",
+                    error
+                );
+
+
+                message.textContent =
+                    error.message ||
+                    "Cannot connect to server. Make sure Node.js is running on port 5000.";
+
+
+                message.style.color =
+                    "red";
+
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.textContent =
+                    "Pay Rs. " +
+                    amount.toLocaleString();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>

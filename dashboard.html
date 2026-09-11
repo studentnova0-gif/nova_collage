@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nova College - Student Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: linear-gradient(
+                135deg,
+                #123b70,
+                #1769d1
+            );
+
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .college-name {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logout-button {
+            border: none;
+            background: white;
+            color: #1769d1;
+
+            padding: 10px 18px;
+            border-radius: 8px;
+
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-button:hover {
+            background: #eef5ff;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            margin: 0 0 8px;
+            color: #123b70;
+        }
+
+        .welcome p {
+            margin: 0;
+            color: #666;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            margin-bottom: 25px;
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+
+            border-radius: 50%;
+
+            background: #1769d1;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .profile-top h2 {
+            margin: 0 0 5px;
+            color: #123b70;
+        }
+
+        .profile-top p {
+            margin: 0;
+            color: #777;
+        }
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 18px;
+        }
+
+        .profile-item {
+            background: #f7faff;
+
+            padding: 18px;
+            border-radius: 10px;
+
+            border: 1px solid #e5edf8;
+        }
+
+        .profile-label {
+            display: block;
+
+            font-size: 13px;
+            color: #777;
+
+            margin-bottom: 6px;
+        }
+
+        .profile-value {
+            font-size: 16px;
+
+            font-weight: bold;
+            color: #222;
+
+            word-break: break-word;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 25px;
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.07);
+
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #123b70;
+        }
+
+        .big-number {
+            font-size: 34px;
+
+            font-weight: bold;
+
+            color: #1769d1;
+
+            margin: 15px 0;
+        }
+
+        .card p {
+            color: #777;
+            margin-bottom: 0;
+        }
+
+        #dashboardMessage {
+            text-align: center;
+            margin: 20px 0;
+            color: #777;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 30px 15px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px;
+            }
+
+            .college-name {
+                font-size: 18px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 20px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="college-name">
+            Nova College
+        </div>
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <h1>
+                Welcome,
+                <span id="studentName">
+                    Student
+                </span>!
+            </h1>
+
+            <p>
+                Welcome to your Nova College student dashboard.
+            </p>
+
+        </section>
+
+
+        <div id="dashboardMessage"></div>
+
+
+        <section class="profile-card">
+
+            <div class="profile-top">
+
+                <div
+                    class="avatar"
+                    id="studentInitials"
+                >
+                    N
+                </div>
+
+                <div>
+
+                    <h2 id="profileName">
+                        Student
+                    </h2>
+
+                    <p>
+                        Student Profile
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-grid">
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        Email
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="profileEmail"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        Phone
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="profilePhone"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        Course
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="profileCourse"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="profile-item">
+
+                    <span class="profile-label">
+                        Student ID
+                    </span>
+
+                    <span
+                        class="profile-value"
+                        id="profileId"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="cards">
+
+            <div
+                class="card"
+                id="attendance"
+            >
+
+                <h3>
+                    Attendance
+                </h3>
+
+                <div class="big-number">
+                    --
+                </div>
+
+                <p>
+                    Current attendance
+                </p>
+
+            </div>
+
+
+            <div
+                class="card"
+                id="results"
+            >
+
+                <h3>
+                    GPA
+                </h3>
+
+                <div class="big-number">
+                    --
+                </div>
+
+                <p>
+                    Current GPA
+                </p>
+
+            </div>
+
+
+            <div
+                class="card"
+                id="fees"
+            >
+
+                <h3>
+                    Fee Balance
+                </h3>
+
+                <div class="big-number">
+                    --
+                </div>
+
+                <p>
+                    Current balance
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 Nova College.
+        All rights reserved.
+
+    </footer>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("=================================");
+    console.log("Nova College Dashboard Started");
+    console.log("=================================");
+
+    loadStudentDashboard();
+
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener("click", function () {
+
+            localStorage.removeItem("student");
+
+            window.location.replace(
+                "/loginform.html"
+            );
+
+        });
+
+    }
+
+});
+
+
+/* =====================================================
+   LOAD STUDENT DASHBOARD
+===================================================== */
+
+async function loadStudentDashboard() {
+
+    const message =
+        document.getElementById("dashboardMessage");
+
+    try {
+
+        const rawStudent =
+            localStorage.getItem("student");
+
+
+        /* ---------------------------------------------
+           LOGIN CHECK
+        --------------------------------------------- */
+
+        if (!rawStudent) {
+
+            if (message) {
+
+                message.innerHTML =
+                    'Please login first. <a href="/loginform.html">Login here</a>.';
+
+            }
+
+            return;
+        }
+
+
+        let student;
+
+        try {
+
+            student =
+                JSON.parse(rawStudent);
+
+        } catch (error) {
+
+            console.error(
+                "Invalid student data:",
+                error
+            );
+
+            localStorage.removeItem("student");
+
+            window.location.replace(
+                "/loginform.html"
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           GET STUDENT ID OR EMAIL
+        --------------------------------------------- */
+
+        const studentKey =
+            student._id ||
+            student.id ||
+            student.studentId ||
+            student.email;
+
+
+        if (!studentKey) {
+
+            throw new Error(
+                "Student account information is missing."
+            );
+
+        }
+
+
+        console.log(
+            "Loading student:",
+            studentKey
+        );
+
+
+        /* ---------------------------------------------
+           SHOW SAVED INFORMATION FIRST
+        --------------------------------------------- */
+
+        displayStudentData(student);
+
+
+        /* ---------------------------------------------
+           GET LATEST INFORMATION FROM MONGODB
+        --------------------------------------------- */
+
+        const response = await fetch(
+            "/api/student/dashboard?student=" +
+            encodeURIComponent(studentKey)
+        );
+
+
+        console.log(
+            "Dashboard API status:",
+            response.status
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load student information."
+            );
+
+        }
+
+
+        console.log(
+            "Latest MongoDB student:",
+            data.student
+        );
+
+
+        /* ---------------------------------------------
+           UPDATE LOCAL STORAGE
+        --------------------------------------------- */
+
+        if (data.student) {
+
+            localStorage.setItem(
+                "student",
+                JSON.stringify(data.student)
+            );
+
+
+            displayStudentData(
+                data.student
+            );
+
+        }
+
+
+        /* ---------------------------------------------
+           DISPLAY ATTENDANCE / GPA / FEES
+        --------------------------------------------- */
+
+        if (data.dashboard) {
+
+            displayDashboardInfo(
+                data.dashboard
+            );
+
+        }
+
+
+        if (message) {
+
+            message.textContent = "";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+
+        if (message) {
+
+            message.textContent =
+                error.message ||
+                "Unable to load student information.";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DISPLAY STUDENT PROFILE
+===================================================== */
+
+function displayStudentData(student) {
+
+    const name =
+        student.name ||
+        student.fullName ||
+        student.studentName ||
+        "Student";
+
+
+    const email =
+        student.email ||
+        "Not available";
+
+
+    const phone =
+        student.phone ||
+        student.mobile ||
+        "Not available";
+
+
+    const course =
+        student.course ||
+        student.program ||
+        student.programName ||
+        "Not available";
+
+
+    const studentId =
+        student.studentId ||
+        student.rollNumber ||
+        student.rollNumber ||
+        student.rollNo ||
+        student._id ||
+        student.id ||
+        "Not assigned";
+
+
+    /* NAME */
+
+    const studentName =
+        document.getElementById(
+            "studentName"
+        );
+
+    if (studentName) {
+
+        studentName.textContent =
+            name;
+
+    }
+
+
+    /* PROFILE NAME */
+
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
+
+    if (profileName) {
+
+        profileName.textContent =
+            name;
+
+    }
+
+
+    /* EMAIL */
+
+    const profileEmail =
+        document.getElementById(
+            "profileEmail"
+        );
+
+    if (profileEmail) {
+
+        profileEmail.textContent =
+            email;
+
+    }
+
+
+    /* PHONE */
+
+    const profilePhone =
+        document.getElementById(
+            "profilePhone"
+        );
+
+    if (profilePhone) {
+
+        profilePhone.textContent =
+            phone;
+
+    }
+
+
+    /* COURSE */
+
+    const profileCourse =
+        document.getElementById(
+            "profileCourse"
+        );
+
+    if (profileCourse) {
+
+        profileCourse.textContent =
+            course;
+
+    }
+
+
+    /* STUDENT ID */
+
+    const profileId =
+        document.getElementById(
+            "profileId"
+        );
+
+    if (profileId) {
+
+        profileId.textContent =
+            studentId;
+
+    }
+
+
+    /* INITIALS */
+
+    const initialsElement =
+        document.getElementById(
+            "studentInitials"
+        );
+
+    if (initialsElement) {
+
+        const initials =
+            name
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map(function (word) {
+
+                    return word.charAt(0);
+
+                })
+                .join("")
+                .toUpperCase();
+
+
+        initialsElement.textContent =
+            initials || "N";
+
+    }
+
+}
+
+
+/* =====================================================
+   DISPLAY ATTENDANCE / GPA / FEE
+===================================================== */
+
+function displayDashboardInfo(data) {
+
+    /* ATTENDANCE */
+
+    const attendance =
+        document.querySelector(
+            "#attendance .big-number"
+        );
+
+    if (
+        attendance &&
+        data.attendance !== undefined
+    ) {
+
+        attendance.textContent =
+            data.attendance + "%";
+
+    }
+
+
+    /* GPA */
+
+    const gpa =
+        document.querySelector(
+            "#results .big-number"
+        );
+
+    if (
+        gpa &&
+        data.gpa !== undefined
+    ) {
+
+        gpa.textContent =
+            data.gpa;
+
+    }
+
+
+    /* FEE BALANCE */
+
+    const fees =
+        document.querySelector(
+            "#fees .big-number"
+        );
+
+    if (fees) {
+
+        if (
+            data.fees !== undefined
+        ) {
+
+            fees.textContent =
+                data.fees;
+
+        } else if (
+            data.feeBalance !== undefined
+        ) {
+
+            fees.textContent =
+                "PKR " +
+                Number(
+                    data.feeBalance
+                ).toLocaleString();
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTO REFRESH
+   If admin changes student information,
+   dashboard gets latest MongoDB data.
+===================================================== */
+
+setInterval(
+    function () {
+
+        if (
+            localStorage.getItem("student")
+        ) {
+
+            loadStudentDashboard();
+
+        }
+
+    },
+    10000
+);
+
+</script>
+</body>
+</html>
