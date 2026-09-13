@@ -1,393 +1,1127 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Nova College - Student Dashboard</title>
+    <title>Student Dashboard | Nova College</title>
+
+    <link rel="stylesheet" href="style.css">
 
     <style>
+        /* =========================================================
+           NOVA COLLEGE STUDENT DASHBOARD
+        ========================================================= */
+
+        :root {
+            --primary: #0b3d91;
+            --primary-dark: #06265c;
+            --secondary: #f4b400;
+            --success: #198754;
+            --danger: #dc3545;
+            --warning: #ff9800;
+            --info: #0d6efd;
+            --dark: #172033;
+            --text: #374151;
+            --muted: #6b7280;
+            --light: #f5f7fb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+            --radius: 18px;
+        }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #222;
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+            background: var(--light);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        .header {
-            background: linear-gradient(
-                135deg,
-                #123b70,
-                #1769d1
-            );
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-            color: white;
-            padding: 18px 30px;
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .dashboard-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-inner {
+            width: min(1200px, 92%);
+            margin: auto;
+            min-height: 78px;
 
             display: flex;
-            justify-content: space-between;
             align-items: center;
-
+            justify-content: space-between;
             gap: 20px;
         }
 
-        .college-name {
-            font-size: 23px;
-            font-weight: bold;
-        }
-
-        .logout-button {
-            border: none;
-            background: white;
-            color: #1769d1;
-
-            padding: 10px 18px;
-            border-radius: 8px;
-
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .logout-button:hover {
-            background: #eef5ff;
-        }
-
-        .container {
-            width: 92%;
-            max-width: 1200px;
-            margin: 35px auto;
-        }
-
-        .welcome {
-            background: white;
-            padding: 25px;
-
-            border-radius: 15px;
-
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.07);
-
-            margin-bottom: 25px;
-        }
-
-        .welcome h1 {
-            margin: 0 0 8px;
-            color: #123b70;
-        }
-
-        .welcome p {
-            margin: 0;
-            color: #666;
-        }
-
-        .profile-card {
-            background: white;
-            padding: 25px;
-
-            border-radius: 15px;
-
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.07);
-
-            margin-bottom: 25px;
-        }
-
-        .profile-top {
+        .brand {
             display: flex;
             align-items: center;
-
-            gap: 18px;
-            margin-bottom: 25px;
+            gap: 12px;
+            min-width: 0;
         }
 
-        .avatar {
-            width: 75px;
-            height: 75px;
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(11, 61, 145, 0.1);
+        }
 
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-text h1 {
+            color: var(--primary);
+            font-size: 20px;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+
+        .brand-text span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-name-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .student-avatar {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-
-            background: #1769d1;
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                #2563eb
+            );
             color: white;
 
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
-            font-size: 25px;
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 15px;
         }
 
-        .profile-top h2 {
-            margin: 0 0 5px;
-            color: #123b70;
+        .logout-btn {
+            border: none;
+            background: var(--danger);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.25s ease;
         }
 
-        .profile-top p {
-            margin: 0;
-            color: #777;
+        .logout-btn:hover {
+            background: #b02a37;
+            transform: translateY(-1px);
         }
 
-        .profile-grid {
-            display: grid;
+        /* =========================================================
+           PAGE
+        ========================================================= */
 
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(220px, 1fr)
+        .dashboard-wrapper {
+            width: min(1200px, 92%);
+            margin: 0 auto;
+            padding: 38px 0 60px;
+        }
+
+        .welcome-card {
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b3d91,
+                    #082c68
                 );
 
-            gap: 18px;
+            color: white;
+            border-radius: 24px;
+            padding: 36px;
+
+            margin-bottom: 28px;
+
+            box-shadow:
+                0 18px 45px rgba(11, 61, 145, 0.2);
         }
 
-        .profile-item {
-            background: #f7faff;
+        .welcome-card::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            right: -100px;
+            top: -100px;
 
-            padding: 18px;
-            border-radius: 10px;
-
-            border: 1px solid #e5edf8;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .profile-label {
-            display: block;
+        .welcome-card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: 100px;
+            bottom: -120px;
 
+            border-radius: 50%;
+            background: rgba(244, 180, 0, 0.12);
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-label {
+            display: inline-block;
+            color: #ffd75a;
             font-size: 13px;
-            color: #777;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
 
+        .welcome-card h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .welcome-card p {
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* =========================================================
+           STATUS
+        ========================================================= */
+
+        .status-message {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-message.success {
+            background: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+
+        .status-message.info {
+            background: #cff4fc;
+            color: #055160;
+            border: 1px solid #b6effb;
+        }
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow);
+
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            transition: transform 0.25s ease,
+                        box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef4ff;
+            color: var(--primary);
+
+            font-size: 23px;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: #e9f7ef;
+            color: var(--success);
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: #fff4df;
+            color: #c27800;
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: #f2eaff;
+            color: #7c3aed;
+        }
+
+        .stat-info {
+            min-width: 0;
+        }
+
+        .stat-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .stat-info strong {
+            display: block;
+            color: var(--dark);
+            font-size: 22px;
+            line-height: 1.1;
+        }
+
+        /* =========================================================
+           CONTENT GRID
+        ========================================================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1.25fr)
+                minmax(300px, 0.75fr);
+            gap: 24px;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .card-header h3 {
+            color: var(--dark);
+            font-size: 18px;
+        }
+
+        .card-header span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .card-body {
+            padding: 22px;
+        }
+
+        /* =========================================================
+           STUDENT INFORMATION
+        ========================================================= */
+
+        .info-list {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .info-item {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fafbfe;
+        }
+
+        .info-item label {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 6px;
         }
 
-        .profile-value {
-            font-size: 16px;
-
-            font-weight: bold;
-            color: #222;
-
+        .info-item strong {
+            display: block;
+            color: var(--dark);
+            font-size: 14px;
             word-break: break-word;
         }
 
-        .cards {
-            display: grid;
+        /* =========================================================
+           QUICK ACTIONS
+        ========================================================= */
 
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(220px, 1fr)
+        .action-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .action-btn {
+            width: 100%;
+            border: 1px solid var(--border);
+            background: white;
+            padding: 15px 16px;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            cursor: pointer;
+            text-align: left;
+
+            transition: 0.2s ease;
+        }
+
+        .action-btn:hover {
+            border-color: rgba(11, 61, 145, 0.35);
+            background: #f7faff;
+            transform: translateX(3px);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #eef4ff;
+            color: var(--primary);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .action-text strong {
+            display: block;
+            color: var(--dark);
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .action-text span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           FEE SECTION
+        ========================================================= */
+
+        .fee-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fbff,
+                    #ffffff
                 );
 
-            gap: 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
         }
 
-        .card {
-            background: white;
+        .fee-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--border);
+        }
 
-            padding: 25px;
-            border-radius: 15px;
+        .fee-row:last-child {
+            border-bottom: none;
+        }
 
-            box-shadow:
-                0 8px 25px
-                rgba(0,0,0,0.07);
+        .fee-row span {
+            color: var(--muted);
+            font-size: 13px;
+        }
 
+        .fee-row strong {
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .fee-balance {
+            color: var(--danger) !important;
+        }
+
+        /* =========================================================
+           PAYMENT STATUS
+        ========================================================= */
+
+        .payment-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 6px 10px;
+            border-radius: 999px;
+
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: capitalize;
+        }
+
+        .payment-status.paid {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .payment-status.pending {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .payment-status.failed {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .payment-status.unknown {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .dashboard-footer {
+            margin-top: 35px;
             text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
         }
 
-        .card h3 {
-            margin-top: 0;
-            color: #123b70;
+        .dashboard-footer strong {
+            color: var(--primary);
         }
 
-        .big-number {
-            font-size: 34px;
+        /* =========================================================
+           LOADING
+        ========================================================= */
 
-            font-weight: bold;
-
-            color: #1769d1;
-
-            margin: 15px 0;
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 35px;
+            color: var(--muted);
+            font-size: 14px;
         }
 
-        .card p {
-            color: #777;
-            margin-bottom: 0;
+        .spinner {
+            width: 22px;
+            height: 22px;
+            border: 3px solid #dbe4f5;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
 
-        #dashboardMessage {
-            text-align: center;
-            margin: 20px 0;
-            color: #777;
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        footer {
-            text-align: center;
-            color: #777;
-            padding: 30px 15px;
-        }
+        /* =========================================================
+           MOBILE
+        ========================================================= */
 
-        @media (max-width: 600px) {
-
-            .header {
-                padding: 15px;
+        @media (max-width: 1000px) {
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
             }
 
-            .college-name {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .header-inner {
+                min-height: 68px;
+            }
+
+            .brand-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .brand-text h1 {
+                font-size: 17px;
+            }
+
+            .brand-text span {
+                display: none;
+            }
+
+            .student-name-header {
+                display: none;
+            }
+
+            .logout-btn {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+
+            .dashboard-wrapper {
+                width: 94%;
+                padding-top: 22px;
+            }
+
+            .welcome-card {
+                padding: 26px 22px;
+                border-radius: 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+                gap: 10px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stat-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 19px;
+            }
+
+            .stat-info strong {
                 font-size: 18px;
             }
 
-            .container {
-                width: 94%;
-                margin-top: 20px;
+            .info-list {
+                grid-template-columns: 1fr;
             }
 
-            .welcome h1 {
-                font-size: 24px;
+            .card-header,
+            .card-body {
+                padding: 17px;
             }
-
         }
 
-    </style>
+        @media (max-width: 430px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
 
+            .stat-card {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .welcome-card h2 {
+                font-size: 27px;
+            }
+
+            .welcome-card p {
+                font-size: 13px;
+            }
+
+            .dashboard-wrapper {
+                width: 95%;
+            }
+
+            .brand-text h1 {
+                font-size: 16px;
+            }
+
+            .logout-btn {
+                padding: 8px 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <header class="header">
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
 
-        <div class="college-name">
-            Nova College
+    <header class="dashboard-header">
+        <div class="header-inner">
+
+            <a href="index.html" class="brand">
+                <img
+                    src="logo.jpeg"
+                    alt="Nova College Logo"
+                    class="brand-logo"
+                    onerror="this.style.display='none'"
+                >
+
+                <div class="brand-text">
+                    <h1>Nova College</h1>
+                    <span>Student Portal</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+
+                <div class="student-name-header">
+                    <div
+                        class="student-avatar"
+                        id="headerAvatar"
+                    >
+                        S
+                    </div>
+
+                    <span id="headerStudentName">
+                        Student
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    class="logout-btn"
+                    id="logoutButton"
+                >
+                    Logout
+                </button>
+
+            </div>
         </div>
-
-        <button
-            id="logoutButton"
-            class="logout-button"
-        >
-            Logout
-        </button>
-
     </header>
 
 
-    <main class="container">
+    <!-- =========================================================
+         MAIN
+    ========================================================= -->
 
-        <section class="welcome">
+    <main class="dashboard-wrapper">
 
-            <h1>
-                Welcome,
-                <span id="studentName">
-                    Student
-                </span>!
-            </h1>
+        <!-- Welcome -->
 
-            <p>
-                Welcome to your Nova College student dashboard.
-            </p>
+        <section class="welcome-card">
+
+            <div class="welcome-content">
+
+                <span class="welcome-label">
+                    Student Dashboard
+                </span>
+
+                <h2>
+                    Welcome,
+                    <span id="welcomeStudentName">
+                        Student
+                    </span>
+                </h2>
+
+                <p>
+                    Manage your Nova College student information,
+                    academic progress, attendance and fee details
+                    from one place.
+                </p>
+
+            </div>
 
         </section>
 
 
-        <div id="dashboardMessage"></div>
+        <!-- Status -->
+
+        <div
+            id="dashboardMessage"
+            class="status-message"
+            role="alert"
+        ></div>
 
 
-        <section class="profile-card">
+        <!-- =====================================================
+             STATS
+        ====================================================== -->
 
-            <div class="profile-top">
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div class="stat-info">
+                    <span>Course</span>
+
+                    <strong id="statCourse">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <div class="stat-info">
+                    <span>Attendance</span>
+
+                    <strong id="statAttendance">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ★
+                </div>
+
+                <div class="stat-info">
+                    <span>GPA</span>
+
+                    <strong id="statGpa">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div class="stat-info">
+                    <span>Fee Balance</span>
+
+                    <strong id="statFeeBalance">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <section class="content-grid">
+
+            <!-- STUDENT INFORMATION -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Student Information
+                    </h3>
+
+                    <span>
+                        Personal & academic details
+                    </span>
+
+                </div>
 
                 <div
-                    class="avatar"
-                    id="studentInitials"
+                    class="card-body"
+                    id="studentInformationContainer"
                 >
-                    N
-                </div>
 
-                <div>
-
-                    <h2 id="profileName">
-                        Student
-                    </h2>
-
-                    <p>
-                        Student Profile
-                    </p>
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Loading student information...
+                    </div>
 
                 </div>
 
             </div>
 
 
-            <div class="profile-grid">
+            <!-- RIGHT COLUMN -->
 
-                <div class="profile-item">
+            <div>
 
-                    <span class="profile-label">
-                        Email
-                    </span>
+                <!-- QUICK ACTIONS -->
 
-                    <span
-                        class="profile-value"
-                        id="profileEmail"
-                    >
-                        Loading...
-                    </span>
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Quick Actions
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="action-list">
+
+                            <button
+                                type="button"
+                                class="action-btn"
+                                id="studentInfoButton"
+                            >
+
+                                <div class="action-icon">
+                                    👤
+                                </div>
+
+                                <div class="action-text">
+
+                                    <strong>
+                                        Student Information
+                                    </strong>
+
+                                    <span>
+                                        View your complete information
+                                    </span>
+
+                                </div>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="action-btn"
+                                id="refreshDashboardButton"
+                            >
+
+                                <div class="action-icon">
+                                    ↻
+                                </div>
+
+                                <div class="action-text">
+
+                                    <strong>
+                                        Refresh Dashboard
+                                    </strong>
+
+                                    <span>
+                                        Get the latest information
+                                    </span>
+
+                                </div>
+
+                            </button>
+
+
+                            <a
+                                href="index.html"
+                                class="action-btn"
+                            >
+
+                                <div class="action-icon">
+                                    🏠
+                                </div>
+
+                                <div class="action-text">
+
+                                    <strong>
+                                        College Home
+                                    </strong>
+
+                                    <span>
+                                        Return to Nova College website
+                                    </span>
+
+                                </div>
+
+                            </a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <div class="profile-item">
+                <!-- FEE DETAILS -->
 
-                    <span class="profile-label">
-                        Phone
-                    </span>
+                <div
+                    class="dashboard-card"
+                    style="margin-top: 24px;"
+                >
 
-                    <span
-                        class="profile-value"
-                        id="profilePhone"
-                    >
-                        Loading...
-                    </span>
+                    <div class="card-header">
 
-                </div>
+                        <h3>
+                            Fee Details
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="fee-box">
+
+                            <div class="fee-row">
+
+                                <span>
+                                    Total Fee
+                                </span>
+
+                                <strong id="totalFee">
+                                    —
+                                </strong>
+
+                            </div>
 
 
-                <div class="profile-item">
+                            <div class="fee-row">
 
-                    <span class="profile-label">
-                        Course
-                    </span>
+                                <span>
+                                    Paid Amount
+                                </span>
 
-                    <span
-                        class="profile-value"
-                        id="profileCourse"
-                    >
-                        Loading...
-                    </span>
+                                <strong id="paidAmount">
+                                    —
+                                </strong>
 
-                </div>
+                            </div>
 
 
-                <div class="profile-item">
+                            <div class="fee-row">
 
-                    <span class="profile-label">
-                        Student ID
-                    </span>
+                                <span>
+                                    Remaining Balance
+                                </span>
 
-                    <span
-                        class="profile-value"
-                        id="profileId"
-                    >
-                        Loading...
-                    </span>
+                                <strong
+                                    id="remainingBalance"
+                                    class="fee-balance"
+                                >
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -396,552 +1130,1250 @@
         </section>
 
 
-        <section class="cards">
+        <!-- =====================================================
+             PAYMENT STATUS
+        ====================================================== -->
 
-            <div
-                class="card"
-                id="attendance"
-            >
+        <section
+            class="dashboard-card"
+            style="margin-top: 24px;"
+        >
+
+            <div class="card-header">
 
                 <h3>
-                    Attendance
+                    Admission & Payment Status
                 </h3>
 
-                <div class="big-number">
-                    --
-                </div>
-
-                <p>
-                    Current attendance
-                </p>
+                <span id="paymentStatusText">
+                    Checking...
+                </span>
 
             </div>
 
+            <div class="card-body">
 
-            <div
-                class="card"
-                id="results"
-            >
+                <div class="fee-box">
 
-                <h3>
-                    GPA
-                </h3>
+                    <div class="fee-row">
 
-                <div class="big-number">
-                    --
+                        <span>
+                            Payment Method
+                        </span>
+
+                        <strong id="paymentMethod">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="fee-row">
+
+                        <span>
+                            Admission Amount
+                        </span>
+
+                        <strong id="admissionAmount">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="fee-row">
+
+                        <span>
+                            Payment Status
+                        </span>
+
+                        <span
+                            id="paymentStatusBadge"
+                            class="payment-status unknown"
+                        >
+                            Unknown
+                        </span>
+
+                    </div>
+
                 </div>
-
-                <p>
-                    Current GPA
-                </p>
-
-            </div>
-
-
-            <div
-                class="card"
-                id="fees"
-            >
-
-                <h3>
-                    Fee Balance
-                </h3>
-
-                <div class="big-number">
-                    --
-                </div>
-
-                <p>
-                    Current balance
-                </p>
 
             </div>
 
         </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © <span id="currentYear"></span>
+                <strong>Nova College</strong>.
+                All rights reserved.
+            </p>
+
+            <p>
+                Student Portal
+            </p>
+
+        </footer>
 
     </main>
 
 
-    <footer>
+    <!-- =========================================================
+         DASHBOARD SCRIPT
+    ========================================================= -->
 
-        © 2026 Nova College.
-        All rights reserved.
+    <script>
 
-    </footer>
+        /*
+         * API_BASE_URL is intentionally empty.
+         *
+         * This makes the dashboard work with:
+         *
+         * PC:
+         * http://localhost:5000/dashboard.html
+         *
+         * Phone:
+         * http://YOUR-PC-IP:5000/dashboard.html
+         *
+         * Do NOT use:
+         * http://localhost:5000/api/...
+         */
 
-<script>
+        const API_BASE_URL = "";
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("=================================");
-    console.log("Nova College Dashboard Started");
-    console.log("=================================");
+        /* =====================================================
+           AUTHENTICATION HELPERS
+        ====================================================== */
 
-    loadStudentDashboard();
+        function getAuthToken() {
 
-    const logoutButton =
-        document.getElementById("logoutButton");
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener("click", function () {
-
-            localStorage.removeItem("student");
-
-            window.location.replace(
-                "/loginform.html"
+            return (
+                localStorage.getItem("token") ||
+                sessionStorage.getItem("token") ||
+                ""
             );
 
-        });
-
-    }
-
-});
+        }
 
 
-/* =====================================================
-   LOAD STUDENT DASHBOARD
-===================================================== */
+        function clearAuthStorage() {
 
-async function loadStudentDashboard() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("student");
 
-    const message =
-        document.getElementById("dashboardMessage");
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("student");
 
-    try {
-
-        const rawStudent =
-            localStorage.getItem("student");
+        }
 
 
-        /* ---------------------------------------------
-           LOGIN CHECK
-        --------------------------------------------- */
+        function getStoredUser() {
 
-        if (!rawStudent) {
+            const localUser =
+                localStorage.getItem("user");
 
-            if (message) {
+            const sessionUser =
+                sessionStorage.getItem("user");
 
-                message.innerHTML =
-                    'Please login first. <a href="/loginform.html">Login here</a>.';
+            const localStudent =
+                localStorage.getItem("student");
+
+            const sessionStudent =
+                sessionStorage.getItem("student");
+
+            const raw =
+                localUser ||
+                sessionUser ||
+                localStudent ||
+                sessionStudent;
+
+            if (!raw) {
+                return null;
+            }
+
+            try {
+
+                return JSON.parse(raw);
+
+            } catch (error) {
+
+                console.error(
+                    "Invalid stored user:",
+                    error
+                );
+
+                return null;
 
             }
 
-            return;
         }
 
 
-        let student;
+        function authHeaders() {
 
-        try {
+            const token =
+                getAuthToken();
 
-            student =
-                JSON.parse(rawStudent);
-
-        } catch (error) {
-
-            console.error(
-                "Invalid student data:",
-                error
-            );
-
-            localStorage.removeItem("student");
-
-            window.location.replace(
-                "/loginform.html"
-            );
-
-            return;
-        }
-
-
-        /* ---------------------------------------------
-           GET STUDENT ID OR EMAIL
-        --------------------------------------------- */
-
-        const studentKey =
-            student._id ||
-            student.id ||
-            student.studentId ||
-            student.email;
-
-
-        if (!studentKey) {
-
-            throw new Error(
-                "Student account information is missing."
-            );
+            return {
+                "Accept": "application/json",
+                "Authorization":
+                    `Bearer ${token}`
+            };
 
         }
 
 
-        console.log(
-            "Loading student:",
-            studentKey
-        );
+        /* =====================================================
+           SAFE JSON RESPONSE
+        ====================================================== */
 
+        async function readJsonResponse(response) {
 
-        /* ---------------------------------------------
-           SHOW SAVED INFORMATION FIRST
-        --------------------------------------------- */
+            const text =
+                await response.text();
 
-        displayStudentData(student);
+            if (!text) {
 
+                throw new Error(
+                    "The server returned an empty response."
+                );
 
-        /* ---------------------------------------------
-           GET LATEST INFORMATION FROM MONGODB
-        --------------------------------------------- */
+            }
 
-        const response = await fetch(
-            "/api/student/dashboard?student=" +
-            encodeURIComponent(studentKey)
-        );
+            const contentType =
+                response.headers.get(
+                    "content-type"
+                ) || "";
 
+            if (
+                contentType.includes("text/html") ||
+                text.trim().startsWith("<!DOCTYPE") ||
+                text.trim().startsWith("<html")
+            ) {
 
-        console.log(
-            "Dashboard API status:",
-            response.status
-        );
+                throw new Error(
+                    "The server returned HTML instead of JSON. Make sure you opened dashboard.html through http://localhost:5000/ and Node.js is running."
+                );
 
+            }
 
-        const data =
-            await response.json();
+            let data;
 
+            try {
 
-        if (!response.ok || !data.success) {
+                data = JSON.parse(text);
 
-            throw new Error(
-                data.message ||
-                "Unable to load student information."
-            );
+            } catch (error) {
 
-        }
+                console.error(
+                    "Invalid JSON response:",
+                    text
+                );
 
+                throw new Error(
+                    "The server returned invalid JSON."
+                );
 
-        console.log(
-            "Latest MongoDB student:",
-            data.student
-        );
+            }
 
+            if (!response.ok) {
 
-        /* ---------------------------------------------
-           UPDATE LOCAL STORAGE
-        --------------------------------------------- */
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    `Server error: ${response.status}`
+                );
 
-        if (data.student) {
+            }
 
-            localStorage.setItem(
-                "student",
-                JSON.stringify(data.student)
-            );
-
-
-            displayStudentData(
-                data.student
-            );
-
-        }
-
-
-        /* ---------------------------------------------
-           DISPLAY ATTENDANCE / GPA / FEES
-        --------------------------------------------- */
-
-        if (data.dashboard) {
-
-            displayDashboardInfo(
-                data.dashboard
-            );
+            return data;
 
         }
 
 
-        if (message) {
-
-            message.textContent = "";
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Dashboard error:",
-            error
-        );
-
-
-        if (message) {
-
-            message.textContent =
-                error.message ||
-                "Unable to load student information.";
-
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   DISPLAY STUDENT PROFILE
-===================================================== */
-
-function displayStudentData(student) {
-
-    const name =
-        student.name ||
-        student.fullName ||
-        student.studentName ||
-        "Student";
-
-
-    const email =
-        student.email ||
-        "Not available";
-
-
-    const phone =
-        student.phone ||
-        student.mobile ||
-        "Not available";
-
-
-    const course =
-        student.course ||
-        student.program ||
-        student.programName ||
-        "Not available";
-
-
-    const studentId =
-        student.studentId ||
-        student.rollNumber ||
-        student.rollNumber ||
-        student.rollNo ||
-        student._id ||
-        student.id ||
-        "Not assigned";
-
-
-    /* NAME */
-
-    const studentName =
-        document.getElementById(
-            "studentName"
-        );
-
-    if (studentName) {
-
-        studentName.textContent =
-            name;
-
-    }
-
-
-    /* PROFILE NAME */
-
-    const profileName =
-        document.getElementById(
-            "profileName"
-        );
-
-    if (profileName) {
-
-        profileName.textContent =
-            name;
-
-    }
-
-
-    /* EMAIL */
-
-    const profileEmail =
-        document.getElementById(
-            "profileEmail"
-        );
-
-    if (profileEmail) {
-
-        profileEmail.textContent =
-            email;
-
-    }
-
-
-    /* PHONE */
-
-    const profilePhone =
-        document.getElementById(
-            "profilePhone"
-        );
-
-    if (profilePhone) {
-
-        profilePhone.textContent =
-            phone;
-
-    }
-
-
-    /* COURSE */
-
-    const profileCourse =
-        document.getElementById(
-            "profileCourse"
-        );
-
-    if (profileCourse) {
-
-        profileCourse.textContent =
-            course;
-
-    }
-
-
-    /* STUDENT ID */
-
-    const profileId =
-        document.getElementById(
-            "profileId"
-        );
-
-    if (profileId) {
-
-        profileId.textContent =
-            studentId;
-
-    }
-
-
-    /* INITIALS */
-
-    const initialsElement =
-        document.getElementById(
-            "studentInitials"
-        );
-
-    if (initialsElement) {
-
-        const initials =
-            name
-                .trim()
-                .split(/\s+/)
-                .slice(0, 2)
-                .map(function (word) {
-
-                    return word.charAt(0);
-
-                })
-                .join("")
-                .toUpperCase();
-
-
-        initialsElement.textContent =
-            initials || "N";
-
-    }
-
-}
-
-
-/* =====================================================
-   DISPLAY ATTENDANCE / GPA / FEE
-===================================================== */
-
-function displayDashboardInfo(data) {
-
-    /* ATTENDANCE */
-
-    const attendance =
-        document.querySelector(
-            "#attendance .big-number"
-        );
-
-    if (
-        attendance &&
-        data.attendance !== undefined
-    ) {
-
-        attendance.textContent =
-            data.attendance + "%";
-
-    }
-
-
-    /* GPA */
-
-    const gpa =
-        document.querySelector(
-            "#results .big-number"
-        );
-
-    if (
-        gpa &&
-        data.gpa !== undefined
-    ) {
-
-        gpa.textContent =
-            data.gpa;
-
-    }
-
-
-    /* FEE BALANCE */
-
-    const fees =
-        document.querySelector(
-            "#fees .big-number"
-        );
-
-    if (fees) {
-
-        if (
-            data.fees !== undefined
+        /* =====================================================
+           MESSAGE
+        ====================================================== */
+
+        function showMessage(
+            message,
+            type = "info"
         ) {
 
-            fees.textContent =
-                data.fees;
+            const element =
+                document.getElementById(
+                    "dashboardMessage"
+                );
 
-        } else if (
-            data.feeBalance !== undefined
-        ) {
+            if (!element) {
+                return;
+            }
 
-            fees.textContent =
-                "PKR " +
-                Number(
-                    data.feeBalance
-                ).toLocaleString();
+            element.textContent =
+                message;
 
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   AUTO REFRESH
-   If admin changes student information,
-   dashboard gets latest MongoDB data.
-===================================================== */
-
-setInterval(
-    function () {
-
-        if (
-            localStorage.getItem("student")
-        ) {
-
-            loadStudentDashboard();
+            element.className =
+                `status-message show ${type}`;
 
         }
 
-    },
-    10000
-);
 
-</script>
+        function hideMessage() {
+
+            const element =
+                document.getElementById(
+                    "dashboardMessage"
+                );
+
+            if (!element) {
+                return;
+            }
+
+            element.className =
+                "status-message";
+
+            element.textContent =
+                "";
+
+        }
+
+
+        /* =====================================================
+           FORMAT VALUES
+        ====================================================== */
+
+        function formatMoney(value) {
+
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return "Rs. 0";
+            }
+
+            const number =
+                Number(value);
+
+            if (Number.isNaN(number)) {
+                return String(value);
+            }
+
+            return (
+                "Rs. " +
+                number.toLocaleString(
+                    "en-PK"
+                )
+            );
+
+        }
+
+
+        function formatPaymentMethod(value) {
+
+            if (!value) {
+                return "Not selected";
+            }
+
+            const method =
+                String(value)
+                    .toLowerCase();
+
+            if (method === "jazzcash") {
+                return "JazzCash";
+            }
+
+            if (method === "easypaisa") {
+                return "Easypaisa";
+            }
+
+            return String(value);
+
+        }
+
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "—";
+            }
+
+            const date =
+                new Date(value);
+
+            if (Number.isNaN(date.getTime())) {
+                return String(value);
+            }
+
+            return date.toLocaleDateString(
+                "en-PK",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+        }
+
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* =====================================================
+           DISPLAY USER
+        ====================================================== */
+
+        function displayHeaderUser(user) {
+
+            if (!user) {
+                return;
+            }
+
+            const name =
+                user.name ||
+                user.studentName ||
+                "Student";
+
+            const nameElement =
+                document.getElementById(
+                    "headerStudentName"
+                );
+
+            const welcomeElement =
+                document.getElementById(
+                    "welcomeStudentName"
+                );
+
+            const avatarElement =
+                document.getElementById(
+                    "headerAvatar"
+                );
+
+            if (nameElement) {
+                nameElement.textContent =
+                    name;
+            }
+
+            if (welcomeElement) {
+                welcomeElement.textContent =
+                    name;
+            }
+
+            if (avatarElement) {
+
+                avatarElement.textContent =
+                    name
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase() || "S";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOAD DASHBOARD
+        ====================================================== */
+
+        async function loadDashboard() {
+
+            const token =
+                getAuthToken();
+
+            if (!token) {
+
+                window.location.replace(
+                    "loginform.html"
+                );
+
+                return;
+
+            }
+
+            try {
+
+                hideMessage();
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/api/student/dashboard",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+                const data =
+                    await readJsonResponse(
+                        response
+                    );
+
+                if (!data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load dashboard."
+                    );
+
+                }
+
+                const student =
+                    data.student ||
+                    data.data ||
+                    {};
+
+                const dashboard =
+                    data.dashboard ||
+                    {};
+
+                /*
+                 * Store the latest safe student
+                 * information locally.
+                 */
+
+                try {
+
+                    localStorage.setItem(
+                        "student",
+                        JSON.stringify(
+                            student
+                        )
+                    );
+
+                    sessionStorage.setItem(
+                        "student",
+                        JSON.stringify(
+                            student
+                        )
+                    );
+
+                } catch (storageError) {
+
+                    console.warn(
+                        "Could not update stored student:",
+                        storageError
+                    );
+
+                }
+
+
+                displayHeaderUser(
+                    student
+                );
+
+                renderDashboard(
+                    student,
+                    dashboard
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Dashboard error:",
+                    error
+                );
+
+                if (
+                    error.message
+                        .toLowerCase()
+                        .includes("token") ||
+                    error.message
+                        .toLowerCase()
+                        .includes("unauthorized") ||
+                    error.message
+                        .toLowerCase()
+                        .includes("authentication")
+                ) {
+
+                    clearAuthStorage();
+
+                    window.location.replace(
+                        "loginform.html"
+                    );
+
+                    return;
+
+                }
+
+                showMessage(
+                    error.message ||
+                    "Unable to load your dashboard.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RENDER DASHBOARD
+        ====================================================== */
+
+        function renderDashboard(
+            student,
+            dashboard
+        ) {
+
+            const course =
+                student.course ||
+                dashboard.course ||
+                "Not assigned";
+
+            const attendance =
+                student.attendance ??
+                dashboard.attendance ??
+                "0%";
+
+            const gpa =
+                student.gpa ??
+                dashboard.gpa ??
+                "—";
+
+            const feeBalance =
+                student.feeBalance ??
+                dashboard.feeBalance ??
+                0;
+
+            const amount =
+                student.amount ??
+                dashboard.amount ??
+                5000;
+
+            const paymentMethod =
+                student.paymentMethod ||
+                dashboard.paymentMethod ||
+                "";
+
+            const paymentStatus =
+                student.paymentStatus ||
+                dashboard.paymentStatus ||
+                "pending";
+
+
+            /* Header */
+
+            displayHeaderUser(
+                student
+            );
+
+
+            /* Stats */
+
+            const statCourse =
+                document.getElementById(
+                    "statCourse"
+                );
+
+            const statAttendance =
+                document.getElementById(
+                    "statAttendance"
+                );
+
+            const statGpa =
+                document.getElementById(
+                    "statGpa"
+                );
+
+            const statFeeBalance =
+                document.getElementById(
+                    "statFeeBalance"
+                );
+
+
+            if (statCourse) {
+                statCourse.textContent =
+                    course;
+            }
+
+            if (statAttendance) {
+                statAttendance.textContent =
+                    formatAttendance(
+                        attendance
+                    );
+            }
+
+            if (statGpa) {
+                statGpa.textContent =
+                    gpa;
+            }
+
+            if (statFeeBalance) {
+                statFeeBalance.textContent =
+                    formatMoney(
+                        feeBalance
+                    );
+            }
+
+
+            /* Student Information */
+
+            renderStudentInformation(
+                student
+            );
+
+
+            /* Fees */
+
+            const totalFee =
+                document.getElementById(
+                    "totalFee"
+                );
+
+            const paidAmount =
+                document.getElementById(
+                    "paidAmount"
+                );
+
+            const remainingBalance =
+                document.getElementById(
+                    "remainingBalance"
+                );
+
+
+            const numericAmount =
+                Number(amount) || 0;
+
+            const numericBalance =
+                Number(feeBalance) || 0;
+
+            const paid =
+                Math.max(
+                    numericAmount -
+                    numericBalance,
+                    0
+                );
+
+
+            if (totalFee) {
+                totalFee.textContent =
+                    formatMoney(
+                        numericAmount
+                    );
+            }
+
+            if (paidAmount) {
+                paidAmount.textContent =
+                    formatMoney(
+                        paid
+                    );
+            }
+
+            if (remainingBalance) {
+                remainingBalance.textContent =
+                    formatMoney(
+                        numericBalance
+                    );
+            }
+
+
+            /* Payment */
+
+            const paymentMethodElement =
+                document.getElementById(
+                    "paymentMethod"
+                );
+
+            const admissionAmount =
+                document.getElementById(
+                    "admissionAmount"
+                );
+
+            const paymentStatusBadge =
+                document.getElementById(
+                    "paymentStatusBadge"
+                );
+
+            const paymentStatusText =
+                document.getElementById(
+                    "paymentStatusText"
+                );
+
+
+            if (paymentMethodElement) {
+
+                paymentMethodElement.textContent =
+                    formatPaymentMethod(
+                        paymentMethod
+                    );
+
+            }
+
+            if (admissionAmount) {
+
+                admissionAmount.textContent =
+                    formatMoney(
+                        numericAmount
+                    );
+
+            }
+
+
+            const cleanStatus =
+                String(
+                    paymentStatus || "pending"
+                )
+                .toLowerCase();
+
+
+            if (paymentStatusBadge) {
+
+                paymentStatusBadge.textContent =
+                    cleanStatus;
+
+                paymentStatusBadge.className =
+                    "payment-status " +
+                    getPaymentStatusClass(
+                        cleanStatus
+                    );
+
+            }
+
+            if (paymentStatusText) {
+
+                paymentStatusText.textContent =
+                    getPaymentStatusText(
+                        cleanStatus
+                    );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ATTENDANCE
+        ====================================================== */
+
+        function formatAttendance(
+            attendance
+        ) {
+
+            if (
+                attendance === null ||
+                attendance === undefined ||
+                attendance === ""
+            ) {
+                return "0%";
+            }
+
+            const value =
+                String(attendance);
+
+            if (value.includes("%")) {
+                return value;
+            }
+
+            return value + "%";
+
+        }
+
+
+        /* =====================================================
+           STUDENT INFORMATION
+        ====================================================== */
+
+        function renderStudentInformation(
+            student
+        ) {
+
+            const container =
+                document.getElementById(
+                    "studentInformationContainer"
+                );
+
+            if (!container) {
+                return;
+            }
+
+
+            const name =
+                student.name ||
+                "Not available";
+
+            const email =
+                student.email ||
+                "Not available";
+
+            const phone =
+                student.phone ||
+                "Not available";
+
+            const course =
+                student.course ||
+                "Not assigned";
+
+            const id =
+                student.id ||
+                student._id ||
+                "Not assigned";
+
+            const createdAt =
+                student.createdAt;
+
+            const updatedAt =
+                student.updatedAt;
+
+
+            container.innerHTML = `
+
+                <div class="info-list">
+
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <strong>
+                            ${escapeHtml(name)}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Student ID</label>
+                        <strong>
+                            ${escapeHtml(id)}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Email</label>
+                        <strong>
+                            ${escapeHtml(email)}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Phone</label>
+                        <strong>
+                            ${escapeHtml(phone)}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Course</label>
+                        <strong>
+                            ${escapeHtml(course)}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Admission Date</label>
+                        <strong>
+                            ${escapeHtml(
+                                formatDate(
+                                    createdAt
+                                )
+                            )}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Last Updated</label>
+                        <strong>
+                            ${escapeHtml(
+                                formatDate(
+                                    updatedAt
+                                )
+                            )}
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Account Role</label>
+                        <strong>
+                            Student
+                        </strong>
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           PAYMENT STATUS
+        ====================================================== */
+
+        function getPaymentStatusClass(
+            status
+        ) {
+
+            if (
+                status === "paid" ||
+                status === "completed" ||
+                status === "success" ||
+                status === "successful"
+            ) {
+                return "paid";
+            }
+
+            if (
+                status === "failed" ||
+                status === "cancelled" ||
+                status === "canceled"
+            ) {
+                return "failed";
+            }
+
+            if (
+                status === "pending"
+            ) {
+                return "pending";
+            }
+
+            return "unknown";
+
+        }
+
+
+        function getPaymentStatusText(
+            status
+        ) {
+
+            if (
+                status === "paid" ||
+                status === "completed" ||
+                status === "success" ||
+                status === "successful"
+            ) {
+                return "Payment Completed";
+            }
+
+            if (
+                status === "failed" ||
+                status === "cancelled" ||
+                status === "canceled"
+            ) {
+                return "Payment Failed";
+            }
+
+            if (
+                status === "pending"
+            ) {
+                return "Payment Pending";
+            }
+
+            return "Payment Status Unknown";
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ====================================================== */
+
+        async function logoutStudent() {
+
+            const token =
+                getAuthToken();
+
+            try {
+
+                if (token) {
+
+                    await fetch(
+                        API_BASE_URL +
+                        "/api/logout",
+                        {
+                            method: "POST",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Logout request failed:",
+                    error
+                );
+
+            } finally {
+
+                clearAuthStorage();
+
+                window.location.replace(
+                    "loginform.html"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           STUDENT INFORMATION PAGE
+        ====================================================== */
+
+        function openStudentInformation() {
+
+            window.location.href =
+                "student-information.html";
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ====================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                /* Current year */
+
+                const year =
+                    document.getElementById(
+                        "currentYear"
+                    );
+
+                if (year) {
+
+                    year.textContent =
+                        new Date()
+                            .getFullYear();
+
+                }
+
+
+                /* Logout */
+
+                const logoutButton =
+                    document.getElementById(
+                        "logoutButton"
+                    );
+
+                if (logoutButton) {
+
+                    logoutButton.addEventListener(
+                        "click",
+                        logoutStudent
+                    );
+
+                }
+
+
+                /* Student information */
+
+                const studentInfoButton =
+                    document.getElementById(
+                        "studentInfoButton"
+                    );
+
+                if (studentInfoButton) {
+
+                    studentInfoButton.addEventListener(
+                        "click",
+                        openStudentInformation
+                    );
+
+                }
+
+
+                /* Refresh */
+
+                const refreshButton =
+                    document.getElementById(
+                        "refreshDashboardButton"
+                    );
+
+                if (refreshButton) {
+
+                    refreshButton.addEventListener(
+                        "click",
+                        function () {
+
+                            loadDashboard();
+
+                        }
+                    );
+
+                }
+
+
+                /* Check token immediately */
+
+                const token =
+                    getAuthToken();
+
+                if (!token) {
+
+                    window.location.replace(
+                        "loginform.html"
+                    );
+
+                    return;
+
+                }
+
+
+                /* Display stored user while loading */
+
+                const storedUser =
+                    getStoredUser();
+
+                if (storedUser) {
+
+                    displayHeaderUser(
+                        storedUser
+                    );
+
+                }
+
+
+                /* Load real server data */
+
+                loadDashboard();
+
+            }
+        );
+
+    </script>
+
 </body>
 </html>

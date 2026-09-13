@@ -1,368 +1,653 @@
-/*
-====================================================
- NOVA COLLEGE - MAIN SCRIPT
-====================================================
+"use strict";
 
-FLOW:
+/* =========================================================
+   NOVA COLLEGE — MAIN JAVASCRIPT
 
-Admission
-   ↓
-POST /api/register
-   ↓
-MongoDB
-   ↓
-Login
-   ↓
-POST /api/login
-   ↓
-localStorage
-   ↓
-Student Dashboard
-
-STUDENT INFORMATION:
-
-Student Information Page
-   ↓
-GET /api/student-information
-   ↓
-MongoDB
-
-Add / Edit / Delete
-   ↓
-Student Information
-====================================================
-*/
+   FEATURES:
+   ✓ Admission registration
+   ✓ Payment form
+   ✓ Student dashboard
+   ✓ JWT authentication
+   ✓ Student information CRUD
+   ✓ Mobile navigation
+   ✓ Welcome screen
+   ✓ Scroll animations
+   ✓ Active navigation
+   ✓ Back-to-top button
+   ✓ Smooth scrolling
+   ✓ Toast notifications
+   ✓ LAN / PC / PHONE compatible API URLs
+========================================================= */
 
 
-document.addEventListener("DOMContentLoaded", function () {
+/* =========================================================
+   GLOBAL HELPERS
+========================================================= */
 
-    console.log("Nova College JavaScript loaded");
-
-
-    /*
-    ====================================================
-    ADMISSION FORM
-    ====================================================
-    */
-
-    const admissionForm =
-        document.getElementById("admissionForm");
+const API_BASE_URL = "";
 
 
-    if (admissionForm) {
+/* =========================================================
+   AUTHENTICATION STORAGE HELPERS
+========================================================= */
 
-        admissionForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const submitButton =
-                    admissionForm.querySelector(
-                        'button[type="submit"]'
-                    );
+function getAuthToken() {
+    return (
+        localStorage.getItem("token") ||
+        sessionStorage.getItem("token") ||
+        ""
+    );
+}
 
 
-                if (submitButton) {
+function getStoredUser() {
+    const localUser =
+        localStorage.getItem("user");
 
-                    submitButton.disabled = true;
+    const sessionUser =
+        sessionStorage.getItem("user");
 
-                    submitButton.textContent =
-                        "Submitting...";
+    const localStudent =
+        localStorage.getItem("student");
+
+    const sessionStudent =
+        sessionStorage.getItem("student");
+
+    const raw =
+        localUser ||
+        sessionUser ||
+        localStudent ||
+        sessionStudent;
+
+    if (!raw) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(raw);
+    } catch (error) {
+        console.error(
+            "Invalid stored user data:",
+            error
+        );
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("student");
+
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("student");
+
+        return null;
+    }
+}
+
+
+function authHeaders(extraHeaders = {}) {
+    const token =
+        getAuthToken();
+
+    const headers = {
+        ...extraHeaders
+    };
+
+    if (token) {
+        headers.Authorization =
+            `Bearer ${token}`;
+    }
+
+    return headers;
+}
+
+
+function clearAuthStorage() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("student");
+    localStorage.removeItem("user");
+
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("student");
+    sessionStorage.removeItem("user");
+}
+
+
+/* =========================================================
+   DOM READY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        console.log(
+            "Nova College JavaScript loaded successfully."
+        );
+
+
+        /* -------------------------------------------------
+           WELCOME SCREEN
+        ------------------------------------------------- */
+
+        initWelcomeScreen();
+
+
+        /* -------------------------------------------------
+           MOBILE NAVIGATION
+        ------------------------------------------------- */
+
+        initMobileNavigation();
+
+
+        /* -------------------------------------------------
+           SMOOTH SCROLLING
+        ------------------------------------------------- */
+
+        initSmoothScrolling();
+
+
+        /* -------------------------------------------------
+           SCROLL REVEAL
+        ------------------------------------------------- */
+
+        initScrollReveal();
+
+
+        /* -------------------------------------------------
+           ACTIVE NAVIGATION
+        ------------------------------------------------- */
+
+        initActiveNavigation();
+
+
+        /* -------------------------------------------------
+           BACK TO TOP
+        ------------------------------------------------- */
+
+        initBackToTop();
+
+
+        /* -------------------------------------------------
+           ADMISSION FORM
+        ------------------------------------------------- */
+
+        initAdmissionForm();
+
+
+        /* -------------------------------------------------
+           PAYMENT FORM
+        ------------------------------------------------- */
+
+        initPaymentForm();
+
+
+        /* -------------------------------------------------
+           STUDENT DASHBOARD
+        ------------------------------------------------- */
+
+        const studentDashboard =
+            document.getElementById(
+                "studentDashboard"
+            );
+
+        /*
+         * The new dashboard.html may not have
+         * #studentDashboard because it loads its
+         * own dashboard code.
+         *
+         * Only load the old dashboard handler
+         * when that element exists.
+         */
+
+        if (studentDashboard) {
+            loadStudentDashboard();
+        }
+
+
+        /* -------------------------------------------------
+           LOGOUT
+        ------------------------------------------------- */
+
+        initLogout();
+
+
+        /* -------------------------------------------------
+           STUDENT INFORMATION
+        ------------------------------------------------- */
+
+        const studentForm =
+            document.getElementById(
+                "studentForm"
+            );
+
+        const studentTableBody =
+            document.getElementById(
+                "studentTableBody"
+            );
+
+        /*
+         * Student Information CRUD is ADMIN ONLY
+         * on the backend.
+         *
+         * Do not automatically call it for normal
+         * student pages.
+         */
+
+        const storedUser =
+            getStoredUser();
+
+        const isAdmin =
+            storedUser &&
+            storedUser.role === "admin";
+
+        if (
+            isAdmin &&
+            (
+                studentForm ||
+                studentTableBody
+            )
+        ) {
+            loadStudentInformation();
+        }
+
+
+        /* -------------------------------------------------
+           STUDENT INFORMATION FORM
+        ------------------------------------------------- */
+
+        if (studentForm) {
+
+            studentForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+                    await saveStudentInformation();
 
                 }
+            );
+
+        }
 
 
-                try {
+        /* -------------------------------------------------
+           BUTTON EFFECTS
+        ------------------------------------------------- */
 
-                    const formData =
-                        new FormData(admissionForm);
+        initButtonEffects();
 
-
-                    const name =
-                        formData.get("name")?.trim();
-
-                    const email =
-                        formData.get("email")?.trim().toLowerCase();
-
-                    const password =
-                        formData.get("password");
+    }
+);
 
 
-                    /*
-                    Basic validation
-                    */
+/* =========================================================
+   WELCOME SCREEN
+========================================================= */
 
-                    if (!name || !email || !password) {
+function initWelcomeScreen() {
 
-                        throw new Error(
-                            "Name, email and password are required."
+    const welcomeScreen =
+        document.getElementById(
+            "welcome-screen"
+        );
+
+    if (!welcomeScreen) {
+        return;
+    }
+
+    setTimeout(
+        function () {
+
+            welcomeScreen.classList.add(
+                "hide"
+            );
+
+            setTimeout(
+                function () {
+
+                    welcomeScreen.style.display =
+                        "none";
+
+                },
+                850
+            );
+
+        },
+        2700
+    );
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+function initMobileNavigation() {
+
+    const menuToggle =
+        document.querySelector(
+            ".menu-toggle"
+        );
+
+    const navMenu =
+        document.querySelector(
+            ".nav-menu"
+        );
+
+    if (
+        !menuToggle ||
+        !navMenu
+    ) {
+        return;
+    }
+
+
+    menuToggle.addEventListener(
+        "click",
+        function () {
+
+            navMenu.classList.toggle(
+                "open"
+            );
+
+            const opened =
+                navMenu.classList.contains(
+                    "open"
+                );
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                opened
+                    ? "true"
+                    : "false"
+            );
+
+        }
+    );
+
+
+    navMenu
+        .querySelectorAll("a")
+        .forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navMenu.classList.remove(
+                            "open"
+                        );
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
                         );
 
                     }
+                );
+
+            }
+        );
 
 
-                    /*
-                    Send admission to Node.js
-                    */
+    document.addEventListener(
+        "click",
+        function (event) {
 
-                    const response = await fetch(
-                        "/api/register",
-                        {
-                            method: "POST",
-                            body: formData
+            if (
+                !navMenu.contains(
+                    event.target
+                ) &&
+                !menuToggle.contains(
+                    event.target
+                )
+            ) {
+
+                navMenu.classList.remove(
+                    "open"
+                );
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SMOOTH SCROLLING
+========================================================= */
+
+function initSmoothScrolling() {
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function (event) {
+
+                        const targetId =
+                            this.getAttribute(
+                                "href"
+                            );
+
+                        if (
+                            !targetId ||
+                            targetId === "#"
+                        ) {
+                            return;
                         }
-                    );
 
+                        const target =
+                            document.querySelector(
+                                targetId
+                            );
 
-                    const data =
-                        await response.json();
+                        if (!target) {
+                            return;
+                        }
 
+                        event.preventDefault();
 
-                    if (!response.ok || !data.success) {
+                        const navbar =
+                            document.querySelector(
+                                ".main-navbar"
+                            );
 
-                        throw new Error(
-                            data.message ||
-                            "Admission submission failed."
-                        );
+                        const navHeight =
+                            navbar
+                                ? navbar.offsetHeight
+                                : 0;
 
-                    }
+                        const targetPosition =
+                            target.getBoundingClientRect()
+                                .top +
+                            window.scrollY -
+                            navHeight -
+                            15;
 
-
-                    console.log(
-                        "Admission successful:",
-                        data
-                    );
-
-
-                    alert(
-                        "Admission submitted successfully!\n\n" +
-                        "You can now login to your student account."
-                    );
-
-
-                    /*
-                    Go to login
-                    */
-
-                    window.location.href =
-                        "/loginform.html?registered=1";
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Admission error:",
-                        error
-                    );
-
-
-                    alert(
-                        error.message ||
-                        "Admission failed. Please try again."
-                    );
-
-
-                    if (submitButton) {
-
-                        submitButton.disabled = false;
-
-                        submitButton.textContent =
-                            "Submit Admission";
+                        window.scrollTo({
+                            top:
+                                targetPosition,
+                            behavior:
+                                "smooth"
+                        });
 
                     }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+function initScrollReveal() {
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+    if (
+        !revealElements.length
+    ) {
+        return;
+    }
+
+
+    if (
+        !(
+            "IntersectionObserver"
+            in window
+        )
+    ) {
+
+        revealElements.forEach(
+            function (element) {
+
+                element.classList.add(
+                    "visible"
+                );
+
+            }
+        );
+
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    revealElements.forEach(
+        function (element) {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+function initActiveNavigation() {
+
+    const navLinks =
+        document.querySelectorAll(
+            '.nav-menu a[href^="#"]'
+        );
+
+    if (!navLinks.length) {
+        return;
+    }
+
+
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+    if (!sections.length) {
+        return;
+    }
+
+
+    function updateActiveLink() {
+
+        const scrollPosition =
+            window.scrollY + 160;
+
+        let currentSection = "";
+
+
+        sections.forEach(
+            function (section) {
+
+                const top =
+                    section.offsetTop;
+
+                const height =
+                    section.offsetHeight;
+
+
+                if (
+                    scrollPosition >= top &&
+                    scrollPosition <
+                        top + height
+                ) {
+
+                    currentSection =
+                        section.id;
 
                 }
 
             }
         );
 
-    }
 
+        navLinks.forEach(
+            function (link) {
 
-
-    /*
-    ====================================================
-    PAYMENT FORM
-    ====================================================
-    */
-
-    const paymentForm =
-        document.getElementById("paymentForm");
-
-
-    if (paymentForm) {
-
-        paymentForm.addEventListener(
-            "submit",
-            async function (event) {
-
-                event.preventDefault();
-
-
-                const paymentButton =
-                    paymentForm.querySelector(
-                        'button[type="submit"]'
+                const href =
+                    link.getAttribute(
+                        "href"
                     );
 
-
-                if (paymentButton) {
-
-                    paymentButton.disabled = true;
-
-                    paymentButton.textContent =
-                        "Processing...";
-
-                }
-
-
-                try {
-
-                    const formData =
-                        new FormData(paymentForm);
-
-
-                    const paymentData = {
-
-                        name:
-                            formData.get("name") ||
-                            formData.get("fullName") ||
-                            "",
-
-                        email:
-                            formData.get("email") ||
-                            "",
-
-                        phone:
-                            formData.get("phone") ||
-                            formData.get("mobile") ||
-                            "",
-
-                        amount:
-                            formData.get("amount") ||
-                            "",
-
-                        paymentMethod:
-                            formData.get("paymentMethod") ||
-                            ""
-
-                    };
-
-
-                    const response = await fetch(
-                        "/api/payment",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(paymentData)
-                        }
-                    );
-
-
-                    const data =
-                        await response.json();
-
-
-                    if (!response.ok || !data.success) {
-
-                        throw new Error(
-                            data.message ||
-                            "Payment request failed."
-                        );
-
-                    }
-
-
-                    alert(
-                        data.message ||
-                        "Payment request created successfully."
-                    );
-
-
-                    console.log(
-                        "Payment:",
-                        data
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        "Payment error:",
-                        error
-                    );
-
-
-                    alert(
-                        error.message ||
-                        "Payment failed."
-                    );
-
-                } finally {
-
-                    if (paymentButton) {
-
-                        paymentButton.disabled = false;
-
-                        paymentButton.textContent =
-                            "Pay Now";
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    /*
-    ====================================================
-    STUDENT DASHBOARD
-    ====================================================
-    */
-
-    const studentDashboard =
-        document.getElementById("studentDashboard");
-
-
-    if (studentDashboard) {
-
-        loadStudentDashboard();
-
-    }
-
-
-
-    /*
-    ====================================================
-    LOGOUT
-    ====================================================
-    */
-
-    const logoutButton =
-        document.getElementById("logoutButton");
-
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            function () {
-
-                localStorage.removeItem("student");
-
-                window.location.replace(
-                    "/loginform.html"
+                link.classList.toggle(
+                    "active",
+                    href ===
+                        "#" +
+                        currentSection
                 );
 
             }
@@ -371,82 +656,803 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
-    /*
-    ====================================================
-    STUDENT INFORMATION PAGE
-    ====================================================
-    */
-
-    const studentForm =
-        document.getElementById("studentForm");
+    window.addEventListener(
+        "scroll",
+        updateActiveLink,
+        {
+            passive: true
+        }
+    );
 
 
-    const studentTableBody =
-        document.getElementById("studentTableBody");
+    updateActiveLink();
+
+}
 
 
-    /*
-    If student-information.html is open,
-    load all students.
-    */
+/* =========================================================
+   BACK TO TOP
+========================================================= */
 
-    if (studentForm || studentTableBody) {
+function initBackToTop() {
 
-        loadStudentInformation();
+    let backToTop =
+        document.querySelector(
+            ".back-to-top"
+        );
 
-    }
 
+    if (!backToTop) {
 
+        backToTop =
+            document.createElement(
+                "button"
+            );
 
-    /*
-    ====================================================
-    STUDENT INFORMATION FORM
-    ====================================================
-    */
+        backToTop.className =
+            "back-to-top";
 
-    if (studentForm) {
+        backToTop.type =
+            "button";
 
-        studentForm.addEventListener(
-            "submit",
-            async function (event) {
+        backToTop.setAttribute(
+            "aria-label",
+            "Back to top"
+        );
 
-                event.preventDefault();
+        backToTop.innerHTML =
+            "↑";
 
-                await saveStudentInformation();
-
-            }
+        document.body.appendChild(
+            backToTop
         );
 
     }
 
-});
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            if (
+                window.scrollY > 500
+            ) {
+
+                backToTop.classList.add(
+                    "show"
+                );
+
+            } else {
+
+                backToTop.classList.remove(
+                    "show"
+                );
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
 
 
+    backToTop.addEventListener(
+        "click",
+        function () {
 
-/*
-====================================================
- LOAD STUDENT DASHBOARD
-====================================================
-*/
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BUTTON EFFECTS
+========================================================= */
+
+function initButtonEffects() {
+
+    document
+        .querySelectorAll(
+            ".gold-btn, .white-btn, .outline-btn, .ad-btn, .portal-btn"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        this.classList.add(
+                            "button-clicked"
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                this.classList.remove(
+                                    "button-clicked"
+                                );
+
+                            },
+                            180
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   ADMISSION FORM
+========================================================= */
+
+function initAdmissionForm() {
+
+    const admissionForm =
+        document.getElementById(
+            "admissionForm"
+        );
+
+    if (!admissionForm) {
+        return;
+    }
+
+
+    admissionForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const submitButton =
+                admissionForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            const originalButtonText =
+                submitButton
+                    ? submitButton.textContent
+                    : "Submit Application & Pay";
+
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    "Submitting...";
+
+            }
+
+
+            try {
+
+                const formData =
+                    new FormData(
+                        admissionForm
+                    );
+
+
+                const name =
+                    String(
+                        formData.get(
+                            "name"
+                        ) || ""
+                    ).trim();
+
+
+                const email =
+                    String(
+                        formData.get(
+                            "email"
+                        ) || ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const password =
+                    String(
+                        formData.get(
+                            "password"
+                        ) || ""
+                    );
+
+
+                const phone =
+                    String(
+                        formData.get(
+                            "phone"
+                        ) || ""
+                    ).trim();
+
+
+                const course =
+                    String(
+                        formData.get(
+                            "course"
+                        ) || ""
+                    ).trim();
+
+
+                const paymentMethod =
+                    String(
+                        formData.get(
+                            "paymentMethod"
+                        ) || ""
+                    ).trim();
+
+
+                const amount =
+                    String(
+                        formData.get(
+                            "amount"
+                        ) || ""
+                    ).trim();
+
+
+                if (
+                    !name ||
+                    !email ||
+                    !password
+                ) {
+
+                    throw new Error(
+                        "Name, email and password are required."
+                    );
+
+                }
+
+
+                /* -------------------------------------------------
+                   STRONG PASSWORD VALIDATION
+                   Matches the backend requirements.
+                ------------------------------------------------- */
+
+                if (
+                    password.length < 8
+                ) {
+
+                    throw new Error(
+                        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+                    );
+
+                }
+
+
+                if (
+                    !/[A-Z]/.test(
+                        password
+                    )
+                ) {
+
+                    throw new Error(
+                        "Password must contain at least one uppercase letter."
+                    );
+
+                }
+
+
+                if (
+                    !/[a-z]/.test(
+                        password
+                    )
+                ) {
+
+                    throw new Error(
+                        "Password must contain at least one lowercase letter."
+                    );
+
+                }
+
+
+                if (
+                    !/[0-9]/.test(
+                        password
+                    )
+                ) {
+
+                    throw new Error(
+                        "Password must contain at least one number."
+                    );
+
+                }
+
+
+                if (
+                    !/[^A-Za-z0-9]/.test(
+                        password
+                    )
+                ) {
+
+                    throw new Error(
+                        "Password must contain at least one special character."
+                    );
+
+                }
+
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (
+                    !emailPattern.test(
+                        email
+                    )
+                ) {
+
+                    throw new Error(
+                        "Please enter a valid email address."
+                    );
+
+                }
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                            "/api/register",
+                        {
+                            method:
+                                "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    name:
+                                        name,
+
+                                    email:
+                                        email,
+
+                                    password:
+                                        password,
+
+                                    phone:
+                                        phone,
+
+                                    course:
+                                        course,
+
+                                    paymentMethod:
+                                        paymentMethod,
+
+                                    amount:
+                                        amount
+                                })
+                        }
+                    );
+
+
+                const data =
+                    await readJsonResponse(
+                        response
+                    );
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                            "Admission submission failed."
+                    );
+
+                }
+
+
+                console.log(
+                    "Admission successful:",
+                    data
+                );
+
+
+                showToast(
+                    "Admission submitted successfully!",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "/loginform.html?registered=1";
+
+                    },
+                    900
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Admission error:",
+                    error
+                );
+
+
+                let errorMessage =
+                    error.message ||
+                    "Unable to submit admission.";
+
+
+                if (
+                    error instanceof
+                    TypeError
+                ) {
+
+                    errorMessage =
+                        "Cannot connect to the server. Please make sure Node.js is running.";
+
+                }
+
+
+                showToast(
+                    errorMessage,
+                    "error"
+                );
+
+
+                if (submitButton) {
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        originalButtonText;
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PAYMENT FORM
+========================================================= */
+
+function initPaymentForm() {
+
+    const paymentForm =
+        document.getElementById(
+            "paymentForm"
+        );
+
+    if (!paymentForm) {
+        return;
+    }
+
+
+    paymentForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const paymentButton =
+                paymentForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            const originalText =
+                paymentButton
+                    ? paymentButton.textContent
+                    : "Pay Now";
+
+
+            if (paymentButton) {
+
+                paymentButton.disabled =
+                    true;
+
+                paymentButton.textContent =
+                    "Processing...";
+
+            }
+
+
+            try {
+
+                const token =
+                    getAuthToken();
+
+
+                if (!token) {
+
+                    throw new Error(
+                        "Please login before making a payment."
+                    );
+
+                }
+
+
+                const formData =
+                    new FormData(
+                        paymentForm
+                    );
+
+
+                const paymentData = {
+
+                    name:
+                        formData.get(
+                            "name"
+                        ) ||
+                        formData.get(
+                            "fullName"
+                        ) ||
+                        "",
+
+                    email:
+                        formData.get(
+                            "email"
+                        ) ||
+                        "",
+
+                    phone:
+                        formData.get(
+                            "phone"
+                        ) ||
+                        formData.get(
+                            "mobile"
+                        ) ||
+                        "",
+
+                    amount:
+                        formData.get(
+                            "amount"
+                        ) ||
+                        "",
+
+                    paymentMethod:
+                        formData.get(
+                            "paymentMethod"
+                        ) ||
+                        ""
+
+                };
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                            "/api/payment/create",
+                        {
+                            method:
+                                "POST",
+
+                            headers:
+                                authHeaders({
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Accept":
+                                        "application/json"
+                                }),
+
+                            body:
+                                JSON.stringify(
+                                    paymentData
+                                )
+                        }
+                    );
+
+
+                const data =
+                    await readJsonResponse(
+                        response
+                    );
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                            "Payment request failed."
+                    );
+
+                }
+
+
+                console.log(
+                    "Payment:",
+                    data
+                );
+
+
+                showToast(
+                    data.message ||
+                        "Payment request created successfully.",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Payment error:",
+                    error
+                );
+
+
+                showToast(
+                    error.message ||
+                        "Payment failed.",
+                    "error"
+                );
+
+
+            } finally {
+
+                if (paymentButton) {
+
+                    paymentButton.disabled =
+                        false;
+
+                    paymentButton.textContent =
+                        originalText;
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SAFE JSON RESPONSE
+========================================================= */
+
+async function readJsonResponse(
+    response
+) {
+
+    const contentType =
+        response.headers.get(
+            "content-type"
+        ) || "";
+
+
+    const text =
+        await response.text();
+
+
+    if (!text) {
+
+        throw new Error(
+            "The server returned an empty response."
+        );
+
+    }
+
+
+    if (
+        contentType
+            .toLowerCase()
+            .includes(
+                "application/json"
+            )
+    ) {
+
+        try {
+
+            return JSON.parse(
+                text
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Invalid JSON:",
+                text
+            );
+
+            throw new Error(
+                "The server returned invalid JSON."
+            );
+
+        }
+
+    }
+
+
+    console.error(
+        "Non-JSON server response:",
+        text
+    );
+
+
+    if (
+        text
+            .trim()
+            .toLowerCase()
+            .startsWith(
+                "<!doctype"
+            ) ||
+        text
+            .trim()
+            .toLowerCase()
+            .startsWith(
+                "<html"
+            )
+    ) {
+
+        throw new Error(
+            "The server returned an HTML page instead of an API response. Make sure you opened the website through http://localhost:5000/ and that the API route exists."
+        );
+
+    }
+
+
+    throw new Error(
+        "The server returned an invalid response."
+    );
+
+}
+
+
+/* =========================================================
+   STUDENT DASHBOARD
+========================================================= */
 
 async function loadStudentDashboard() {
 
     const message =
-        document.getElementById("dashboardMessage");
+        document.getElementById(
+            "dashboardMessage"
+        );
 
 
     try {
 
-        const rawStudent =
-            localStorage.getItem("student");
+        const token =
+            getAuthToken();
 
 
         /*
-        User is not logged in
-        */
+         * JWT is the real authentication source.
+         * Stored student data is NOT required.
+         */
 
-        if (!rawStudent) {
+        if (!token) {
 
             if (message) {
 
@@ -455,118 +1461,158 @@ async function loadStudentDashboard() {
 
             }
 
-            return;
 
-        }
+            setTimeout(
+                function () {
 
+                    window.location.replace(
+                        "/loginform.html"
+                    );
 
-        let student;
-
-
-        try {
-
-            student =
-                JSON.parse(rawStudent);
-
-        } catch (error) {
-
-            console.error(
-                "Invalid student data:",
-                error
+                },
+                1200
             );
 
-
-            localStorage.removeItem("student");
-
-
-            window.location.replace(
-                "/loginform.html"
-            );
-
-
             return;
-
         }
 
 
         /*
-        Student identifier
-        */
+         * Display stored information immediately
+         * if it exists.
+         */
 
-        const studentId =
-            student._id ||
-            student.id ||
-            student.studentId ||
-            student.email;
+        const storedUser =
+            getStoredUser();
 
 
-        if (!studentId) {
+        if (storedUser) {
 
-            throw new Error(
-                "Student account information is missing."
+            displayStudentData(
+                storedUser
             );
 
         }
 
 
         /*
-        First display information
-        immediately from localStorage.
-        */
+         * Backend determines the authenticated
+         * student's information from the JWT.
+         */
 
-        displayStudentData(student);
+        const response =
+            await fetch(
+                API_BASE_URL +
+                    "/api/student/dashboard",
+                {
+                    method:
+                        "GET",
+
+                    headers:
+                        authHeaders({
+                            "Accept":
+                                "application/json"
+                        })
+                }
+            );
 
 
         /*
-        Then get latest information
-        from MongoDB through Node.js.
-        */
+         * Invalid or expired JWT.
+         */
 
-        const response = await fetch(
-            "/api/student/dashboard?student=" +
-            encodeURIComponent(studentId)
-        );
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            clearAuthStorage();
 
 
-        if (!response.ok) {
+            if (message) {
 
-            console.warn(
-                "Dashboard API returned:",
-                response.status
+                message.innerHTML =
+                    'Your login session has expired. <a href="/loginform.html">Login again</a>.';
+
+            }
+
+
+            setTimeout(
+                function () {
+
+                    window.location.replace(
+                        "/loginform.html"
+                    );
+
+                },
+                1200
             );
 
-            return;
 
+            return;
         }
 
 
         const data =
-            await response.json();
-
-
-        if (!data.success) {
-
-            console.warn(
-                "Dashboard API:",
-                data.message
+            await readJsonResponse(
+                response
             );
 
-            return;
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                    "Unable to load dashboard."
+            );
 
         }
 
 
         /*
-        Update localStorage with
-        latest student data.
-        */
+         * Update stored student data.
+         */
 
         if (data.student) {
 
-            localStorage.setItem(
-                "student",
-                JSON.stringify(data.student)
-            );
+            const studentJson =
+                JSON.stringify(
+                    data.student
+                );
+
+
+            if (
+                localStorage.getItem(
+                    "token"
+                )
+            ) {
+
+                localStorage.setItem(
+                    "student",
+                    studentJson
+                );
+
+                localStorage.setItem(
+                    "user",
+                    studentJson
+                );
+
+            } else {
+
+                sessionStorage.setItem(
+                    "student",
+                    studentJson
+                );
+
+                sessionStorage.setItem(
+                    "user",
+                    studentJson
+                );
+
+            }
 
 
             displayStudentData(
@@ -577,14 +1623,22 @@ async function loadStudentDashboard() {
 
 
         /*
-        Display additional dashboard data
-        */
+         * Display dashboard information.
+         */
 
         if (data.dashboard) {
 
             displayDashboardInfo(
                 data.dashboard
             );
+
+        }
+
+
+        if (message) {
+
+            message.textContent =
+                "";
 
         }
 
@@ -600,6 +1654,7 @@ async function loadStudentDashboard() {
         if (message) {
 
             message.textContent =
+                error.message ||
                 "Unable to load some dashboard information.";
 
         }
@@ -609,14 +1664,18 @@ async function loadStudentDashboard() {
 }
 
 
+/* =========================================================
+   DISPLAY STUDENT DATA
+========================================================= */
 
-/*
-====================================================
- DISPLAY STUDENT DATA
-====================================================
-*/
+function displayStudentData(
+    student
+) {
 
-function displayStudentData(student) {
+    if (!student) {
+        return;
+    }
+
 
     const name =
         student.name ||
@@ -652,12 +1711,10 @@ function displayStudentData(student) {
         "Not assigned";
 
 
-    /*
-    Welcome name
-    */
-
     const studentName =
-        document.getElementById("studentName");
+        document.getElementById(
+            "studentName"
+        );
 
 
     if (studentName) {
@@ -668,12 +1725,10 @@ function displayStudentData(student) {
     }
 
 
-    /*
-    Profile name
-    */
-
     const profileName =
-        document.getElementById("profileName");
+        document.getElementById(
+            "profileName"
+        );
 
 
     if (profileName) {
@@ -684,12 +1739,10 @@ function displayStudentData(student) {
     }
 
 
-    /*
-    Email
-    */
-
     const profileEmail =
-        document.getElementById("profileEmail");
+        document.getElementById(
+            "profileEmail"
+        );
 
 
     if (profileEmail) {
@@ -700,12 +1753,10 @@ function displayStudentData(student) {
     }
 
 
-    /*
-    Phone
-    */
-
     const profilePhone =
-        document.getElementById("profilePhone");
+        document.getElementById(
+            "profilePhone"
+        );
 
 
     if (profilePhone) {
@@ -716,12 +1767,10 @@ function displayStudentData(student) {
     }
 
 
-    /*
-    Course
-    */
-
     const profileCourse =
-        document.getElementById("profileCourse");
+        document.getElementById(
+            "profileCourse"
+        );
 
 
     if (profileCourse) {
@@ -732,12 +1781,10 @@ function displayStudentData(student) {
     }
 
 
-    /*
-    Student ID
-    */
-
     const profileId =
-        document.getElementById("profileId");
+        document.getElementById(
+            "profileId"
+        );
 
 
     if (profileId) {
@@ -747,10 +1794,6 @@ function displayStudentData(student) {
 
     }
 
-
-    /*
-    Avatar initials
-    */
 
     const studentInitials =
         document.getElementById(
@@ -765,11 +1808,13 @@ function displayStudentData(student) {
                 .trim()
                 .split(/\s+/)
                 .slice(0, 2)
-                .map(function (word) {
+                .map(
+                    function (word) {
 
-                    return word.charAt(0);
+                        return word.charAt(0);
 
-                })
+                    }
+                )
                 .join("")
                 .toUpperCase();
 
@@ -782,19 +1827,18 @@ function displayStudentData(student) {
 }
 
 
+/* =========================================================
+   DISPLAY DASHBOARD INFORMATION
+========================================================= */
 
-/*
-====================================================
- DISPLAY DASHBOARD INFORMATION
-====================================================
-*/
+function displayDashboardInfo(
+    dashboard
+) {
 
-function displayDashboardInfo(dashboard) {
+    if (!dashboard) {
+        return;
+    }
 
-
-    /*
-    Attendance
-    */
 
     const attendance =
         document.querySelector(
@@ -804,19 +1848,25 @@ function displayDashboardInfo(dashboard) {
 
     if (
         attendance &&
-        dashboard.attendance !== undefined &&
-        dashboard.attendance !== null
+        dashboard.attendance !==
+            undefined &&
+        dashboard.attendance !==
+            null
     ) {
 
+        const attendanceValue =
+            String(
+                dashboard.attendance
+            );
+
+
         attendance.textContent =
-            dashboard.attendance + "%";
+            attendanceValue.includes("%")
+                ? attendanceValue
+                : attendanceValue + "%";
 
     }
 
-
-    /*
-    GPA
-    */
 
     const gpa =
         document.querySelector(
@@ -826,8 +1876,10 @@ function displayDashboardInfo(dashboard) {
 
     if (
         gpa &&
-        dashboard.gpa !== undefined &&
-        dashboard.gpa !== null
+        dashboard.gpa !==
+            undefined &&
+        dashboard.gpa !==
+            null
     ) {
 
         gpa.textContent =
@@ -835,10 +1887,6 @@ function displayDashboardInfo(dashboard) {
 
     }
 
-
-    /*
-    Fee balance
-    */
 
     const fees =
         document.querySelector(
@@ -848,49 +1896,121 @@ function displayDashboardInfo(dashboard) {
 
     if (
         fees &&
-        dashboard.feeBalance !== undefined &&
-        dashboard.feeBalance !== null
+        dashboard.feeBalance !==
+            undefined &&
+        dashboard.feeBalance !==
+            null
     ) {
 
         fees.textContent =
             "Rs. " +
-            Number(dashboard.feeBalance).toLocaleString();
+            Number(
+                dashboard.feeBalance
+            ).toLocaleString();
 
     }
 
 }
 
 
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function initLogout() {
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    if (!logoutButton) {
+        return;
+    }
+
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            const token =
+                getAuthToken();
+
+
+            /*
+             * Tell backend to revoke JWT
+             * before clearing browser data.
+             */
+
+            if (token) {
+
+                try {
+
+                    await fetch(
+                        API_BASE_URL +
+                            "/api/logout",
+                        {
+                            method:
+                                "POST",
+
+                            headers:
+                                authHeaders({
+                                    "Accept":
+                                        "application/json"
+                                })
+                        }
+                    );
+
+                } catch (error) {
+
+                    console.warn(
+                        "Logout API request failed:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            clearAuthStorage();
+
+
+            window.location.replace(
+                "/loginform.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STUDENT INFORMATION
+========================================================= */
 
 /*
-====================================================
- STUDENT INFORMATION
-====================================================
-
-This section works with:
-
-GET
-/api/student-information
-
-POST
-/api/student-information
-
-PUT
-/api/student-information/:id
-
-DELETE
-/api/student-information/:id
-
-====================================================
-*/
+ * These endpoints are ADMIN ONLY:
+ *
+ * GET
+ * /api/student-information
+ *
+ * POST
+ * /api/student-information
+ *
+ * PUT
+ * /api/student-information/:id
+ *
+ * DELETE
+ * /api/student-information/:id
+ */
 
 
-
-/*
-====================================================
- LOAD STUDENT INFORMATION
-====================================================
-*/
+/* =========================================================
+   LOAD STUDENT INFORMATION
+========================================================= */
 
 async function loadStudentInformation() {
 
@@ -901,9 +2021,7 @@ async function loadStudentInformation() {
 
 
     if (!tableBody) {
-
         return;
-
     }
 
 
@@ -918,27 +2036,85 @@ async function loadStudentInformation() {
 
     try {
 
-        const response =
-            await fetch(
-                "/api/student-information"
-            );
+        const token =
+            getAuthToken();
 
 
-        const data =
-            await response.json();
-
-
-        if (!response.ok || !data.success) {
+        if (!token) {
 
             throw new Error(
-                data.message ||
-                "Unable to load students."
+                "Please login as administrator to manage student information."
             );
 
         }
 
 
-        tableBody.innerHTML = "";
+        const user =
+            getStoredUser();
+
+
+        if (
+            !user ||
+            user.role !== "admin"
+        ) {
+
+            throw new Error(
+                "Administrator access is required."
+            );
+
+        }
+
+
+        const response =
+            await fetch(
+                API_BASE_URL +
+                    "/api/student-information",
+                {
+                    method:
+                        "GET",
+
+                    headers:
+                        authHeaders({
+                            "Accept":
+                                "application/json"
+                        })
+                }
+            );
+
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            throw new Error(
+                "Administrator access is required."
+            );
+
+        }
+
+
+        const data =
+            await readJsonResponse(
+                response
+            );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                    "Unable to load students."
+            );
+
+        }
+
+
+        tableBody.innerHTML =
+            "";
 
 
         if (
@@ -963,7 +2139,13 @@ async function loadStudentInformation() {
             function (student) {
 
                 const row =
-                    document.createElement("tr");
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const studentId =
+                    student._id || "";
 
 
                 row.innerHTML = `
@@ -993,11 +2175,15 @@ async function loadStudentInformation() {
                     </td>
 
                     <td>
-                        ${student.attendance ?? 0}%
+                        ${escapeHtml(
+                            student.attendance ?? 0
+                        )}%
                     </td>
 
                     <td>
-                        ${student.gpa ?? 0}
+                        ${escapeHtml(
+                            student.gpa ?? 0
+                        )}
                     </td>
 
                     <td>
@@ -1012,7 +2198,7 @@ async function loadStudentInformation() {
                         <button
                             type="button"
                             class="edit-btn"
-                            onclick="editStudentInformation('${student._id}')"
+                            onclick="editStudentInformation('${escapeHtml(studentId)}')"
                         >
                             Edit
                         </button>
@@ -1020,7 +2206,7 @@ async function loadStudentInformation() {
                         <button
                             type="button"
                             class="delete-btn"
-                            onclick="deleteStudentInformation('${student._id}')"
+                            onclick="deleteStudentInformation('${escapeHtml(studentId)}')"
                         >
                             Delete
                         </button>
@@ -1030,7 +2216,9 @@ async function loadStudentInformation() {
                 `;
 
 
-                tableBody.appendChild(row);
+                tableBody.appendChild(
+                    row
+                );
 
             }
         );
@@ -1059,12 +2247,9 @@ async function loadStudentInformation() {
 }
 
 
-
-/*
-====================================================
- SAVE STUDENT INFORMATION
-====================================================
-*/
+/* =========================================================
+   SAVE STUDENT INFORMATION
+========================================================= */
 
 async function saveStudentInformation() {
 
@@ -1083,7 +2268,9 @@ async function saveStudentInformation() {
     const email =
         document.getElementById(
             "email"
-        )?.value.trim().toLowerCase();
+        )?.value
+            .trim()
+            .toLowerCase();
 
 
     const phone =
@@ -1122,11 +2309,10 @@ async function saveStudentInformation() {
         ) || 0;
 
 
-    /*
-    Validation
-    */
-
-    if (!name || !email) {
+    if (
+        !name ||
+        !email
+    ) {
 
         showStudentMessage(
             "Name and email are required.",
@@ -1182,19 +2368,26 @@ async function saveStudentInformation() {
 
     const studentData = {
 
-        name: name,
+        name:
+            name,
 
-        email: email,
+        email:
+            email,
 
-        phone: phone || "",
+        phone:
+            phone || "",
 
-        course: course || "",
+        course:
+            course || "",
 
-        attendance: attendance,
+        attendance:
+            attendance,
 
-        gpa: gpa,
+        gpa:
+            gpa,
 
-        feeBalance: feeBalance
+        feeBalance:
+            feeBalance
 
     };
 
@@ -1207,7 +2400,8 @@ async function saveStudentInformation() {
 
     if (saveButton) {
 
-        saveButton.disabled = true;
+        saveButton.disabled =
+            true;
 
         saveButton.textContent =
             studentId
@@ -1219,7 +2413,37 @@ async function saveStudentInformation() {
 
     try {
 
+        const token =
+            getAuthToken();
+
+
+        if (!token) {
+
+            throw new Error(
+                "Please login as administrator first."
+            );
+
+        }
+
+
+        const user =
+            getStoredUser();
+
+
+        if (
+            !user ||
+            user.role !== "admin"
+        ) {
+
+            throw new Error(
+                "Administrator access is required."
+            );
+
+        }
+
+
         let url =
+            API_BASE_URL +
             "/api/student-information";
 
 
@@ -1227,15 +2451,14 @@ async function saveStudentInformation() {
             "POST";
 
 
-        /*
-        Existing student = UPDATE
-        */
-
         if (studentId) {
 
             url =
+                API_BASE_URL +
                 "/api/student-information/" +
-                encodeURIComponent(studentId);
+                encodeURIComponent(
+                    studentId
+                );
 
             method =
                 "PUT";
@@ -1247,45 +2470,50 @@ async function saveStudentInformation() {
             await fetch(
                 url,
                 {
+                    method:
+                        method,
 
-                    method: method,
+                    headers:
+                        authHeaders({
+                            "Content-Type":
+                                "application/json",
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                            "Accept":
+                                "application/json"
+                        }),
 
                     body:
                         JSON.stringify(
                             studentData
                         )
-
                 }
             );
 
 
         const data =
-            await response.json();
+            await readJsonResponse(
+                response
+            );
 
 
-        if (!response.ok || !data.success) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
-                "Unable to save student."
+                    "Unable to save student."
             );
 
         }
 
 
         showStudentMessage(
-
             studentId
                 ? "Student information updated successfully."
                 : "Student information saved successfully.",
-
             "success"
-
         );
 
 
@@ -1305,7 +2533,7 @@ async function saveStudentInformation() {
 
         showStudentMessage(
             error.message ||
-            "Unable to save student.",
+                "Unable to save student.",
             "error"
         );
 
@@ -1314,7 +2542,8 @@ async function saveStudentInformation() {
 
         if (saveButton) {
 
-            saveButton.disabled = false;
+            saveButton.disabled =
+                false;
 
             saveButton.textContent =
                 "Save Student";
@@ -1326,33 +2555,79 @@ async function saveStudentInformation() {
 }
 
 
+/* =========================================================
+   EDIT STUDENT INFORMATION
+========================================================= */
 
-/*
-====================================================
- EDIT STUDENT INFORMATION
-====================================================
-*/
-
-async function editStudentInformation(id) {
+async function editStudentInformation(
+    id
+) {
 
     try {
 
+        const token =
+            getAuthToken();
+
+
+        if (!token) {
+
+            throw new Error(
+                "Please login as administrator first."
+            );
+
+        }
+
+
+        const user =
+            getStoredUser();
+
+
+        if (
+            !user ||
+            user.role !== "admin"
+        ) {
+
+            throw new Error(
+                "Administrator access is required."
+            );
+
+        }
+
+
         const response =
             await fetch(
-                "/api/student-information/" +
-                encodeURIComponent(id)
+                API_BASE_URL +
+                    "/api/student-information/" +
+                    encodeURIComponent(
+                        id
+                    ),
+                {
+                    method:
+                        "GET",
+
+                    headers:
+                        authHeaders({
+                            "Accept":
+                                "application/json"
+                        })
+                }
             );
 
 
         const data =
-            await response.json();
+            await readJsonResponse(
+                response
+            );
 
 
-        if (!response.ok || !data.success) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
-                "Student not found."
+                    "Student not found."
             );
 
         }
@@ -1453,7 +2728,8 @@ async function editStudentInformation(id) {
         if (attendanceInput) {
 
             attendanceInput.value =
-                student.attendance ?? 0;
+                student.attendance ??
+                0;
 
         }
 
@@ -1461,7 +2737,8 @@ async function editStudentInformation(id) {
         if (gpaInput) {
 
             gpaInput.value =
-                student.gpa ?? 0;
+                student.gpa ??
+                0;
 
         }
 
@@ -1469,7 +2746,8 @@ async function editStudentInformation(id) {
         if (feeBalanceInput) {
 
             feeBalanceInput.value =
-                student.feeBalance ?? 0;
+                student.feeBalance ??
+                0;
 
         }
 
@@ -1518,7 +2796,7 @@ async function editStudentInformation(id) {
 
         showStudentMessage(
             error.message ||
-            "Unable to edit student.",
+                "Unable to edit student.",
             "error"
         );
 
@@ -1527,14 +2805,13 @@ async function editStudentInformation(id) {
 }
 
 
+/* =========================================================
+   DELETE STUDENT INFORMATION
+========================================================= */
 
-/*
-====================================================
- DELETE STUDENT INFORMATION
-====================================================
-*/
-
-async function deleteStudentInformation(id) {
+async function deleteStudentInformation(
+    id
+) {
 
     const confirmed =
         confirm(
@@ -1543,33 +2820,75 @@ async function deleteStudentInformation(id) {
 
 
     if (!confirmed) {
-
         return;
-
     }
 
 
     try {
 
+        const token =
+            getAuthToken();
+
+
+        if (!token) {
+
+            throw new Error(
+                "Please login as administrator first."
+            );
+
+        }
+
+
+        const user =
+            getStoredUser();
+
+
+        if (
+            !user ||
+            user.role !== "admin"
+        ) {
+
+            throw new Error(
+                "Administrator access is required."
+            );
+
+        }
+
+
         const response =
             await fetch(
-                "/api/student-information/" +
-                encodeURIComponent(id),
+                API_BASE_URL +
+                    "/api/student-information/" +
+                    encodeURIComponent(
+                        id
+                    ),
                 {
-                    method: "DELETE"
+                    method:
+                        "DELETE",
+
+                    headers:
+                        authHeaders({
+                            "Accept":
+                                "application/json"
+                        })
                 }
             );
 
 
         const data =
-            await response.json();
+            await readJsonResponse(
+                response
+            );
 
 
-        if (!response.ok || !data.success) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
-                "Unable to delete student."
+                    "Unable to delete student."
             );
 
         }
@@ -1594,7 +2913,7 @@ async function deleteStudentInformation(id) {
 
         showStudentMessage(
             error.message ||
-            "Unable to delete student.",
+                "Unable to delete student.",
             "error"
         );
 
@@ -1603,12 +2922,9 @@ async function deleteStudentInformation(id) {
 }
 
 
-
-/*
-====================================================
- CLEAR STUDENT INFORMATION FORM
-====================================================
-*/
+/* =========================================================
+   CLEAR STUDENT INFORMATION FORM
+========================================================= */
 
 function clearStudentInformationForm() {
 
@@ -1633,7 +2949,8 @@ function clearStudentInformationForm() {
 
     if (studentId) {
 
-        studentId.value = "";
+        studentId.value =
+            "";
 
     }
 
@@ -1668,12 +2985,9 @@ function clearStudentInformationForm() {
 }
 
 
-
-/*
-====================================================
- SHOW STUDENT INFORMATION MESSAGE
-====================================================
-*/
+/* =========================================================
+   STUDENT MESSAGE
+========================================================= */
 
 function showStudentMessage(
     text,
@@ -1688,7 +3002,10 @@ function showStudentMessage(
 
     if (!message) {
 
-        alert(text);
+        showToast(
+            text,
+            type
+        );
 
         return;
 
@@ -1700,7 +3017,8 @@ function showStudentMessage(
 
 
     message.className =
-        "message " + type;
+        "message " +
+        type;
 
 
     setTimeout(
@@ -1719,37 +3037,196 @@ function showStudentMessage(
 }
 
 
+/* =========================================================
+   TOAST NOTIFICATION
+========================================================= */
 
-/*
-====================================================
- ESCAPE HTML
-====================================================
-*/
+function showToast(
+    message,
+    type = "success"
+) {
 
-function escapeHtml(value) {
+    let container =
+        document.getElementById(
+            "novaToastContainer"
+        );
 
-    return String(value)
 
+    if (!container) {
+
+        container =
+            document.createElement(
+                "div"
+            );
+
+        container.id =
+            "novaToastContainer";
+
+
+        container.style.position =
+            "fixed";
+
+        container.style.top =
+            "25px";
+
+        container.style.right =
+            "25px";
+
+        container.style.zIndex =
+            "100000";
+
+
+        container.style.display =
+            "flex";
+
+        container.style.flexDirection =
+            "column";
+
+        container.style.gap =
+            "12px";
+
+
+        document.body.appendChild(
+            container
+        );
+
+    }
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.minWidth =
+        "280px";
+
+    toast.style.maxWidth =
+        "420px";
+
+    toast.style.padding =
+        "15px 18px";
+
+    toast.style.borderRadius =
+        "12px";
+
+    toast.style.fontFamily =
+        "Inter, Arial, sans-serif";
+
+    toast.style.fontSize =
+        "13px";
+
+    toast.style.fontWeight =
+        "600";
+
+    toast.style.lineHeight =
+        "1.5";
+
+    toast.style.boxShadow =
+        "0 15px 40px rgba(0,0,0,.18)";
+
+    toast.style.color =
+        "#ffffff";
+
+    toast.style.opacity =
+        "0";
+
+    toast.style.transform =
+        "translateY(-10px)";
+
+    toast.style.transition =
+        "all .3s ease";
+
+
+    if (type === "error") {
+
+        toast.style.background =
+            "#b42318";
+
+    } else {
+
+        toast.style.background =
+            "#07152f";
+
+    }
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    requestAnimationFrame(
+        function () {
+
+            toast.style.opacity =
+                "1";
+
+            toast.style.transform =
+                "translateY(0)";
+
+        }
+    );
+
+
+    setTimeout(
+        function () {
+
+            toast.style.opacity =
+                "0";
+
+            toast.style.transform =
+                "translateY(-10px)";
+
+
+            setTimeout(
+                function () {
+
+                    toast.remove();
+
+                },
+                350
+            );
+
+        },
+        4000
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
         .replace(
             /&/g,
             "&amp;"
         )
-
         .replace(
             /</g,
             "&lt;"
         )
-
         .replace(
             />/g,
             "&gt;"
         )
-
         .replace(
             /"/g,
             "&quot;"
         )
-
         .replace(
             /'/g,
             "&#039;"
@@ -1758,12 +3235,9 @@ function escapeHtml(value) {
 }
 
 
-
-/*
-====================================================
- PASSWORD TOGGLE
-====================================================
-*/
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
 
 function togglePassword(
     inputId,
@@ -1782,12 +3256,18 @@ function togglePassword(
         );
 
 
-    if (!input) return;
+    if (!input) {
+        return;
+    }
 
 
-    if (input.type === "password") {
+    if (
+        input.type ===
+        "password"
+    ) {
 
-        input.type = "text";
+        input.type =
+            "text";
 
 
         if (button) {
@@ -1799,7 +3279,8 @@ function togglePassword(
 
     } else {
 
-        input.type = "password";
+        input.type =
+            "password";
 
 
         if (button) {
@@ -1812,3 +3293,32 @@ function togglePassword(
     }
 
 }
+
+
+/* =========================================================
+   OPTIONAL GLOBAL FUNCTIONS
+   Useful for HTML onclick attributes
+========================================================= */
+
+window.editStudentInformation =
+    editStudentInformation;
+
+
+window.deleteStudentInformation =
+    deleteStudentInformation;
+
+
+window.togglePassword =
+    togglePassword;
+
+
+window.loadStudentDashboard =
+    loadStudentDashboard;
+
+
+window.loadStudentInformation =
+    loadStudentInformation;
+
+
+window.clearStudentInformationForm =
+    clearStudentInformationForm;

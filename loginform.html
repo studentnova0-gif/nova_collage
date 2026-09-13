@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -10,344 +8,1476 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Nova College - Student Login</title>
+    <title>Nova College | Student Login</title>
 
     <style>
+        :root {
+            --blue: #0758a8;
+            --dark-blue: #063b78;
+            --deep-blue: #052e63;
+            --light-blue: #9dc8ea;
+            --soft-blue: #eef6fd;
+            --border: #d1deea;
+            --text: #173e66;
+            --muted: #6f8192;
+            --white: #ffffff;
+            --danger: #c62828;
+            --success: #197a43;
+        }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
         }
 
         body {
-
-            margin: 0;
-
-            min-height: 100vh;
-
-            font-family: Arial, sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background:
                 linear-gradient(
                     135deg,
-                    #eaf2ff,
-                    #ffffff
+                    #edf6fd 0%,
+                    #f7fbff 50%,
+                    #e8f2fb 100%
                 );
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        .login-box {
+        a {
+            color: inherit;
+        }
 
-            width: 90%;
+        button,
+        input {
+            font-family: inherit;
+        }
 
-            max-width: 400px;
+        /* =========================================
+           TOP HEADER
+        ========================================= */
 
-            background: white;
-
-            padding: 35px;
-
-            border-radius: 18px;
-
+        .top-header {
+            background:
+                linear-gradient(
+                    120deg,
+                    #06498d,
+                    #0963b9,
+                    #064686
+                );
+            color: white;
+            min-height: 72px;
             box-shadow:
-                0 15px 40px
-                rgba(0, 0, 0, 0.12);
+                0 3px 15px
+                rgba(0, 0, 0, 0.16);
         }
 
-        h2 {
+        .header-inner {
+            width: 94%;
+            max-width: 1200px;
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
 
-            text-align: center;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
 
-            color: #123b70;
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+            object-fit: cover;
+            background: white;
+            padding: 4px;
+            border-radius: 7px;
+        }
 
+        .brand h1 {
+            font-size: 22px;
+            margin-bottom: 3px;
+        }
+
+        .brand p {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .home-link {
+            color: white;
+            text-decoration: none;
+            border: 1px solid
+                rgba(255, 255, 255, 0.5);
+            padding: 9px 14px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .home-link:hover {
+            background:
+                rgba(255, 255, 255, 0.12);
+        }
+
+        /* =========================================
+           NAV BAR
+        ========================================= */
+
+        .navbar {
+            background: var(--dark-blue);
+        }
+
+        .nav-inner {
+            width: 94%;
+            max-width: 1200px;
+            min-height: 40px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        .nav-inner::-webkit-scrollbar {
+            height: 0;
+        }
+
+        .nav-inner a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 11px;
+            white-space: nowrap;
+            border-bottom:
+                3px solid transparent;
+        }
+
+        .nav-inner a:hover,
+        .nav-inner a.active {
+            background:
+                rgba(255, 255, 255, 0.08);
+            border-bottom-color: white;
+        }
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .page {
+            width: 94%;
+            max-width: 1200px;
+            margin: auto;
+            min-height:
+                calc(100vh - 190px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 0;
+        }
+
+        .login-layout {
+            width: 100%;
+            display: grid;
+            grid-template-columns:
+                minmax(300px, 0.9fr)
+                minmax(360px, 1.1fr);
+            background: white;
+            border:
+                1px solid var(--border);
+            box-shadow:
+                0 15px 45px
+                rgba(7, 55, 105, 0.13);
+            overflow: hidden;
+        }
+
+        /* =========================================
+           LEFT PANEL
+        ========================================= */
+
+        .welcome-panel {
+            background:
+                linear-gradient(
+                    145deg,
+                    #0758a8,
+                    #06407d
+                );
+            color: white;
+            padding: 48px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-panel::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background:
+                rgba(255, 255, 255, 0.06);
+            top: -120px;
+            right: -110px;
+        }
+
+        .welcome-panel::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background:
+                rgba(255, 255, 255, 0.05);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            padding: 7px 11px;
+            border-radius: 20px;
+            background:
+                rgba(255, 255, 255, 0.12);
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .welcome-panel h2 {
+            font-size: 34px;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+
+        .welcome-panel h2 span {
+            color: #b9dcf8;
+        }
+
+        .welcome-panel p {
+            font-size: 13px;
+            line-height: 1.8;
+            color:
+                rgba(255, 255, 255, 0.86);
+            max-width: 430px;
             margin-bottom: 25px;
         }
 
-        label {
+        .feature-list {
+            list-style: none;
+        }
 
-            display: block;
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
 
+        .feature-icon {
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            background:
+                rgba(255, 255, 255, 0.12);
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.22);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* =========================================
+           RIGHT LOGIN
+        ========================================= */
+
+        .login-panel {
+            padding: 45px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            margin-bottom: 25px;
+        }
+
+        .login-header h2 {
+            color: var(--dark-blue);
+            font-size: 28px;
             margin-bottom: 7px;
-
-            font-weight: bold;
         }
 
-        input {
-
-            width: 100%;
-
-            padding: 13px;
-
-            margin-bottom: 18px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
-            outline: none;
+        .login-header p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
         }
 
-        input:focus {
-
-            border-color: #1769d1;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(23, 105, 209, 0.1);
-        }
-
-        button {
-
-            width: 100%;
-
-            padding: 14px;
-
-            background: #1769d1;
-
-            color: white;
-
-            border: none;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            font-size: 17px;
-
-            font-weight: bold;
-        }
-
-        button:hover {
-
-            background: #0f4f9f;
-        }
-
-        button:disabled {
-
-            background: #888;
-
-            cursor: not-allowed;
-        }
+        /* =========================================
+           MESSAGE
+        ========================================= */
 
         #message {
-
-            text-align: center;
-
-            margin-top: 18px;
-
-            font-weight: bold;
+            display: none;
+            padding: 11px 13px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
         }
 
-        .admission-link {
-
-            text-align: center;
-
-            margin-top: 20px;
+        #message.error {
+            display: block;
+            background: #fff0f0;
+            border:
+                1px solid #edb5b5;
+            color: var(--danger);
         }
 
-        .admission-link a {
+        #message.success {
+            display: block;
+            background: #eaf8ef;
+            border:
+                1px solid #b0dfc0;
+            color: var(--success);
+        }
 
-            color: #1769d1;
+        /* =========================================
+           FORM
+        ========================================= */
 
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #365a79;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform:
+                translateY(-50%);
+            color: #7890a7;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding:
+                12px
+                42px
+                12px
+                38px;
+            border:
+                1px solid
+                var(--border);
+            border-radius: 5px;
+            background: white;
+            color: var(--text);
+            font-size: 12px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color:
+                var(--blue);
+            box-shadow:
+                0 0 0 3px
+                rgba(7, 88, 168, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: #9aa9b8;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 9px;
+            top: 50%;
+            transform:
+                translateY(-50%);
+            background: none;
+            border: 0;
+            color: var(--blue);
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           OPTIONS
+        ========================================= */
+
+        .form-options {
+            display: flex;
+            justify-content:
+                space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #718395;
+            font-size: 10px;
+        }
+
+        .remember input {
+            accent-color:
+                var(--blue);
+        }
+
+        .forgot {
+            color: var(--blue);
+            font-size: 10px;
             text-decoration: none;
-
-            font-weight: bold;
+            font-weight: 700;
         }
 
-    </style>
+        .forgot:hover {
+            text-decoration: underline;
+        }
 
+        /* =========================================
+           BUTTON
+        ========================================= */
+
+        .login-button {
+            width: 100%;
+            border: 0;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0758a8,
+                    #0870cf
+                );
+            color: white;
+            padding: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow:
+                0 7px 17px
+                rgba(7, 88, 168, 0.22);
+            transition: 0.2s;
+        }
+
+        .login-button:hover {
+            transform:
+                translateY(-1px);
+            box-shadow:
+                0 9px 20px
+                rgba(7, 88, 168, 0.27);
+        }
+
+        .login-button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+            transform: none;
+        }
+
+        /* =========================================
+           REGISTER
+        ========================================= */
+
+        .register-box {
+            text-align: center;
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top:
+                1px solid
+                var(--border);
+            color: #718395;
+            font-size: 11px;
+        }
+
+        .register-box a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           SECURITY
+        ========================================= */
+
+        .secure-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            color: #8393a2;
+            font-size: 9px;
+            margin-top: 16px;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            background:
+                var(--dark-blue);
+            color: white;
+            padding: 15px;
+            font-size: 10px;
+        }
+
+        .footer-inner {
+            width: 94%;
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content:
+                space-between;
+            gap: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 17px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 800px) {
+            .login-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-panel {
+                padding: 35px 30px;
+            }
+
+            .welcome-panel h2 {
+                font-size: 28px;
+            }
+
+            .login-panel {
+                padding: 35px 28px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .header-inner {
+                padding: 10px 0;
+            }
+
+            .home-link {
+                padding: 8px 10px;
+                font-size: 10px;
+            }
+
+            .brand h1 {
+                font-size: 18px;
+            }
+
+            .brand p {
+                display: none;
+            }
+
+            .page {
+                width: 94%;
+                padding: 25px 0;
+            }
+
+            .welcome-panel {
+                padding: 30px 24px;
+            }
+
+            .welcome-panel h2 {
+                font-size: 25px;
+            }
+
+            .welcome-panel p {
+                font-size: 12px;
+            }
+
+            .login-panel {
+                padding: 30px 22px;
+            }
+
+            .login-header h2 {
+                font-size: 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="login-box">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-        <h2>
-            Student Login
-        </h2>
+    <header class="top-header">
+        <div class="header-inner">
 
-        <form id="loginForm">
+            <div class="brand">
 
-            <label for="email">
-                Email
-            </label>
+                <img
+                    src="logo1.jpeg"
+                    alt="Nova College"
+                    class="brand-logo"
+                    onerror="this.style.display='none'"
+                >
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
+                <div>
+                    <h1>
+                        Nova College
+                    </h1>
+
+                    <p>
+                        Student Portal
+                    </p>
+                </div>
+
+            </div>
+
+            <a
+                href="index.html"
+                class="home-link"
             >
+                ← College Website
+            </a>
 
-            <label for="password">
-                Password
-            </label>
+        </div>
+    </header>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-inner">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#programs">
+                Programs
+            </a>
+
+            <a href="index.html#faculty">
+                Faculty
+            </a>
+
+            <a href="index.html#notices">
+                Notices
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+            <a
+                href="loginform.html"
+                class="active"
             >
-
-            <button
-                type="submit"
-                id="loginButton"
-            >
-                Login
-            </button>
-
-        </form>
-
-        <p id="message"></p>
-
-        <div class="admission-link">
-
-            Don't have an account?
-
-            <a href="admission.html">
-                Apply now
+                Student Login
             </a>
 
         </div>
 
-    </div>
+    </nav>
 
-    <script>document.addEventListener("DOMContentLoaded", function () {
 
-    const loginForm = document.getElementById("loginForm");
+    <!-- =====================================================
+         LOGIN AREA
+    ====================================================== -->
 
-    if (!loginForm) {
-        console.error("❌ loginForm not found");
-        return;
-    }
+    <main class="page">
 
-    loginForm.addEventListener("submit", async function (event) {
+        <section class="login-layout">
 
-        event.preventDefault();
+            <!-- LEFT -->
 
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
+            <div class="welcome-panel">
 
-        const message =
-            document.getElementById("message") ||
-            document.getElementById("loginMessage");
+                <div class="welcome-content">
+
+                    <div class="welcome-badge">
+                        Nova College Portal
+                    </div>
+
+                    <h2>
+                        Welcome back to
+                        <span>Nova College.</span>
+                    </h2>
+
+                    <p>
+                        Sign in to access your student dashboard,
+                        academic information, attendance, marks,
+                        fee details and student services.
+                    </p>
+
+                    <ul class="feature-list">
+
+                        <li>
+                            <span class="feature-icon">
+                                ✓
+                            </span>
+
+                            Secure Student Dashboard
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">
+                                ✓
+                            </span>
+
+                            Academic Marks & Attendance
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">
+                                ✓
+                            </span>
+
+                            Student Information
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">
+                                ✓
+                            </span>
+
+                            Fee & Payment Information
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="login-panel">
+
+                <div class="login-header">
+
+                    <h2>
+                        Student Login
+                    </h2>
+
+                    <p>
+                        Enter your registered email and password
+                        to continue to your student portal.
+                    </p>
+
+                </div>
+
+
+                <div id="message"></div>
+
+
+                <form id="loginForm">
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                id="togglePassword"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="form-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            Remember me
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot"
+                            id="forgotPassword"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <!-- REGISTER -->
+
+                <div class="register-box">
+
+                    Don't have an account?
+
+                    <a href="admission.html">
+                        Apply for Admission
+                    </a>
+
+                </div>
+
+
+                <div class="secure-note">
+
+                    🔒 Your login is processed securely by
+                    Nova College.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div>
+                © 2026 Nova College. All rights reserved.
+            </div>
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="admission.html">
+                    Admission
+                </a>
+
+                <a href="index.html#contact">
+                    Contact
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         LOGIN JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
 
         const loginButton =
-            loginForm.querySelector('button[type="submit"]');
+            document.getElementById("loginButton");
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
+        const message =
+            document.getElementById("message");
 
-        if (!email || !password) {
+        const passwordInput =
+            document.getElementById("password");
 
-            if (message) {
-                message.textContent =
-                    "Please enter email and password.";
-                message.style.color = "red";
-            }
+        const togglePassword =
+            document.getElementById("togglePassword");
 
-            return;
+        const emailInput =
+            document.getElementById("email");
+
+        const rememberMe =
+            document.getElementById("rememberMe");
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+            message.className = type;
+            message.style.display = "block";
+
         }
 
-        // Disable button
-        if (loginButton) {
-            loginButton.disabled = true;
-            loginButton.textContent = "Logging in...";
-        }
 
-        if (message) {
+        function hideMessage() {
+
             message.textContent = "";
+            message.className = "";
+            message.style.display = "none";
+
         }
 
-        try {
 
-            const response = await fetch("/api/login", {
-                method: "POST",
+        /* =========================================
+           PASSWORD TOGGLE
+        ========================================= */
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        togglePassword.addEventListener(
+            "click",
+            function () {
 
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            });
+                if (
+                    passwordInput.type ===
+                    "password"
+                ) {
 
-            const data = await response.json();
+                    passwordInput.type =
+                        "text";
 
-            console.log("LOGIN RESPONSE:", data);
+                    togglePassword.textContent =
+                        "Hide";
 
-            if (!response.ok || !data.success) {
+                } else {
 
-                throw new Error(
-                    data.message ||
-                    "Login failed."
-                );
+                    passwordInput.type =
+                        "password";
+
+                    togglePassword.textContent =
+                        "Show";
+
+                }
+
             }
+        );
 
-            // ==========================================
-            // LOGIN SUCCESS
-            // ==========================================
 
-            console.log(
-                "✅ LOGIN SUCCESS:",
-                data.student
+        /* =========================================
+           FORGOT PASSWORD
+        ========================================= */
+
+        document
+            .getElementById("forgotPassword")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    showMessage(
+                        "Please contact Nova College administration to reset your password.",
+                        "error"
+                    );
+
+                }
             );
 
-            // Save student information
-            localStorage.setItem(
-                "student",
-                JSON.stringify(data.student)
+
+        /* =========================================
+           REGISTERED MESSAGE
+        ========================================= */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
             );
 
-            // Show success message
-            if (message) {
-                message.textContent =
-                    "Login successful!";
-                message.style.color = "green";
-            }
+        if (
+            urlParams.get("registered") ===
+            "1"
+        ) {
 
-            // ==========================================
-            // OPEN STUDENT DASHBOARD
-            // ==========================================
-
-            setTimeout(function () {
-
-                window.location.href =
-                    "/dashboard.html";
-
-            }, 500);
-
-        } catch (error) {
-
-            console.error(
-                "❌ LOGIN ERROR:",
-                error
+            showMessage(
+                "Registration successful. Please login with your email and password.",
+                "success"
             );
 
-            if (message) {
-                message.textContent =
-                    error.message ||
-                    "Login failed.";
-
-                message.style.color = "red";
-            }
-
-            if (loginButton) {
-                loginButton.disabled = false;
-                loginButton.textContent = "Login";
-            }
         }
-    });
-});</script>
+
+
+        /* =========================================
+           LOGIN
+        ========================================= */
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                hideMessage();
+
+                const email =
+                    emailInput.value
+                        .trim()
+                        .toLowerCase();
+
+                const password =
+                    passwordInput.value;
+
+
+                /* ---------------------------------
+                   BASIC VALIDATION
+                --------------------------------- */
+
+                if (!email) {
+
+                    showMessage(
+                        "Please enter your email address.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!email.includes("@")) {
+
+                    showMessage(
+                        "Please enter a valid email address.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!password) {
+
+                    showMessage(
+                        "Please enter your password.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------
+                   BUTTON LOADING
+                --------------------------------- */
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    /* ---------------------------------
+                       LOGIN REQUEST
+                    --------------------------------- */
+
+                    const response =
+                        await fetch(
+                            "/api/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Accept":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email:
+                                            email,
+
+                                        password:
+                                            password
+                                    })
+                            }
+                        );
+
+
+                    /* ---------------------------------
+                       READ RESPONSE SAFELY
+                    --------------------------------- */
+
+                    const contentType =
+                        response.headers.get(
+                            "content-type"
+                        ) || "";
+
+                    let data;
+
+
+                    if (
+                        contentType
+                            .toLowerCase()
+                            .includes(
+                                "application/json"
+                            )
+                    ) {
+
+                        data =
+                            await response.json();
+
+                    } else {
+
+                        const text =
+                            await response.text();
+
+                        console.error(
+                            "Unexpected server response:",
+                            text
+                        );
+
+                        throw new Error(
+                            "Server returned an unexpected response. Please open loginform.html through http://localhost:5000/."
+                        );
+
+                    }
+
+
+                    /* ---------------------------------
+                       CHECK LOGIN RESULT
+                    --------------------------------- */
+
+                    if (
+                        !response.ok ||
+                        !data.success
+                    ) {
+
+                        throw new Error(
+                            data.message ||
+                            "Login failed. Please check your email and password."
+                        );
+
+                    }
+
+
+                    /* ---------------------------------
+                       TOKEN
+                    --------------------------------- */
+
+                    if (!data.token) {
+
+                        throw new Error(
+                            "Login succeeded but no authentication token was returned by the server."
+                        );
+
+                    }
+
+
+                    /* ---------------------------------
+                       USER
+                    --------------------------------- */
+
+                    const user =
+                        data.user ||
+                        data.student;
+
+
+                    if (!user) {
+
+                        throw new Error(
+                            "Login succeeded but user information was not returned."
+                        );
+
+                    }
+
+
+                    /* ---------------------------------
+                       CLEAR OLD LOGIN DATA
+                    --------------------------------- */
+
+                    localStorage.removeItem(
+                        "token"
+                    );
+
+                    localStorage.removeItem(
+                        "student"
+                    );
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+                    sessionStorage.removeItem(
+                        "token"
+                    );
+
+                    sessionStorage.removeItem(
+                        "student"
+                    );
+
+                    sessionStorage.removeItem(
+                        "user"
+                    );
+
+
+                    /* ---------------------------------
+                       SAVE AUTHENTICATION
+                    --------------------------------- */
+
+                    if (
+                        rememberMe.checked
+                    ) {
+
+                        localStorage.setItem(
+                            "token",
+                            data.token
+                        );
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(user)
+                        );
+
+                        localStorage.setItem(
+                            "student",
+                            JSON.stringify(user)
+                        );
+
+                    } else {
+
+                        sessionStorage.setItem(
+                            "token",
+                            data.token
+                        );
+
+                        sessionStorage.setItem(
+                            "user",
+                            JSON.stringify(user)
+                        );
+
+                        sessionStorage.setItem(
+                            "student",
+                            JSON.stringify(user)
+                        );
+
+                    }
+
+
+                    /* ---------------------------------
+                       SUCCESS MESSAGE
+                    --------------------------------- */
+
+                    showMessage(
+                        "Login successful! Opening your dashboard...",
+                        "success"
+                    );
+
+
+                    /* ---------------------------------
+                       REDIRECT
+                    --------------------------------- */
+
+                    setTimeout(
+                        function () {
+
+                            if (
+                                user.role ===
+                                "admin"
+                            ) {
+
+                                window.location.replace(
+                                    "admin.html"
+                                );
+
+                            } else {
+
+                                window.location.replace(
+                                    "dashboard.html"
+                                );
+
+                            }
+
+                        },
+                        500
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+                    showMessage(
+                        error.message ||
+                        "Cannot connect to the server. Make sure Node.js is running.",
+                        "error"
+                    );
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Sign In";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           PREVENT ACCIDENTAL DOUBLE SUBMISSION
+        ========================================= */
+
+        window.addEventListener(
+            "pageshow",
+            function () {
+
+                loginButton.disabled =
+                    false;
+
+                loginButton.textContent =
+                    "Sign In";
+
+            }
+        );
+
+    </script>
 
 </body>
-
 </html>

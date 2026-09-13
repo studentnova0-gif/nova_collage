@@ -1,540 +1,2504 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova College</title>
+
+  <title>Nova College | Excellence in Education</title>
+
+  <meta
+    name="description"
+    content="Nova College - Quality education, experienced faculty, modern facilities and a brighter future."
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- 1. FULL-SCREEN WELCOME INTRO -->
+  <!-- =========================================================
+       WELCOME SCREEN
+  ========================================================== -->
+
   <div id="welcome-screen">
+
     <div class="welcome-content">
-      <img src="logo.jpeg" alt="Nova College Logo" class="welcome-logo">
-      <h1>NOVA COLLEGE</h1>
-      <div class="welcome-text">Welcome to Nova College</div>
-      <div class="welcome-subtitle">EXCELLENCE IN EDUCATION</div>
+
+      <img
+        src="nova.jpeg"
+        alt="Nova College Logo"
+        class="welcome-logo"
+      >
+
+      <div class="welcome-label">
+        EST. 2026
+      </div>
+
+      <h1>
+        NOVA COLLEGE
+      </h1>
+
+      <div class="welcome-text">
+        Welcome to Nova College
+      </div>
+
+      <div class="welcome-subtitle">
+        EXCELLENCE IN EDUCATION
+      </div>
+
       <div class="welcome-loader">
         <div class="loader-bar"></div>
       </div>
+
     </div>
+
   </div>
 
 
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="logo">
-      NOVA <span>COLLEGE</span>
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+
+  <nav class="main-navbar">
+
+    <div class="nav-container">
+
+      <a href="#home" class="brand">
+
+        <span class="brand-mark">
+          N
+        </span>
+
+        <span class="brand-text">
+          NOVA
+          <small>COLLEGE</small>
+        </span>
+
+      </a>
+
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        type="button"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+
+      <ul class="nav-menu" id="navMenu">
+
+        <li>
+          <a href="#home" class="active">
+            Home
+          </a>
+        </li>
+
+        <li>
+          <a href="#about">
+            About
+          </a>
+        </li>
+
+        <li>
+          <a href="#programs">
+            Programs
+          </a>
+        </li>
+
+        <li>
+          <a href="#faculty">
+            Faculty
+          </a>
+        </li>
+
+        <li>
+          <a href="#gallery">
+            Gallery
+          </a>
+        </li>
+
+        <li>
+          <a href="#notices">
+            Notices
+          </a>
+        </li>
+
+        <li>
+          <a href="#contact">
+            Contact
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="loginform.html"
+            class="nav-portal-btn"
+          >
+            Student Portal
+          </a>
+        </li>
+
+        <!-- ADMIN LOGIN -->
+
+        <li>
+          <a
+            href="loginform.html?admin=1"
+            class="nav-portal-btn"
+          >
+            Admin Login
+          </a>
+        </li>
+
+      </ul>
+
     </div>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#faculty">Faculty</a></li>
-      <li><a href="#gallery">College Gallery</a></li>
-      <li><a href="#notices">Notices</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="loginform.html" class="nav-portal-btn">Student Portal</a></li>
-      
-    </ul>
+
   </nav>
-  <div class="custom-ad-banner">
-  <div class="ad-badge">Promoted</div>
-  <h3>Special Scholarship Announcement!</h3>
-  <p>Apply for F.Sc or ICS  to get up to 50% merit-based scholarship.</p>
-  <a href="admission.html" class="ad-btn">Apply For Scholarship</a>
-</div>
 
 
- <!-- HERO -->
-<section class="hero" id="home">
+  <!-- =========================================================
+       SCHOLARSHIP BANNER
+  ========================================================== -->
 
-       <div class="hero-content">
-        <h1>Welcome to <span>Nova College</span></h1>
+  <section class="scholarship-banner">
+
+    <div class="ad-content">
+
+      <div class="ad-icon">
+        🎓
+      </div>
+
+      <div class="ad-text">
+
+        <span class="ad-badge">
+          SCHOLARSHIP 2026
+        </span>
+
+        <h3>
+          Special Scholarship Announcement
+        </h3>
 
         <p>
-            Empowering students through quality education,
-            modern learning, and a brighter future.
+          Apply for F.Sc or ICS and get up to
+          <strong>50% merit-based scholarship.</strong>
         </p>
 
-        <div class="hero-buttons">
-            <a href="admission.html" class="gold-btn">Apply Online</a>
-            <a href="#about" class="white-btn">Explore College</a>
+      </div>
+
+      <a
+        href="admission.html"
+        class="ad-btn"
+      >
+        Apply Now
+        <span>→</span>
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       HERO
+  ========================================================== -->
+
+  <main>
+
+    <section
+      class="hero"
+      id="home"
+    >
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="hero-kicker">
+
+          <span></span>
+
+          BUILD YOUR FUTURE WITH NOVA
+
+          <span></span>
+
         </div>
-    </div>
 
-</section>
 
- 
-<!-- ABOUT -->
-  <section id="about">
-    <div class="section-title">
-      <h2>Why Choose Nova College?</h2>
-      <p>Building knowledge, character, and confidence.</p>
-    </div>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">🎓</div>
-        <h3>Quality Education</h3>
-        <p>Experienced teachers and a student-focused learning environment.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🔬</div>
-        <h3>Modern Learning</h3>
-        <p>Practical learning and modern educational facilities for students.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🏆</div>
-        <h3>Student Success</h3>
-        <p>We encourage students to achieve academic and personal excellence.</p>
-      </div>
-    </div>
-  </section>
+        <h1>
+          Welcome to
+          <span>Nova College</span>
+        </h1>
 
-  <!-- PRINCIPAL -->
-  <section class="principal">
-    <img src="mohsin sir.jpeg" alt="Principal">
-    <div class="principal-text">
-      <h2>Principal Message</h2>
-      <p>Welcome to Nova College. Our mission is to provide students with quality education in a supportive, disciplined, and inspiring environment.</p>
-      <p>We believe that education is not only about academic success but also about developing confidence, responsibility, and leadership.</p>
-      <br>
-      <strong>Principal<br>Nova College</strong>
-    </div>
-  </section>
 
-  <!-- PROGRAMS -->
-  <section id="programs">
-    <div class="section-title">
-      <h2>Our Programs</h2>
-      <p>Choose the right path for your future.</p>
-    </div>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">📚</div>
-        <h3>F.Sc Pre-Medical</h3>
-        <p>Prepare yourself for medical and life science careers.</p>
-      </div>
-      <div class="card">
-        <div class="icon">⚙️</div>
-        <h3>F.Sc Pre-Engineering</h3>
-        <p>Build strong foundations for engineering and technical fields.</p>
-      </div>
-      <div class="card">
-        <div class="icon">💻</div>
-        <h3>ICS</h3>
-        <p>Develop your knowledge of computer science and information technology.</p>
-      </div>
-    </div>
-  </section>
+        <p>
+          Empowering students through quality education,
+          modern learning, experienced faculty and
+          a brighter future.
+        </p>
 
-  <!-- FACULTY -->
-  <section id="faculty">
-    <div class="section-title">
-      <h2>Our Faculty</h2>
-      <p>Meet our dedicated teaching staff.</p>
-    </div>
-    <div class="cards">
-      <div class="card faculty-card">
-        <img src="mohsin sir.jpeg" alt="Mohsin Khan">
-        <h3>Mohsin Khan</h3>
-        <p class="dev-role">Mathematics Department</p>
-        <p class="dev-phone">12 years experience | ETEA expert</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="jawad sir.jpeg" alt="Jawad Khan">
-        <h3>Jawad Khan</h3>
-        <p class="dev-role">Chemistry Department</p>
-        <p>Qualification:
-B.S Chemistry 
-B.Ed</p> 
-<p>Experienced:7 year teaching experience</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="yasir sir.jpeg" alt="Yasir Khan">
-        <h3>Yasir Khan</h3>
-        <p class="dev-role">Physics Department</p>
-      <p>Qualification: M.Sc Physics</p>
-<p>Experienced:5 years teaching experience</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="waseem sab.png" alt="Waseem Shahab">
-        <h3>Waseem Shahab</h3>
-        <p class="dev-role">Computer Science Department</p>
-        <p class="dev-phone">3 years teaching experience</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="arif.sir.jpeg" alt="Arif Kazmey">
-        <h3>Arif Kazmey</h3>
-        <p class="dev-role">Biology Department</p>
-        <p>Qualification:BS Botany 
-M.phil environment science</p>
-<p>Experienced:8 years of teaching experience..
-Including 
-3 year international Islmia college buner 
-3 years in cadet college jehlm
-2 years at Mike college takht</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="numi.jpeg" alt="Numan Yousaf">
-        <h3>Noman Yousaf</h3>
-        <p class="dev-role">English Department</p>
-        <p class="dev-phone">SS Post</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="arsalan.jpeg" alt="Arsalan Nisar">
-        <h3>Arsalan Nisar</h3>
-        <p class="dev-role">English Department</p>
-        <p class="dev-phone">M.Phil Scholar | 3.5 yrs experience</p>
-      </div>
-      <div class="card faculty-card">
-        <img src="umairsir.jpeg" alt="Umair Ahmad Khan">
-        <h3>Umair Ahmad Khan</h3>
-        <p class="dev-role">Computer Science Department</p>
-        <p class="dev-phone">Software Engineer (UET Mardan)</p>
-      </div>
-    </div>
-  </section>
-  <!-- STUDENT INFORMATION -->
-  <section class="student-info-section" id="student-information">
-    <div class="student-info-card">
-      <div class="student-info-icon">🎓</div>
-      <div class="student-info-content">
-        <span class="student-info-label">COLLEGE MANAGEMENT</span>
-        <h2>Student Information</h2>
-        <p>Manage student profiles, courses, attendance, GPA and fee information.</p>
-      </div>
-      <a href="student-information.html" class="student-info-btn">Open Student Information →</a>
-    </div>
-  </section>
 
-  <style>
-    .student-info-section {
-      padding: 55px 7%;
-      background: linear-gradient(135deg, #eef4ff, #f8fbff);
-    }
+        <div class="hero-buttons">
 
-    .student-info-card {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 30px 34px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #071a3d, #123b82 55%, #2563eb);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, .18);
-    }
+          <a
+            href="admission.html"
+            class="gold-btn"
+          >
+            Apply Online
+            <span>→</span>
+          </a>
 
-    .student-info-icon {
-      width: 68px;
-      height: 68px;
-      min-width: 68px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      border: 1px solid rgba(255,255,255,.2);
-    }
+          <a
+            href="#about"
+            class="white-btn"
+          >
+            Explore College
+            <span>↓</span>
+          </a>
 
-    .student-info-content {
-      flex: 1;
-    }
+        </div>
 
-    .student-info-label {
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #bfdbfe;
-      font-weight: 700;
-    }
 
-    .student-info-content h2 {
-      margin: 6px 0;
-      font-size: 28px;
-    }
+        <div class="hero-stats">
 
-    .student-info-content p {
-      color: #dbeafe;
-      line-height: 1.6;
-      margin: 0;
-    }
+          <div class="hero-stat">
 
-    .student-info-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      text-decoration: none;
-      background: #fff;
-      color: #123b82;
-      padding: 14px 20px;
-      border-radius: 11px;
-      font-weight: 700;
-      box-shadow: 0 8px 20px rgba(0,0,0,.14);
-      transition: .2s ease;
-    }
+            <strong>
+              2026
+            </strong>
 
-    .student-info-btn:hover {
-      transform: translateY(-2px);
-      background: #eff6ff;
-    }
+            <span>
+              Academic Session
+            </span>
 
-    @media (max-width: 750px) {
-      .student-info-card {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 25px;
-      }
+          </div>
 
-      .student-info-btn {
-        width: 100%;
-      }
-    }
-  </style>
 
-  <!-- CAMPUS FACILITIES -->
-  <section id="facilities" class="feature-section">
-    <div class="section-title">
-      <h2>Campus Facilities</h2>
-      <p>Everything students need for a better learning experience.</p>
-    </div>
+          <div class="hero-divider"></div>
 
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📚</div>
-        <h3>College Library</h3>
-        <p>Study spaces, reference material and learning resources for students.</p>
+
+          <div class="hero-stat">
+
+            <strong>
+              8+
+            </strong>
+
+            <span>
+              Expert Faculty
+            </span>
+
+          </div>
+
+
+          <div class="hero-divider"></div>
+
+
+          <div class="hero-stat">
+
+            <strong>
+              3
+            </strong>
+
+            <span>
+              Major Programs
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">💻</div>
-        <h3>Computer Labs</h3>
-        <p>Practical computer learning and technology-focused study facilities.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔬</div>
-        <h3>Science Labs</h3>
-        <p>Practical learning support for science students and their coursework.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏃</div>
-        <h3>Sports</h3>
-        <p>Activities that encourage teamwork, fitness and student development.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">☕</div>
-        <h3>Cafeteria</h3>
-        <p>A convenient space for students to relax between classes.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚌</div>
-        <h3>Transport</h3>
-        <p>College transport information can be published here for students.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- STUDENT LIFE -->
-  <section id="student-life" class="feature-section feature-dark">
-    <div class="section-title">
-      <h2>Student Life</h2>
-      <p>Learning continues beyond the classroom.</p>
-    </div>
 
-    <div class="student-life-grid">
-      <div class="life-box">
-        <span>🎯</span>
-        <h3>Student Activities</h3>
-        <p>Competitions, academic activities and opportunities to build confidence.</p>
-      </div>
-      <div class="life-box">
-        <span>🏆</span>
-        <h3>Clubs & Societies</h3>
-        <p>Give students a place to develop teamwork, leadership and creativity.</p>
-      </div>
-      <div class="life-box">
-        <span>🎉</span>
-        <h3>Events</h3>
-        <p>College events, talent activities, seminars and important student programs.</p>
-      </div>
-      <div class="life-box">
-        <span>👨‍🎓</span>
-        <h3>Alumni</h3>
-        <p>Keep former students connected with the Nova College community.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCHOLARSHIPS -->
-  <section id="scholarships" class="feature-section">
-    <div class="section-title">
-      <h2>Scholarships & Financial Aid</h2>
-      <p>Helping deserving students continue their education.</p>
-    </div>
-
-    <div class="info-panel">
-      <div>
-        <span class="info-panel-icon">🎓</span>
-        <h3>Merit-Based Scholarships</h3>
-        <p>Scholarship announcements, eligibility requirements and application information can be published here.</p>
-      </div>
-      <a href="admission.html" class="gold-btn small-btn">Apply Now</a>
-    </div>
-  </section>
-
-  <!-- DOWNLOADS -->
-  <section id="downloads" class="feature-section downloads-section">
-    <div class="section-title">
-      <h2>Student Downloads</h2>
-      <p>Important college documents in one place.</p>
-    </div>
-
-    <div class="download-grid">
-      <a href="#" class="download-card" onclick="return false;">
-        <span>📄</span>
-        <strong>College Prospectus</strong>
-        <small>PDF / Document</small>
+      <a
+        href="#about"
+        class="scroll-indicator"
+        aria-label="Scroll down"
+      >
+        <span></span>
       </a>
-      <a href="#" class="download-card" onclick="return false;">
-        <span>📋</span>
-        <strong>Student Handbook</strong>
-        <small>PDF / Document</small>
-      </a>
-      <a href="#" class="download-card" onclick="return false;">
-        <span>📅</span>
-        <strong>Academic Calendar</strong>
-        <small>Session schedule</small>
-      </a>
-      <a href="#" class="download-card" onclick="return false;">
-        <span>📝</span>
-        <strong>Admission Information</strong>
-        <small>Requirements & guidance</small>
-      </a>
-    </div>
-  </section>
 
-  <!-- CAREER -->
-  <section id="career" class="feature-section career-section">
-    <div class="section-title">
-      <h2>Career & Future</h2>
-      <p>Prepare students for university, careers and professional life.</p>
-    </div>
-
-    <div class="career-grid">
-      <div class="career-card">
-        <span>💼</span>
-        <h3>Career Guidance</h3>
-        <p>Guidance about higher education, career paths and future opportunities.</p>
-      </div>
-      <div class="career-card">
-        <span>🚀</span>
-        <h3>Skills Development</h3>
-        <p>Encourage communication, technology, leadership and problem-solving skills.</p>
-      </div>
-      <div class="career-card">
-        <span>🎓</span>
-        <h3>University Preparation</h3>
-        <p>Support students as they prepare for their next academic step.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery" class="gallery-container">
-    <h1>College Gallery</h1>
-    <p class="subtitle">Moments captured at Nova College</p>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <img src="WhatsApp Image 2026-09-02 at 8.32.43 PM.jpeg" alt="NOVA College faculty and students">
-        <div class="caption">Faculty & Students</div>
-      </div>
-      <div class="gallery-card">
-        <img src="WhatsApp Image 2026-09-02 at 8.20.04 PM.jpeg" alt="Nova College students">
-        <div class="caption">Student Life</div>
-      </div>
-      <div class="gallery-card">
-        <img src="WhatsApp Image 2026-09-02 at 8.20.30 PM.jpeg" alt="Nova College campus">
-        <div class="caption">Campus Life</div>
-      </div>
-      <div class="gallery-card">
-        <img src="grils.jpeg" alt="Nova College Girls Campus">
-        <div class="caption">Girls Campus</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NOTICES -->
-  <section class="notice" id="notices">
-    <div class="section-title">
-      <h2>Latest Notices</h2>
-      <p>Stay updated with Nova College.</p>
-    </div>
-    <div class="notice-list">
-      <div class="notice-item">📢 Admissions are now open for 2026.</div>
-      <div class="notice-item">📢 Talent Test registration is now available.</div>
-      <div class="notice-item">📢 New academic session will begin soon.</div>
-    </div>
-  </section>
+    </section>
 
 
+    <!-- =======================================================
+         ABOUT
+    ======================================================== -->
 
-  <!-- STUDENT PORTAL CTA -->
-  <section class="portal-cta">
-    <div>
-      <span class="portal-kicker">NOVA STUDENT PORTAL</span>
-      <h2>Your college information in one place.</h2>
-      <p>Check your profile, courses, attendance, results, fees, timetable and notices from your student dashboard.</p>
-    </div>
-    <a href="loginform.html" class="gold-btn">Open Student Portal</a>
-  </section>
+    <section
+      class="section about-section"
+      id="about"
+    >
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-title">
-      <h2>Contact Nova College</h2>
-      <p>We are here to help you.</p>
-    </div>
-    <div class="contact-box">
-      <p>📍 College Address</p>
-      <p>📞 +92 345 6274247</p>
-      <p>✉️ info@novacollege.edu.pk</p>
-    </div>
-  </section>
+      <div class="section-heading">
 
-  <!-- DEVELOPERS SECTION -->
-  <section class="developers-section">
-    <h2 class="section-title">OUR DEVELOPERS</h2>
-    <div class="developers-container">
-      <div class="developer-card">
-        <img src="shahid.png" alt="Shahi Ali" class="developer-img">
-        <h3>Shahid Ali</h3>
-        <p class="dev-role">Web Developer</p>
-        <p class="dev-phone">03715698459</p>
+        <span class="section-kicker">
+          WHO WE ARE
+        </span>
+
+        <h2>
+          Education That
+          <span>Creates Possibilities</span>
+        </h2>
+
+        <p>
+          Nova College is committed to providing students
+          with a strong academic foundation, practical
+          skills and the confidence to succeed.
+        </p>
+
       </div>
-      <div class="developer-card">
-        <img src="sarim.jpeg" alt="M.Sarim" class="developer-img">
-        <h3>M.Sarim</h3>
-        
-        <p class="dev-role main-role">Main Web Developer</p>
-        <p class="dev-phone">03149630196</p>
-      </div>
-      <div class="developer-card">
-        <img src="rehan.png" alt=" M.Rehan" class="developer-img">
-        <h3>M.Rehan</h3>
-        <p class="dev-role">Web Developer</p>
-        <p class="dev-phone">03705678544</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 <span>Nova College</span>. All Rights Reserved.</p>
+
+      <div class="cards-grid">
+
+        <article class="info-card">
+
+          <div class="card-number">
+            01
+          </div>
+
+          <div class="card-icon">
+            🎓
+          </div>
+
+          <h3>
+            Quality Education
+          </h3>
+
+          <p>
+            We focus on strong concepts, academic excellence
+            and learning that prepares students for their
+            next stage of education.
+          </p>
+
+          <a href="#programs">
+            Explore Programs →
+          </a>
+
+        </article>
+
+
+        <article class="info-card featured-card">
+
+          <div class="card-number">
+            02
+          </div>
+
+          <div class="card-icon">
+            👨‍🏫
+          </div>
+
+          <h3>
+            Expert Faculty
+          </h3>
+
+          <p>
+            Learn from experienced teachers who understand
+            the needs of students and guide them toward
+            academic success.
+          </p>
+
+          <a href="#faculty">
+            Meet Our Faculty →
+          </a>
+
+        </article>
+
+
+        <article class="info-card">
+
+          <div class="card-number">
+            03
+          </div>
+
+          <div class="card-icon">
+            🚀
+          </div>
+
+          <h3>
+            Future Ready
+          </h3>
+
+          <p>
+            We help students develop knowledge, discipline,
+            confidence and skills for university and
+            professional life.
+          </p>
+
+          <a href="#career">
+            Prepare Your Future →
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         PRINCIPAL MESSAGE
+    ======================================================== -->
+
+    <section class="principal-section">
+
+      <div class="principal-container">
+
+        <div class="principal-image-wrap">
+
+          <div class="principal-image-frame"></div>
+
+          <img
+            src="mohsin sir.jpeg"
+            alt="Principal of Nova College"
+            class="principal-image"
+            loading="lazy"
+          >
+
+          <div class="principal-badge">
+
+            <strong>
+              12+
+            </strong>
+
+            <span>
+              Years of<br>
+              Experience
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="principal-content">
+
+          <span class="section-kicker">
+            PRINCIPAL'S MESSAGE
+          </span>
+
+          <h2>
+            Building Minds,
+            <span>Shaping Futures</span>
+          </h2>
+
+          <p class="principal-lead">
+      
+Dear Students, Parents, and Visitors,
+Welcome to Nova College of Science, where education is the foundation of knowledge,
+character, and lifelong success. We believe every student deserves equal opportunities
+to learn, grow, and achieve their dreams regardless of their background. Our dedicated
+faculty is committed to providing quality education in a supportive and respectful
+environment. We encourage our students to think critically, act responsibly, and prepare
+themselves for the challenges of the modern world. Through academic excellence,
+discipline, and innovation, we strive to build confident individuals who will contribute
+positively to society. I invite you to join our institution and begin a journey toward a
+bright future and a successful career.
+</p>
+    <h1>OUR VISION</h1>
+    <p>
+Our vision is to provide quality education that inspires academic excellence,
+innovation, and lifelong learning. We strive to create an inclusive environment
+where every student is treated with equality, dignity, and respect. We aim to
+develop confident, responsible, and ethical individuals prepared for higher
+education and successful careers. Through discipline, knowledge, and character
+building, we empower students to achieve their full potential. We are committed
+to nurturing future leaders who contribute positively to society and the nation.
+Our goal is to shape a brighter future through education, integrity, and
+excellence.
+</p>
+<h2>OUR MISSION</h2>
+<p>
+At Nova College of Science, we are not just means to education but a family that
+cares, grooms, and helps unlock the true potential of our students. We are in a
+constant, relentless pursuit to help provide a better future to our youth and
+build a society that is wise, intelligent, and educated. Your trust in us
+motivates and inspires us to continue doing more so that you can shine in every
+aspect of your life.
+</p>
+
+          <div class="principal-quote">
+
+            <span class="quote-mark">
+              “
+            </span>
+
+            <p>
+              Every student has the potential to achieve
+              something extraordinary when given the right
+              guidance and opportunity.
+            </p>
+
+          </div>
+
+
+          <div class="principal-signature">
+
+            <strong>
+              Mohsin Khan
+            </strong>
+
+            <span>
+              Principal — Nova College
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         PROGRAMS
+    ======================================================== -->
+
+    <section
+      class="section programs-section"
+      id="programs"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          ACADEMIC PROGRAMS
+        </span>
+
+        <h2>
+          Choose Your
+          <span>Path to Success</span>
+        </h2>
+
+        <p>
+          Build a strong academic foundation with programs
+          designed for your future goals.
+        </p>
+
+      </div>
+
+
+      <div class="programs-grid">
+
+
+        <!-- PRE-MEDICAL -->
+
+        <article class="program-card">
+
+          <div class="program-top">
+
+            <span class="program-number">
+              01
+            </span>
+
+            <span class="program-icon">
+              🧬
+            </span>
+
+          </div>
+
+          <span class="program-label">
+            F.Sc
+          </span>
+
+          <h3>
+            Pre-Medical
+          </h3>
+
+          <p>
+            A strong foundation in Biology, Chemistry and
+            Physics for students planning careers in
+            medicine, health sciences and related fields.
+          </p>
+
+          <div class="program-meta">
+
+            <span>
+              Biology
+            </span>
+
+            <span>
+              Chemistry
+            </span>
+
+            <span>
+              Physics
+            </span>
+
+          </div>
+
+          <a
+            href="admission.html"
+            class="program-link"
+          >
+            Apply for this Program →
+          </a>
+
+        </article>
+
+
+        <!-- PRE-ENGINEERING -->
+
+        <article class="program-card featured-program">
+
+          <div class="program-top">
+
+            <span class="program-number">
+              02
+            </span>
+
+            <span class="program-icon">
+              ⚙️
+            </span>
+
+          </div>
+
+          <span class="program-label">
+            F.Sc
+          </span>
+
+          <h3>
+            Pre-Engineering
+          </h3>
+
+          <p>
+            Develop strong mathematical and scientific
+            concepts for engineering, technology and
+            technical university programs.
+          </p>
+
+          <div class="program-meta">
+
+            <span>
+              Mathematics
+            </span>
+
+            <span>
+              Chemistry
+            </span>
+
+            <span>
+              Physics
+            </span>
+
+          </div>
+
+          <a
+            href="admission.html"
+            class="program-link"
+          >
+            Apply for this Program →
+          </a>
+
+        </article>
+
+
+        <!-- ICS -->
+
+        <article class="program-card">
+
+          <div class="program-top">
+
+            <span class="program-number">
+              03
+            </span>
+
+            <span class="program-icon">
+              💻
+            </span>
+
+          </div>
+
+          <span class="program-label">
+            ICS
+          </span>
+
+          <h3>
+            Computer Science
+          </h3>
+
+          <p>
+            Build computing, mathematics and programming
+            knowledge for future careers in software,
+            technology and computer science.
+          </p>
+
+          <div class="program-meta">
+
+            <span>
+              Computer
+            </span>
+
+            <span>
+              Mathematics
+            </span>
+
+            <span>
+              Programming
+            </span>
+
+          </div>
+
+          <a
+            href="admission.html"
+            class="program-link"
+          >
+            Apply for this Program →
+          </a>
+
+        </article>
+
+      </div>
+
+
+      <div class="center-action">
+
+        <a
+          href="admission.html"
+          class="outline-btn"
+        >
+          Start Your Admission
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         FACULTY
+    ======================================================== -->
+
+    <section
+      class="section faculty-section"
+      id="faculty"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          OUR FACULTY
+        </span>
+
+        <h2>
+          Learn From
+          <span>Experienced Educators</span>
+        </h2>
+
+        <p>
+          Dedicated teachers committed to helping students
+          understand, improve and achieve.
+        </p>
+
+      </div>
+
+
+      <div class="faculty-grid">
+
+
+        <!-- MOHSIN -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="mohsin sir.jpeg"
+              alt="Mohsin Khan"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Mathematics
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Mohsin Khan
+            </h3>
+
+            <p>
+              Mathematics Department
+            </p>
+
+            <span>
+              12 Years Experience · ETEA Expert
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- JAWAD -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="jawad sir.jpeg"
+              alt="Jawad Khan"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Chemistry
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Jawad Khan
+            </h3>
+
+            <p>
+              Chemistry Department
+            </p>
+
+            <span>
+              B.S Chemistry · B.Ed · 7 Years
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- YASIR -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="yasir sir.jpeg"
+              alt="Yasir Khan"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Physics
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Yasir Khan
+            </h3>
+
+            <p>
+              Physics Department
+            </p>
+
+            <span>
+              M.Sc Physics · 5 Years Experience
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- WASEEM -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="waseem sab.png"
+              alt="Waseem Shahab"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Computer Science
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Waseem Shahab
+            </h3>
+
+            <p>
+              Computer Science Department
+            </p>
+
+            <span>
+              3 Years Teaching Experience
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- ARIF -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="arif.sir.jpeg"
+              alt="Arif Kazmey"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Biology
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Arif Kazmey
+            </h3>
+
+            <p>
+              Biology Department
+            </p>
+
+            <span>
+              BS Botany · M.Phil Environment Science
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- NOMAN -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="numi.jpeg"
+              alt="Noman Yousaf"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              English
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Noman Yousaf
+            </h3>
+
+            <p>
+              English Department
+            </p>
+
+            <span>
+              SS Post
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- ARSALAN -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="arsalan.jpeg"
+              alt="Arsalan Nisar"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              English
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Arsalan Nisar
+            </h3>
+
+            <p>
+              English Department
+            </p>
+
+            <span>
+              M.Phil Scholar · 3.5 Years
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- UMAIR -->
+
+        <article class="faculty-card">
+
+          <div class="faculty-image-wrap">
+
+            <img
+              src="umairsir.jpeg"
+              alt="Umair Ahmad Khan"
+              class="faculty-image"
+              loading="lazy"
+            >
+
+            <span class="faculty-department">
+              Computer Science
+            </span>
+
+          </div>
+
+          <div class="faculty-info">
+
+            <h3>
+              Umair Ahmad Khan
+            </h3>
+
+            <p>
+              Computer Science Department
+            </p>
+
+            <span>
+              Software Engineer · UET Mardan
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         STUDENT INFORMATION
+    ======================================================== -->
+
+    <section class="student-info-section">
+
+      <div class="student-info-container">
+
+        <div class="student-info-content">
+
+          <span class="section-kicker">
+            STUDENT INFORMATION
+          </span>
+
+          <h2>
+            Everything You Need,
+            <span>In One Place</span>
+          </h2>
+
+          <p>
+            Access important student information, academic
+            records and college-related services through
+            our student information system.
+          </p>
+
+
+          <div class="student-info-points">
+
+            <div>
+              <span>✓</span>
+              Student Records
+            </div>
+
+            <div>
+              <span>✓</span>
+              Academic Information
+            </div>
+
+            <div>
+              <span>✓</span>
+              Student Services
+            </div>
+
+          </div>
+
+
+          <a
+            href="student-information.html"
+            class="gold-btn"
+          >
+            Open Student Information
+            <span>→</span>
+          </a>
+
+        </div>
+
+
+        <div class="student-info-visual">
+
+          <div class="dashboard-preview">
+
+            <div class="preview-top">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="preview-body">
+
+              <div class="preview-sidebar">
+
+                <div class="preview-logo">
+                  N
+                </div>
+
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+
+              </div>
+
+
+              <div class="preview-main">
+
+                <div class="preview-line large"></div>
+
+                <div class="preview-line"></div>
+
+
+                <div class="preview-cards">
+
+                  <div></div>
+                  <div></div>
+                  <div></div>
+
+                </div>
+
+
+                <div class="preview-table"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         FACILITIES
+    ======================================================== -->
+
+    <section
+      class="section facilities-section"
+      id="facilities"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          CAMPUS FACILITIES
+        </span>
+
+        <h2>
+          A Better Environment
+          <span>For Learning</span>
+        </h2>
+
+        <p>
+          Supporting students with facilities that make
+          academic and campus life more productive.
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            📚
+          </div>
+
+          <h3>
+            Library
+          </h3>
+
+          <p>
+            A focused learning environment with resources
+            for academic study and research.
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            💻
+          </div>
+
+          <h3>
+            Computer Labs
+          </h3>
+
+          <p>
+            Practical computing facilities for technology
+            and computer science students.
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            🔬
+          </div>
+
+          <h3>
+            Science Labs
+          </h3>
+
+          <p>
+            Practical learning opportunities for science
+            subjects and laboratory work.
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            ⚽
+          </div>
+
+          <h3>
+            Sports
+          </h3>
+
+          <p>
+            Activities that encourage teamwork, fitness
+            and a balanced student life.
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            ☕
+          </div>
+
+          <h3>
+            Cafeteria
+          </h3>
+
+          <p>
+            A convenient space for students to relax,
+            refresh and connect with friends.
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">
+            🚌
+          </div>
+
+          <h3>
+            Transport
+          </h3>
+
+          <p>
+            Convenient transport support to make daily
+            campus access easier for students.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         STUDENT LIFE
+    ======================================================== -->
+
+    <section
+      class="dark-section"
+      id="student-life"
+    >
+
+      <div class="section-heading dark-heading">
+
+        <span class="section-kicker">
+          STUDENT LIFE
+        </span>
+
+        <h2>
+          Learn Beyond
+          <span>The Classroom</span>
+        </h2>
+
+        <p>
+          Education becomes stronger when students
+          participate, collaborate and explore.
+        </p>
+
+      </div>
+
+
+      <div class="life-grid">
+
+
+        <article class="life-card">
+
+          <span class="life-number">
+            01
+          </span>
+
+          <div class="life-icon">
+            🎯
+          </div>
+
+          <h3>
+            Student Activities
+          </h3>
+
+          <p>
+            Opportunities to develop confidence,
+            communication and teamwork.
+          </p>
+
+        </article>
+
+
+        <article class="life-card">
+
+          <span class="life-number">
+            02
+          </span>
+
+          <div class="life-icon">
+            🤝
+          </div>
+
+          <h3>
+            Clubs & Societies
+          </h3>
+
+          <p>
+            Connect with other students and explore
+            interests outside academics.
+          </p>
+
+        </article>
+
+
+        <article class="life-card">
+
+          <span class="life-number">
+            03
+          </span>
+
+          <div class="life-icon">
+            🎉
+          </div>
+
+          <h3>
+            Events
+          </h3>
+
+          <p>
+            Participate in college events and memorable
+            experiences throughout the academic year.
+          </p>
+
+        </article>
+
+
+        <article class="life-card">
+
+          <span class="life-number">
+            04
+          </span>
+
+          <div class="life-icon">
+            🌐
+          </div>
+
+          <h3>
+            Alumni
+          </h3>
+
+          <p>
+            Build lasting connections and become part of
+            the Nova College community.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         SCHOLARSHIPS
+    ======================================================== -->
+
+    <section
+      class="section scholarship-section"
+      id="scholarships"
+    >
+
+      <div class="info-panel">
+
+        <div class="info-panel-content">
+
+          <span class="section-kicker">
+            FINANCIAL SUPPORT
+          </span>
+
+          <h2>
+            Invest In Your
+            <span>Future</span>
+          </h2>
+
+          <p>
+            Nova College offers merit-based scholarship
+            opportunities to support deserving students.
+          </p>
+
+
+          <ul>
+
+            <li>
+              <span>✓</span>
+              Up to 50% merit-based scholarship
+            </li>
+
+            <li>
+              <span>✓</span>
+              Opportunities for F.Sc students
+            </li>
+
+            <li>
+              <span>✓</span>
+              Opportunities for ICS students
+            </li>
+
+            <li>
+              <span>✓</span>
+              Merit-focused academic support
+            </li>
+
+          </ul>
+
+
+          <a
+            href="admission.html"
+            class="gold-btn"
+          >
+            Apply Now
+            <span>→</span>
+          </a>
+
+        </div>
+
+
+        <div class="info-panel-number">
+
+          <strong>
+            50%
+          </strong>
+
+          <span>
+            MAXIMUM
+            <br>
+            MERIT SCHOLARSHIP
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         DOWNLOADS
+    ======================================================== -->
+
+    <section
+      class="section downloads-section"
+      id="downloads"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          RESOURCES
+        </span>
+
+        <h2>
+          Important
+          <span>Downloads</span>
+        </h2>
+
+        <p>
+          Useful academic and admission information
+          for students and parents.
+        </p>
+
+      </div>
+
+
+      <div class="downloads-grid">
+
+
+        <a
+          href="#"
+          class="download-card"
+          onclick="return false;"
+        >
+
+          <span class="download-icon">
+            📄
+          </span>
+
+          <div>
+
+            <h3>
+              Prospectus
+            </h3>
+
+            <p>
+              College programs and information
+            </p>
+
+          </div>
+
+          <span class="download-arrow">
+            ↓
+          </span>
+
+        </a>
+
+
+        <a
+          href="#"
+          class="download-card"
+          onclick="return false;"
+        >
+
+          <span class="download-icon">
+            📘
+          </span>
+
+          <div>
+
+            <h3>
+              Student Handbook
+            </h3>
+
+            <p>
+              Guidelines for students
+            </p>
+
+          </div>
+
+          <span class="download-arrow">
+            ↓
+          </span>
+
+        </a>
+
+
+        <a
+          href="#"
+          class="download-card"
+          onclick="return false;"
+        >
+
+          <span class="download-icon">
+            🗓️
+          </span>
+
+          <div>
+
+            <h3>
+              Academic Calendar
+            </h3>
+
+            <p>
+              Academic session schedule
+            </p>
+
+          </div>
+
+          <span class="download-arrow">
+            ↓
+          </span>
+
+        </a>
+
+
+        <a
+          href="admission.html"
+          class="download-card"
+        >
+
+          <span class="download-icon">
+            🎓
+          </span>
+
+          <div>
+
+            <h3>
+              Admission Information
+            </h3>
+
+            <p>
+              Start your admission application
+            </p>
+
+          </div>
+
+          <span class="download-arrow">
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         CAREER
+    ======================================================== -->
+
+    <section
+      class="career-section"
+      id="career"
+    >
+
+      <div class="career-content">
+
+        <span class="section-kicker">
+          YOUR FUTURE STARTS HERE
+        </span>
+
+        <h2>
+          Prepare Today
+          <span>For Tomorrow</span>
+        </h2>
+
+        <p>
+          From academic foundations to university preparation,
+          we help students develop the confidence and skills
+          they need for the next chapter.
+        </p>
+
+
+        <div class="career-items">
+
+          <div>
+            <span>01</span>
+            Career Guidance
+          </div>
+
+          <div>
+            <span>02</span>
+            Skills Development
+          </div>
+
+          <div>
+            <span>03</span>
+            University Preparation
+          </div>
+
+        </div>
+
+
+        <a
+          href="admission.html"
+          class="gold-btn"
+        >
+          Begin Your Journey
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         GALLERY
+    ======================================================== -->
+
+    <section
+      class="section gallery-section"
+      id="gallery"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          COLLEGE GALLERY
+        </span>
+
+        <h2>
+          Moments From
+          <span>Nova College</span>
+        </h2>
+
+        <p>
+          Explore moments from our college community
+          and student life.
+        </p>
+
+      </div>
+
+
+      <div class="gallery-grid">
+
+
+        <div class="gallery-item gallery-large">
+
+          <img
+            src="WhatsApp Image 2026-09-02 at 8.32.43 PM.jpeg"
+            alt="Nova College"
+            loading="lazy"
+          >
+
+          <div class="gallery-overlay">
+
+            <span>
+              Nova College
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="WhatsApp Image 2026-09-02 at 8.20.04 PM.jpeg"
+            alt="Nova College campus"
+            loading="lazy"
+          >
+
+          <div class="gallery-overlay">
+
+            <span>
+              Campus Life
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="WhatsApp Image 2026-09-02 at 8.20.30 PM.jpeg"
+            alt="Nova College activity"
+            loading="lazy"
+          >
+
+          <div class="gallery-overlay">
+
+            <span>
+              College Activities
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="grils.jpeg"
+            alt="Nova College students"
+            loading="lazy"
+          >
+
+          <div class="gallery-overlay">
+
+            <span>
+              Student Life
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         NOTICES
+    ======================================================== -->
+
+    <section
+      class="section notices-section"
+      id="notices"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          LATEST UPDATES
+        </span>
+
+        <h2>
+          College
+          <span>Notices</span>
+        </h2>
+
+        <p>
+          Stay updated with important college announcements.
+        </p>
+
+      </div>
+
+
+      <div class="notices-list">
+
+
+        <article class="notice-item">
+
+          <div class="notice-date">
+
+            <strong>
+              2026
+            </strong>
+
+            <span>
+              ADMISSION
+            </span>
+
+          </div>
+
+
+          <div class="notice-content">
+
+            <span class="notice-tag">
+              IMPORTANT
+            </span>
+
+            <h3>
+              Admissions Open for 2026
+            </h3>
+
+            <p>
+              Applications are now open for F.Sc Pre-Medical,
+              F.Sc Pre-Engineering and ICS programs.
+            </p>
+
+          </div>
+
+
+          <a
+            href="admission.html"
+            class="notice-arrow"
+            aria-label="Apply for admission"
+          >
+            →
+          </a>
+
+        </article>
+
+
+        <article class="notice-item">
+
+          <div class="notice-date">
+
+            <strong>
+              TEST
+            </strong>
+
+            <span>
+              2026
+            </span>
+
+          </div>
+
+
+          <div class="notice-content">
+
+            <span class="notice-tag">
+              UPDATE
+            </span>
+
+            <h3>
+              Talent Test Registration Available
+            </h3>
+
+            <p>
+              Students can contact the college for
+              information regarding talent test registration.
+            </p>
+
+          </div>
+
+
+          <a
+            href="admission.html"
+            class="notice-arrow"
+            aria-label="Admission information"
+          >
+            →
+          </a>
+
+        </article>
+
+
+        <article class="notice-item">
+
+          <div class="notice-date">
+
+            <strong>
+              NEW
+            </strong>
+
+            <span>
+              SESSION
+            </span>
+
+          </div>
+
+
+          <div class="notice-content">
+
+            <span class="notice-tag">
+              NOTICE
+            </span>
+
+            <h3>
+              New Academic Session
+            </h3>
+
+            <p>
+              Important information regarding the new
+              academic session will be announced soon.
+            </p>
+
+          </div>
+
+
+          <a
+            href="#contact"
+            class="notice-arrow"
+            aria-label="Contact Nova College"
+          >
+            →
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         STUDENT PORTAL CTA
+    ======================================================== -->
+
+    <section class="portal-cta">
+
+      <div class="portal-content">
+
+        <div>
+
+          <span class="section-kicker">
+            STUDENT PORTAL
+          </span>
+
+          <h2>
+            Your Academic Journey,
+            <span>One Login Away</span>
+          </h2>
+
+          <p>
+            Access your dashboard, academic information,
+            attendance, GPA and fee information.
+          </p>
+
+        </div>
+
+
+        <a
+          href="loginform.html"
+          class="white-btn portal-btn"
+        >
+          Open Student Portal
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         CONTACT
+    ======================================================== -->
+
+    <section
+      class="section contact-section"
+      id="contact"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          GET IN TOUCH
+        </span>
+
+        <h2>
+          Contact
+          <span>Nova College</span>
+        </h2>
+
+        <p>
+          Have a question about admission, programs or
+          student services? Contact us.
+        </p>
+
+      </div>
+
+
+      <div class="contact-grid">
+
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            📍
+          </div>
+
+          <div>
+
+            <span>
+              ADDRESS
+            </span>
+
+            <h3>
+              Nova College Campus
+            </h3>
+
+            <p>
+              Contact the college office for complete
+              campus location details.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            📞
+          </div>
+
+          <div>
+
+            <span>
+              PHONE
+            </span>
+
+            <h3>
+              +92 345 6274247
+            </h3>
+
+            <p>
+              Contact our office for admission
+              and general information.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            ✉️
+          </div>
+
+          <div>
+
+            <span>
+              EMAIL
+            </span>
+
+            <h3>
+              info@novacollege.edu.pk
+            </h3>
+
+            <p>
+              Send us your questions and inquiries.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="contact-action">
+
+        <a
+          href="admission.html"
+          class="gold-btn"
+        >
+          Apply for Admission
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================================
+         DEVELOPERS
+    ======================================================== -->
+
+    <section class="developers-section">
+
+      <div class="section-heading">
+
+        <span class="section-kicker">
+          WEBSITE DEVELOPMENT
+        </span>
+
+        <h2>
+          Developed For
+          <span>Nova College</span>
+        </h2>
+
+      </div>
+
+
+      <div class="developers-grid">
+
+
+        <article class="developer-card">
+
+          <div class="developer-image-wrap">
+
+            <img
+              src="shahid.png"
+              alt="Shahid Ali"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="developer-info">
+
+            <span>
+              WEB DEVELOPER
+            </span>
+
+            <h3>
+              Shahid Ali
+            </h3>
+
+            <p>
+              03715698459
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="developer-card featured-developer">
+
+          <div class="developer-image-wrap">
+
+            <img
+              src="sarim.jpeg"
+              alt="M. Sarim"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="developer-info">
+
+            <span>
+              MAIN WEB DEVELOPER
+            </span>
+
+            <h3>
+              M. Sarim
+            </h3>
+
+            <p>
+              03149630196
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="developer-card">
+
+          <div class="developer-image-wrap">
+
+            <img
+              src="rehan.png"
+              alt="M. Rehan"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="developer-info">
+
+            <span>
+              WEB DEVELOPER
+            </span>
+
+            <h3>
+              M. Rehan
+            </h3>
+
+            <p>
+              03705678544
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="footer-inner">
+
+
+      <div class="footer-brand">
+
+        <a
+          href="#home"
+          class="brand"
+        >
+
+          <span class="brand-mark">
+            N
+          </span>
+
+          <span class="brand-text">
+            NOVA
+            <small>COLLEGE</small>
+          </span>
+
+        </a>
+
+
+        <p>
+          Excellence in education. Building strong
+          foundations for a brighter future.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+
+        <div>
+
+          <h4>
+            Quick Links
+          </h4>
+
+          <a href="#about">
+            About
+          </a>
+
+          <a href="#programs">
+            Programs
+          </a>
+
+          <a href="#faculty">
+            Faculty
+          </a>
+
+          <a href="#gallery">
+            Gallery
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Student
+          </h4>
+
+          <a href="admission.html">
+            Admission
+          </a>
+
+          <a href="loginform.html">
+            Student Portal
+          </a>
+
+          <a href="student-information.html">
+            Student Information
+          </a>
+
+          <a href="payment.html">
+            Payment
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Contact
+          </h4>
+
+          <a href="tel:+923456274247">
+            +92 345 6274247
+          </a>
+
+          <a href="mailto:info@novacollege.edu.pk">
+            info@novacollege.edu.pk
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © 2026 Nova College. All Rights Reserved.
+      </p>
+
+      <p>
+        Excellence in Education
+      </p>
+
+    </div>
+
   </footer>
 
+
+  <!-- =========================================================
+       BACK TO TOP
+  ========================================================== -->
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top"
+    type="button"
+  >
+    ↑
+  </button>
+
+
+  <!-- =========================================================
+       SCRIPT
+  ========================================================== -->
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
